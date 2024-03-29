@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import ExperienceSideBar from '@/app/editor/_components/(rightSideBar)/ExperienceSideBar';
 
 export default function BaseSideBar() {
   const layoutSelected = true;
@@ -16,6 +17,7 @@ export default function BaseSideBar() {
           Layout
         </a>
       </div>
+      <ExperienceSideBar />
     </div>
   );
 }

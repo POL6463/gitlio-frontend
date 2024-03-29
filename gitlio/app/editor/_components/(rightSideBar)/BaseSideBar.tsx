@@ -1,4 +1,4 @@
-import cx from "classnames";
+import cx from 'classnames';
 
 export default function BaseSideBar() {
   const layoutSelected = true;
@@ -9,14 +9,13 @@ export default function BaseSideBar() {
         role="tablist"
         className="tabs bg-neutral-300 tabs-boxed my-6 grid grid-flow-col auto-cols-fr"
       >
-        <a role="tab" className={cx("tab", !layoutSelected && "bg-base-100")}>
+        <a role="tab" className={cx('tab', !layoutSelected && 'bg-base-100')}>
           Content
         </a>
-        <a role="tab" className={cx("tab", layoutSelected && "bg-base-100")}>
+        <a role="tab" className={cx('tab', layoutSelected && 'bg-base-100')}>
           Layout
         </a>
       </div>
     </div>
   );
 }
-

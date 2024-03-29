@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import useStore from "@/hooks/darkmode";
-import PublishBtn from "./PublishBtn";
-import ThemeController from "./ThemeController";
+import useStore from '@/hooks/darkmode';
+import PublishBtn from './PublishBtn';
+import ThemeController from './ThemeController';
 
 export default function EditHeader() {
   const { darkMode } = useStore();
   return (
     <div
       className={`flex items-center justify-end col-span-4 row-span-1 w-full h-full ${
-        darkMode ? "bg-black" : "bg-primary"
+        darkMode ? 'bg-black' : 'bg-primary'
       } border border-[#B1C9FF] px-4`}
     >
       <ThemeController />

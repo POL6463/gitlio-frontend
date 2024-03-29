@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function DailyStat() {
   return (
@@ -54,7 +54,7 @@ function DailyStat() {
           </div>
         </div>
         <div className="stat-title">Contect</div>
-        <div className="stat-value">40%</div>{" "}
+        <div className="stat-value">40%</div>{' '}
         <div className="stat-desc">40% more than last month</div>
       </div>
     </div>

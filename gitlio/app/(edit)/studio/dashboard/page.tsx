@@ -1,5 +1,5 @@
-import Navbar from "../../../../components/studio/StdNavbar";
-import Sidebar from "../../../../components/studio/StdSidebar";
+import Navbar from '../../../../components/studio/StdNavbar';
+import Sidebar from '../../../../components/studio/StdSidebar';
 
 export default function DashboardPage() {
   return (

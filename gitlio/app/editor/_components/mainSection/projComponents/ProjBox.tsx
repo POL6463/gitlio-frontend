@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { FaGithub } from "react-icons/fa";
-import { Data } from "@/app/editor/(interface)/ProjectData";
+'use client';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { FaGithub } from 'react-icons/fa';
+import { Data } from '@/app/editor/(interface)/ProjectData';
 
 function ProjBox({ data }: { data: Data }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -43,8 +43,8 @@ function ProjBox({ data }: { data: Data }) {
       </div>
       <div className="flex-1 pl-4 w-3/5 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold">{data.title || "No Title"}</h2>
-          <p className="mb-4">{data.intro || "No Introduction"}</p>
+          <h2 className="text-2xl font-bold">{data.title || 'No Title'}</h2>
+          <p className="mb-4">{data.intro || 'No Introduction'}</p>
           <div className="border-2 border-gray-300 rounded-lg p-3 mb-4">
             <p className="font-semibold">주요 개발 내용</p>
             <ul className="list-disc pl-5">

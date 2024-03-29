@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import EditBuilder from "@/components/EditBuilder";
-import EditHeader from "@/components/EditHeader";
-import SideBar from "@/components/SideBar";
-import Title from "@/components/Title";
-import useStore from "@/hooks/darkmode";
+import EditBuilder from '@/components/EditBuilder';
+import EditHeader from '@/components/EditHeader';
+import SideBar from '@/components/SideBar';
+import Title from '@/components/Title';
+import useStore from '@/hooks/darkmode';
 
 export default function IntrodutionPage() {
   const { darkMode } = useStore();
@@ -48,7 +48,7 @@ export default function IntrodutionPage() {
         <div className="flex justify-center items-center col-span-1 row-span-8 h-full border border-primary">
           <div
             className={`w-[90%] h-[90%] ${
-              darkMode ? "bg-[#1E293B]" : "bg-[#BFCBF6]"
+              darkMode ? 'bg-[#1E293B]' : 'bg-[#BFCBF6]'
             } lg:rounded-[20px] rounded-[30px] flex  justify-center`}
           >
             <div className="w-[40%] h-[23%] bg-[#6385FD] rounded-[20px] flex  items-center text-center justify-center ml-0 mt-10 text-white">

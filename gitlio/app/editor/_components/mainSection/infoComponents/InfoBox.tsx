@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function InfoBox() {
   return <div>InfoBox</div>;

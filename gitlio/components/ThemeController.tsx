@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import useStore from "@/hooks/darkmode";
-import React, { useState } from "react";
+import useStore from '@/hooks/darkmode';
+import React, { useState } from 'react';
 
 export default function ThemeController() {
   const { darkMode, toggleDarkMode } = useStore();
@@ -15,8 +15,8 @@ export default function ThemeController() {
       <div
         className={`${
           darkMode
-            ? "bg-current border-primary"
-            : "bg-[#F3F3F3] border-[#2463EB]"
+            ? 'bg-current border-primary'
+            : 'bg-[#F3F3F3] border-[#2463EB]'
         } md:p-1 lg:p-2 xl:p-3 xl:mt-2 w-full lg:h-full xl:h-[80%] lg:border-2 xl:border-4  lg:rounded-xl xl:rounded-2xl`}
         onClick={toggleTheme}
       >

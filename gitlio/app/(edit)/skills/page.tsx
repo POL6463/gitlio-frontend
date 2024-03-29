@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import EditBuilder from "@/components/EditBuilder";
-import EditHeader from "@/components/EditHeader";
-import SideBar from "@/components/SideBar";
-import Title from "@/components/Title";
-import useStore from "@/hooks/darkmode";
+import EditBuilder from '@/components/EditBuilder';
+import EditHeader from '@/components/EditHeader';
+import SideBar from '@/components/SideBar';
+import Title from '@/components/Title';
+import useStore from '@/hooks/darkmode';
 
 export default function SkillsPage() {
   const { darkMode } = useStore();
@@ -21,17 +21,17 @@ export default function SkillsPage() {
             <EditBuilder>
               <div className="flex flex-row justify-around items-center text-center mt-5 pb-5 border-b-4">
                 <div className="flex flex-col justify-center items-center w-32 h-16 border-[#B1C9FF] border-4">
-                  <div className={`${darkMode ? "text-white" : ""}`}>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>
                     Framework
                   </div>
                 </div>
                 <div className="flex flex-col justify-center items-center  w-32 h-16 border-[#B1C9FF] border-4">
-                  <div className={`${darkMode ? "text-white" : ""}`}>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>
                     Language
                   </div>
                 </div>
                 <div className="flex flex-col justify-center items-center  w-32 h-16 border-[#B1C9FF] border-4">
-                  <div className={`${darkMode ? "text-white" : ""}`}>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>
                     Skills
                   </div>
                 </div>
@@ -46,12 +46,12 @@ export default function SkillsPage() {
 
         <div
           className={`flex flex-col justify-center items-center col-span-1 row-span-8 h-full ${
-            darkMode ? "bg-black" : "bg-[#DCE6FF]"
+            darkMode ? 'bg-black' : 'bg-[#DCE6FF]'
           } border border-#B1C9FF`}
         >
           <div
             className={`w-[90%] h-[90%] ${
-              darkMode ? "bg-[#1E293B]" : "bg-[#BFCBF6]"
+              darkMode ? 'bg-[#1E293B]' : 'bg-[#BFCBF6]'
             } lg:rounded-[20px] rounded-[30px] flex flex-col items-center justify-between`}
           >
             <div className="flex flex-row justify-evenly items-center mt-5">
@@ -65,37 +65,37 @@ export default function SkillsPage() {
               <div className="w-full flex flex-row justify-around items-center">
                 <div
                   className={`flex flex-col justify-center ${
-                    darkMode ? "hover:bg-gray-400" : "hover:bg-gray-50"
+                    darkMode ? 'hover:bg-gray-400' : 'hover:bg-gray-50'
                   } hover:font-bold rounded-lg basis-28 h-[100px] border-black border-4 text-center`}
                 >
-                  <div className={`${darkMode ? "text-white" : ""}`}>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>
                     Javascript
                   </div>
                 </div>
                 <div
                   className={`flex flex-col justify-center ${
-                    darkMode ? "hover:bg-gray-400" : "hover:bg-gray-50"
+                    darkMode ? 'hover:bg-gray-400' : 'hover:bg-gray-50'
                   } hover:font-bold rounded-lg basis-28 h-[100px] border-black border-4 text-center`}
                 >
-                  <div className={`${darkMode ? "text-white" : ""}`}>React</div>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>React</div>
                 </div>
               </div>
               <div className="w-full flex flex-row justify-around items-center">
                 <div
                   className={`flex flex-col justify-center ${
-                    darkMode ? "hover:bg-gray-400" : "hover:bg-gray-50"
+                    darkMode ? 'hover:bg-gray-400' : 'hover:bg-gray-50'
                   } hover:font-bold rounded-lg basis-28 h-[100px] border-black border-4 text-center`}
                 >
-                  <div className={`${darkMode ? "text-white" : ""}`}>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>
                     Next.js
                   </div>
                 </div>
                 <div
                   className={`flex flex-col justify-center ${
-                    darkMode ? "hover:bg-gray-400" : "hover:bg-gray-50"
+                    darkMode ? 'hover:bg-gray-400' : 'hover:bg-gray-50'
                   } hover:font-bold rounded-lg basis-28 h-[100px] border-black border-4 text-center`}
                 >
-                  <div className={`${darkMode ? "text-white" : ""}`}>Css</div>
+                  <div className={`${darkMode ? 'text-white' : ''}`}>Css</div>
                 </div>
               </div>
             </div>

@@ -1,21 +1,21 @@
-"use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function PostMenu() {
   const pathname = usePathname();
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState('');
 
   useEffect(() => {
-    if (pathname.includes("insight")) {
-      setActiveTab("insight");
-    } else if (pathname.includes("daily")) {
-      setActiveTab("daily");
-    } else if (pathname.includes("monthly")) {
-      setActiveTab("monthly");
-    } else if (pathname.includes("all")) {
-      setActiveTab("all");
+    if (pathname.includes('insight')) {
+      setActiveTab('insight');
+    } else if (pathname.includes('daily')) {
+      setActiveTab('daily');
+    } else if (pathname.includes('monthly')) {
+      setActiveTab('monthly');
+    } else if (pathname.includes('all')) {
+      setActiveTab('all');
     }
   }, [pathname]);
 
@@ -25,7 +25,7 @@ export default function PostMenu() {
         <Link href="insight" legacyBehavior>
           <a
             role="tab"
-            className={`tab ${activeTab === "insight" ? "tab-active" : ""}`}
+            className={`tab ${activeTab === 'insight' ? 'tab-active' : ''}`}
           >
             <div className="text-base font-medium">인사이트</div>
           </a>
@@ -33,7 +33,7 @@ export default function PostMenu() {
         <Link href="daily" legacyBehavior>
           <a
             role="tab"
-            className={`tab ${activeTab === "daily" ? "tab-active" : ""}`}
+            className={`tab ${activeTab === 'daily' ? 'tab-active' : ''}`}
           >
             <div className="text-base font-medium">일간</div>
           </a>
@@ -41,7 +41,7 @@ export default function PostMenu() {
         <Link href="monthly" legacyBehavior>
           <a
             role="tab"
-            className={`tab ${activeTab === "monthly" ? "tab-active" : ""}`}
+            className={`tab ${activeTab === 'monthly' ? 'tab-active' : ''}`}
           >
             <div className="text-base font-medium">월간</div>
           </a>
@@ -49,7 +49,7 @@ export default function PostMenu() {
         <Link href="all" legacyBehavior>
           <a
             role="tab"
-            className={`tab ${activeTab === "all" ? "tab-active" : ""}`}
+            className={`tab ${activeTab === 'all' ? 'tab-active' : ''}`}
           >
             <div className="text-base font-medium">누적</div>
           </a>

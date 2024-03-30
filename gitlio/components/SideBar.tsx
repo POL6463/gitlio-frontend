@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import useStore from "@/hooks/darkmode";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import useStore from '@/hooks/darkmode';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function SideBar() {
   const pathName = usePathname();
-  const titleArray = pathName.split("/");
+  const titleArray = pathName.split('/');
   const titleUrl = titleArray[titleArray.length - 1];
   const { darkMode } = useStore();
 
@@ -14,7 +14,7 @@ export default function SideBar() {
     <div className="flex h-full w-full sm:h-full">
       <div
         className={`flex flex-col items-center ${
-          darkMode ? "bg-sideDark" : "bg-primary"
+          darkMode ? 'bg-sideDark' : 'bg-primary'
         } w-full h-full border border-primary`}
       >
         <div className="text-center mt-[10%] ">
@@ -33,8 +33,8 @@ export default function SideBar() {
           <div className="mr-3 font-medium sm:mt-2">미리보기</div>
         </div>
         <div className="flex flex-col w-[75%] h-full justify-center sm:justify-center md:justify-center">
-          <Link href={"/introduction"}>
-            {titleUrl === "introduction" ? (
+          <Link href={'/introduction'}>
+            {titleUrl === 'introduction' ? (
               <button className="flex flex-row flex-grow justify-between w-full rounded-full bg-[#B1C9FF] text-black py-2 px-4 my-[7%]">
                 <div className="bg-white w-6  rounded-full text-black shrink-0">
                   <span className="font-medium">1</span>
@@ -55,8 +55,8 @@ export default function SideBar() {
             )}
           </Link>
 
-          <Link href={"/skills"}>
-            {titleUrl === "skills" ? (
+          <Link href={'/skills'}>
+            {titleUrl === 'skills' ? (
               <button className="flex flex-row flex-grow justify-between w-full rounded-full bg-[#B1C9FF] text-black py-2 px-4 my-[7%]">
                 <div className="bg-white w-6  rounded-full text-black shrink-0">
                   <span className="font-medium">2</span>
@@ -77,8 +77,8 @@ export default function SideBar() {
             )}
           </Link>
 
-          <Link href={"/experience"}>
-            {titleUrl === "experience" ? (
+          <Link href={'/experience'}>
+            {titleUrl === 'experience' ? (
               <button className="flex flex-row flex-grow justify-between w-full rounded-full bg-[#B1C9FF] text-black py-2 px-4 my-[7%]">
                 <div className="bg-white w-6  rounded-full text-black shrink-0">
                   <span className="font-medium">3</span>
@@ -99,8 +99,8 @@ export default function SideBar() {
             )}
           </Link>
 
-          <Link href={"/works"}>
-            {titleUrl === "works" ? (
+          <Link href={'/works'}>
+            {titleUrl === 'works' ? (
               <button className="flex flex-row flex-grow justify-between w-full rounded-full bg-[#B1C9FF] text-black py-2 px-4 my-[7%]">
                 <div className="bg-white w-6 rounded-full text-black shrink-0">
                   <span className="font-medium">4</span>
@@ -121,8 +121,8 @@ export default function SideBar() {
             )}
           </Link>
 
-          <Link href={"/outro"}>
-            {titleUrl === "outro" ? (
+          <Link href={'/outro'}>
+            {titleUrl === 'outro' ? (
               <button className="flex flex-row flex-grow justify-between w-full rounded-full bg-[#B1C9FF] text-black py-2 px-4 my-[7%]">
                 <div className="bg-white w-6 rounded-full text-black shrink-0">
                   <span className="font-medium">5</span>

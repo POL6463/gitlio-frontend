@@ -1,5 +1,9 @@
-import InfoSection from "../_components/mainSection/InfoSection";
+import ProjSection from '@/app/editor/_components/mainSection/ProjSection';
 
 export default function EditPage() {
-  return <InfoSection />;
+  return (
+    <div>
+      <ProjSection />
+    </div>
+  );
 }

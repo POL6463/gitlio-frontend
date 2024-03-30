@@ -1,18 +1,18 @@
-"use client";
-import React, { useState } from "react";
-import Logo from "@/components/Logo";
-import LoginModal from "@/components/start/LoginModal";
-import SignInModal from "@/components/start/SignInModal";
+'use client';
+import React, { useState } from 'react';
+import Logo from '@/components/Logo';
+import LoginModal from '@/components/start/LoginModal';
+import SignInModal from '@/components/start/SignInModal';
 
 const StartPage: React.FC = () => {
-  const [modalType, setModalType] = useState<string>("");
+  const [modalType, setModalType] = useState<string>('');
 
   const openModal = (type: string) => {
     setModalType(type);
   };
 
   const closeModal = () => {
-    setModalType("");
+    setModalType('');
   };
 
   return (
@@ -35,20 +35,20 @@ const StartPage: React.FC = () => {
         </div>
         <button
           className="btn btn-ghost mt-8 text-xl text-[#8288a1] underline underline-offset-4"
-          onClick={() => openModal("login")}
+          onClick={() => openModal('login')}
         >
           LOG IN
         </button>
         <button
           className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
-          onClick={() => openModal("signin")}
+          onClick={() => openModal('signin')}
         >
           SIGN IN
         </button>
       </div>
 
-      {modalType === "login" && <LoginModal onClose={closeModal} />}
-      {modalType === "signin" && <SignInModal onClose={closeModal} />}
+      {modalType === 'login' && <LoginModal onClose={closeModal} />}
+      {modalType === 'signin' && <SignInModal onClose={closeModal} />}
     </div>
   );
 };

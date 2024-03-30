@@ -1,20 +1,20 @@
-"use client";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import HC_more from "highcharts/highcharts-more";
-import HC_exporting from "highcharts/modules/exporting";
+'use client';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import HC_more from 'highcharts/highcharts-more';
+import HC_exporting from 'highcharts/modules/exporting';
 
 HC_more(Highcharts);
 HC_exporting(Highcharts);
 
 const options: Highcharts.Options = {
-  colors: ["#01579B"],
+  colors: ['#01579B'],
   chart: {
-    type: "line",
+    type: 'line',
     borderRadius: 12,
     width: 660,
     height: 430,
-    backgroundColor: "rgb(255, 255, 255, 0.8)",
+    backgroundColor: 'rgb(255, 255, 255, 0.8)',
   },
   credits: {
     enabled: false,
@@ -23,30 +23,30 @@ const options: Highcharts.Options = {
     enabled: false,
   },
   title: {
-    text: "일별 통계",
+    text: '일별 통계',
     style: {
-      fontWeight: "semibold",
+      fontWeight: 'semibold',
     },
   },
   xAxis: {
     categories: [
-      "2/21",
-      "2/22",
-      "2/23",
-      "2/24",
-      "2/25",
-      "2/26",
-      "2/27",
-      "2/28",
-      "2/29",
-      "3/1",
-      "3/2",
-      "3/3",
+      '2/21',
+      '2/22',
+      '2/23',
+      '2/24',
+      '2/25',
+      '2/26',
+      '2/27',
+      '2/28',
+      '2/29',
+      '3/1',
+      '3/2',
+      '3/3',
     ],
   },
   yAxis: {
     title: {
-      text: "",
+      text: '',
     },
   },
   plotOptions: {
@@ -59,8 +59,8 @@ const options: Highcharts.Options = {
   },
   series: [
     {
-      type: "line",
-      name: "조회수",
+      type: 'line',
+      name: '조회수',
       data: [5, 10, 7, 7, 8, 5, 12, 9, 14, 15, 7, 13],
     },
   ],

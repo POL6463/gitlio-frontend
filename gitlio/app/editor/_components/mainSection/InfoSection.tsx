@@ -1,3 +1,7 @@
-export default function InfoSection() {
-  return <div>hi</div>;
+import React from 'react';
+
+function InfoSection() {
+  return <div>InfoSection</div>;
 }
+
+export default InfoSection;

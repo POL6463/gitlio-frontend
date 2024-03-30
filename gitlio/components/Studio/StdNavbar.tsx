@@ -1,23 +1,23 @@
-"use client";
-import { usePathname } from "next/navigation";
+'use client';
+import { usePathname } from 'next/navigation';
 
 export default function StdNavbar() {
   const pathname = usePathname();
 
   const getNavbarText = () => {
-    if (pathname.includes("studio/statistics")) {
-      return "Statistics";
-    } else if (pathname.includes("studio/posts")) {
-      return "Posts";
-    } else if (pathname.includes("studio/settings")) {
-      return "Settings";
-    } else if (pathname.includes("studio/dashboard")) {
-      return "Dashboard";
-    } else if (pathname.includes("new/editproject")) {
-      return "New Project";
-    } else if (pathname.includes("new/showproject")) {
-      return "Your Project";
-    } else return "Unknown Page";
+    if (pathname.includes('studio/statistics')) {
+      return 'Statistics';
+    } else if (pathname.includes('studio/posts')) {
+      return 'Posts';
+    } else if (pathname.includes('studio/settings')) {
+      return 'Settings';
+    } else if (pathname.includes('studio/dashboard')) {
+      return 'Dashboard';
+    } else if (pathname.includes('new/editproject')) {
+      return 'New Project';
+    } else if (pathname.includes('new/showproject')) {
+      return 'Your Project';
+    } else return 'Unknown Page';
   };
 
   return (

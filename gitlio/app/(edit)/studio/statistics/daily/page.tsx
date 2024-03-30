@@ -1,8 +1,8 @@
-import Navbar from "@/components/studio/StdNavbar";
-import Sidebar from "@/components/studio/StdSidebar";
-import Menubar from "@/components/studio/statistic/StatMenu";
-import DailyChart from "@/components/studio/statistic/DailyChart";
-import DailyStat from "@/components/studio/statistic/DailyStat";
+import Navbar from '@/components/studio/StdNavbar';
+import Sidebar from '@/components/studio/StdSidebar';
+import Menubar from '@/components/studio/statistic/StatMenu';
+import DailyChart from '@/components/studio/statistic/DailyChart';
+import DailyStat from '@/components/studio/statistic/DailyStat';
 
 export default function StatisticsPage() {
   return (

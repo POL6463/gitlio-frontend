@@ -1,10 +1,10 @@
-"use client";
-import React, { useState } from "react";
-import PostModal from "./PostEditModal";
+'use client';
+import React, { useState } from 'react';
+import PostModal from './PostEditModal';
 
 function PostList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalInfo, setModalInfo] = useState({ title: "", url: "" });
+  const [modalInfo, setModalInfo] = useState({ title: '', url: '' });
 
   const openModal = (title: string, url: string) => {
     setModalInfo({ title, url });
@@ -32,8 +32,8 @@ function PostList() {
               <td
                 onClick={() =>
                   openModal(
-                    "프론트엔드 개발자 포트폴리오",
-                    "https://www.gitlio.com/abcd-portfolio"
+                    '프론트엔드 개발자 포트폴리오',
+                    'https://www.gitlio.com/abcd-portfolio'
                   )
                 }
               >
@@ -50,7 +50,7 @@ function PostList() {
             {/* row 2 */}
             <tr className="hover">
               <th>
-                {" "}
+                {' '}
                 <input
                   type="checkbox"
                   value="synthwave"
@@ -60,8 +60,8 @@ function PostList() {
               <td
                 onClick={() =>
                   openModal(
-                    "프론트엔드 개발자 포트폴리오",
-                    "https://www.gitlio.com/abcd-portfolio"
+                    '프론트엔드 개발자 포트폴리오',
+                    'https://www.gitlio.com/abcd-portfolio'
                   )
                 }
               >
@@ -78,7 +78,7 @@ function PostList() {
             {/* row 3 */}
             <tr className="hover">
               <th>
-                {" "}
+                {' '}
                 <input
                   type="checkbox"
                   value="synthwave"
@@ -88,8 +88,8 @@ function PostList() {
               <td
                 onClick={() =>
                   openModal(
-                    "프론트엔드 개발자 포트폴리오",
-                    "https://www.gitlio.com/abcd-portfolio"
+                    '프론트엔드 개발자 포트폴리오',
+                    'https://www.gitlio.com/abcd-portfolio'
                   )
                 }
               >

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import EditBuilder from "@/components/EditBuilder";
-import EditHeader from "@/components/EditHeader";
-import SideBar from "@/components/SideBar";
-import Title from "@/components/Title";
-import { useState } from "react";
+import EditBuilder from '@/components/EditBuilder';
+import EditHeader from '@/components/EditHeader';
+import SideBar from '@/components/SideBar';
+import Title from '@/components/Title';
+import { useState } from 'react';
 
 export default function ExperiencePage() {
   return (

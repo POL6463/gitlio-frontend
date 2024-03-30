@@ -1,8 +1,8 @@
-import Navbar from "@/components/studio/StdNavbar";
-import Sidebar from "@/components/studio/StdSidebar";
-import Menubar from "@/components/studio/statistic/StatMenu";
-import MonthlyChart from "@/components/studio/statistic/MonthlyChart";
-import MonthlyStat from "@/components/studio/statistic/MonthlyStat";
+import Navbar from '@/components/studio/StdNavbar';
+import Sidebar from '@/components/studio/StdSidebar';
+import Menubar from '@/components/studio/statistic/StatMenu';
+import MonthlyChart from '@/components/studio/statistic/MonthlyChart';
+import MonthlyStat from '@/components/studio/statistic/MonthlyStat';
 
 export default function StatisticsPage() {
   return (

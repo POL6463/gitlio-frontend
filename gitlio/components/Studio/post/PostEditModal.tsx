@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface PostEditModalProps {
   title: string;
@@ -30,7 +30,7 @@ function PostEditModal({ title, url, isOpen, onClose }: PostEditModalProps) {
           <p className="py-4 text-lg -mb-5">{url}</p>
           <div className="modal-action flex justify-center">
             <button className="btn mr-12">수정하기</button>
-            <button className="btn" onClick={() => window.open(url, "_blank")}>
+            <button className="btn" onClick={() => window.open(url, '_blank')}>
               URL 접속하기
             </button>
           </div>

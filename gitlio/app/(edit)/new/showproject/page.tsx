@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Navbar from "@/components/studio/StdNavbar";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Navbar from '@/components/studio/StdNavbar';
 
 // 저장된 URL 정보와 프로젝트 이름을 포함한 타입 정의
 interface SavedContent {
@@ -19,12 +19,12 @@ function Page() {
   // 컴포넌트 마운트 시 로컬 스토리지에서 URL 목록과 저장된 내용 불러오기
   useEffect(() => {
     const loadedUrls = JSON.parse(
-      localStorage.getItem("repositoryUrls") || "[]"
+      localStorage.getItem('repositoryUrls') || '[]'
     );
     setRepositoryUrls(loadedUrls);
 
     const loadedContents = JSON.parse(
-      localStorage.getItem("selectedContents") || "{}"
+      localStorage.getItem('selectedContents') || '{}'
     );
     const filteredContents = Object.keys(loadedContents)
       .filter((key) => loadedUrls.includes(key))

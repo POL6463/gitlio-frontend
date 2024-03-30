@@ -1,21 +1,21 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 interface MakeNewPortModalProps {
   onClose: () => void;
 }
 
 const MakeNewPortModal: React.FC<MakeNewPortModalProps> = ({ onClose }) => {
-  const [title, setTitle] = useState("");
-  const [domainPath, setDomainPath] = useState("");
+  const [title, setTitle] = useState('');
+  const [domainPath, setDomainPath] = useState('');
 
   const handleSubmit = () => {
-    if (title.trim() !== "" && domainPath.trim() !== "") {
-      console.log("포트폴리오 제목:", title);
-      console.log("도메인 경로:", domainPath);
+    if (title.trim() !== '' && domainPath.trim() !== '') {
+      console.log('포트폴리오 제목:', title);
+      console.log('도메인 경로:', domainPath);
       onClose(); // 모달 닫기
     } else {
-      alert("모든 필드를 채워주세요.");
+      alert('모든 필드를 채워주세요.');
     }
   };
 

@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import GitInputModal from "./GitInputModal";
-import MakeNewPortModal from "./MakeNewPortModal";
+'use client';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import GitInputModal from './GitInputModal';
+import MakeNewPortModal from './MakeNewPortModal';
 
 export default function StdSidebar() {
   const pathname = usePathname();
@@ -55,9 +55,9 @@ export default function StdSidebar() {
         <Link href="/studio/dashboard" legacyBehavior>
           <a
             className={`btn btn-wide my-2 flex items-center gap-2 justify-start ${
-              isActive("/studio/dashboard")
-                ? "bg-[#F5F5F7] text-black"
-                : "btn-ghost"
+              isActive('/studio/dashboard')
+                ? 'bg-[#F5F5F7] text-black'
+                : 'btn-ghost'
             }`}
           >
             <img
@@ -73,16 +73,16 @@ export default function StdSidebar() {
           <a
             className={`btn btn-wide my-2 flex items-center gap-2 justify-start ${
               isActive([
-                "/studio/statistics/insight",
-                "/studio/statistics/daily",
-                "/studio/statistics/monthly",
-                "/studio/statistics/all",
+                '/studio/statistics/insight',
+                '/studio/statistics/daily',
+                '/studio/statistics/monthly',
+                '/studio/statistics/all',
               ])
-                ? "bg-[#F5F5F7] text-black"
-                : "btn-ghost"
+                ? 'bg-[#F5F5F7] text-black'
+                : 'btn-ghost'
             }`}
           >
-            {" "}
+            {' '}
             <img
               alt="statistics icon"
               src="https://i.ibb.co/rpXQrch/free-icon-statistics-8468307-1.png"
@@ -96,15 +96,15 @@ export default function StdSidebar() {
           <a
             className={`btn btn-wide my-2 flex items-center gap-2 justify-start ${
               isActive([
-                "/studio/posts/published",
-                "/studio/posts/drafts",
-                "/studio/posts/trash",
+                '/studio/posts/published',
+                '/studio/posts/drafts',
+                '/studio/posts/trash',
               ])
-                ? "bg-[#F5F5F7] text-black"
-                : "btn-ghost"
+                ? 'bg-[#F5F5F7] text-black'
+                : 'btn-ghost'
             }`}
           >
-            {" "}
+            {' '}
             <img
               alt="post icon"
               src="https://i.ibb.co/PQXmH2r/free-icon-list-1629421-2.png"
@@ -117,12 +117,12 @@ export default function StdSidebar() {
         <Link href="/studio/settings" legacyBehavior>
           <a
             className={`btn btn-wide my-2 flex items-center gap-2 justify-start ${
-              isActive("/studio/settings")
-                ? "bg-[#F5F5F7] text-black"
-                : "btn-ghost"
+              isActive('/studio/settings')
+                ? 'bg-[#F5F5F7] text-black'
+                : 'btn-ghost'
             }`}
           >
-            {" "}
+            {' '}
             <img
               alt="settings icon"
               src="https://i.ibb.co/qy7PsV5/Icon.png"

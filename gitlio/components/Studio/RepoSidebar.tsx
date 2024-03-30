@@ -1,6 +1,6 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 interface StdSidebarProps {
   onSelectUrl: (url: string) => void;
@@ -13,7 +13,7 @@ const StdSidebar: React.FC<StdSidebarProps> = ({ onSelectUrl, savedUrls }) => {
 
   useEffect(() => {
     const loadedUrls = JSON.parse(
-      localStorage.getItem("repositoryUrls") || "[]"
+      localStorage.getItem('repositoryUrls') || '[]'
     );
     setRepositoryUrls(loadedUrls);
   }, []);
@@ -39,12 +39,12 @@ const StdSidebar: React.FC<StdSidebarProps> = ({ onSelectUrl, savedUrls }) => {
       </div>
       <div className="mt-4 flex flex-col items-center">
         {repositoryUrls.map((url: string, index) => {
-          const displayUrl = url.replace("https://github.com/", ""); // 화면에 표시할 URL
+          const displayUrl = url.replace('https://github.com/', ''); // 화면에 표시할 URL
           return (
             <button
               key={index}
               className={`btn btn-wide my-2 mx-4 gap-2 justify-center ${
-                selectedUrl === url ? "bg-selected text-black" : "btn-ghost"
+                selectedUrl === url ? 'bg-selected text-black' : 'btn-ghost'
               }`} // 조건부 스타일링 적용
               onClick={() => handleSelectUrl(url)}
             >

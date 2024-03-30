@@ -1,15 +1,15 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 interface GitInputModalProps {
   onClose: () => void;
 }
 
 const GitInputModal: React.FC<GitInputModalProps> = ({ onClose }) => {
-  const [inputs, setInputs] = useState<string[]>([""]);
+  const [inputs, setInputs] = useState<string[]>(['']);
 
   const addInput = () => {
-    setInputs([...inputs, ""]);
+    setInputs([...inputs, '']);
   };
 
   const handleInputChange = (index: number, value: string) => {
@@ -24,12 +24,12 @@ const GitInputModal: React.FC<GitInputModalProps> = ({ onClose }) => {
   };
 
   const handleSubmit = () => {
-    const allFilled = inputs.every((input) => input.trim() !== "");
+    const allFilled = inputs.every((input) => input.trim() !== '');
     if (allFilled) {
-      localStorage.setItem("repositoryUrls", JSON.stringify(inputs));
-      window.location.href = "/new/editproject";
+      localStorage.setItem('repositoryUrls', JSON.stringify(inputs));
+      window.location.href = '/new/editproject';
     } else {
-      alert("모든 레포지토리 URL을 입력해주세요.");
+      alert('모든 레포지토리 URL을 입력해주세요.');
     }
   };
 

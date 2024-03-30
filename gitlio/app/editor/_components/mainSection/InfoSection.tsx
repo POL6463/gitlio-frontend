@@ -7,15 +7,13 @@ import InfoTagList from './infoComponents/InfoTagList';
 const infoData: Data = {
   title: '준영이의 포트폴리오',
   profileImage: '/gitlio.jpg',
-  introContent:
+  infoContent:
     'End-to-End 프로젝트에서 팀 리더를 맡아 React를 중심으로 한 프론트엔드 개발을 주도한 경험이 있습니다',
   tagList: ['#Front Enginner', '#Next.js', '#React.js'],
 };
 
 function InfoSection() {
-  const [introContent, setIntroContent] = useState<string>(
-    infoData.introContent
-  );
+  const [infoContent, setIntroContent] = useState<string>(infoData.infoContent);
 
   return (
     <div className="flex flex-row justify-between bg-white mt-10 rounded-3xl p-10">
@@ -43,7 +41,7 @@ function InfoSection() {
           contentEditable="true"
           suppressContentEditableWarning={true}
         >
-          {introContent}
+          {infoContent}
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
+import ProjEditModal from './projComponents/ProjEditModal';
 
 const sampleData: Data[] = [
   {
@@ -111,18 +113,28 @@ const sampleData: Data[] = [
 ];
 
 export default function ProjSection() {
+  const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
+
+  const handleToggleModal = () => {
+    setIsEditProjModalOpen(!isEditProjModalOpen);
+  }
+
   return (
     <div className="bg-white m-8 rounded-3xl">
       <br />
       <div className="flex items-center -mb-3">
-        <h1 className="text-3xl font-medium ml-10 mr-5">#Project</h1>
-        <div className="btn">편집</div>
+        <h1 className="text-3xl font-semibold ml-10 mr-5">#Project</h1>
+        <div className="btn" onClick={handleToggleModal}>편집</div>
       </div>
       <div className="flex flex-col items-center">
         {sampleData.map((data, index) => (
           <ProjBox key={index} data={data} />
         ))}
       </div>
+      {isEditProjModalOpen && <ProjEditModal
+          onClose={() => setIsEditProjModalOpen(false)}
+          data={sampleData[0]}
+        />}
     </div>
   );
 }

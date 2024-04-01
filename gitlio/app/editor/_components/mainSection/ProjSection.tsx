@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
@@ -116,10 +116,9 @@ export default function ProjSection() {
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [projectsData, setProjectsData] = useState<Data[]>(sampleData); // 프로젝트 데이터 상태 관리
 
-
   const handleToggleModal = () => {
     setIsEditProjModalOpen(!isEditProjModalOpen);
-  }
+  };
 
   const handleSaveData = (newData: Data[]) => {
     setProjectsData(newData);
@@ -131,7 +130,9 @@ export default function ProjSection() {
       <br />
       <div className="flex items-center -mb-3">
         <h1 className="text-3xl font-semibold ml-10 mr-5">#Project</h1>
-        <div className="btn" onClick={handleToggleModal}>편집</div>
+        <div className="btn" onClick={handleToggleModal}>
+          편집
+        </div>
       </div>
       <div className="flex flex-col items-center">
         {sampleData.map((data, index) => (

@@ -114,10 +114,17 @@ const sampleData: Data[] = [
 
 export default function ProjSection() {
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
+  const [projectsData, setProjectsData] = useState<Data[]>(sampleData); // 프로젝트 데이터 상태 관리
+
 
   const handleToggleModal = () => {
     setIsEditProjModalOpen(!isEditProjModalOpen);
   }
+
+  const handleSaveData = (newData: Data[]) => {
+    setProjectsData(newData);
+    setIsEditProjModalOpen(false); // 데이터 저장 후 모달창 닫기
+  };
 
   return (
     <div className="bg-white m-8 rounded-3xl">
@@ -131,10 +138,13 @@ export default function ProjSection() {
           <ProjBox key={index} data={data} />
         ))}
       </div>
-      {isEditProjModalOpen && <ProjEditModal
+      {isEditProjModalOpen && (
+        <ProjEditModal
           onClose={() => setIsEditProjModalOpen(false)}
-          data={sampleData[0]}
-        />}
+          data={projectsData}
+          onSave={handleSaveData}
+        />
+      )}
     </div>
   );
 }

@@ -7,7 +7,6 @@ import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
 type Props = {
   children: React.ReactNode;
 };
-
 export default function EditorLayout({ children }: Props) {
   return (
     <div className="flex flex-col min-h-screen bg-base-200">

@@ -23,21 +23,18 @@ const EditModalSidebar: React.FC<EditModalSidebarProps> = ({ onSelectUrl, savedU
   };
 
   return (
-    <div className="sidebar w-1/4 h-full overflow-auto bg-gray-100 p-4">
+    <div className="sidebar h-full w-72 border-r-gray-200">
       {repositoryUrls.map((url: string, index) => {
         const displayUrl = url.replace('https://github.com/', ''); // 화면에 표시할 URL
         return (
           <button
-            key={index}
-            className={`btn btn-wide my-2 mx-4 gap-2 justify-center ${
-              selectedUrl === url ? 'bg-blue-500 text-white' : 'btn-ghost'
-            }`} // 조건부 스타일링 적용
-            onClick={() => handleSelectUrl(url)}
-          >
+              key={index}
+              className={`btn btn-wide my-2 mx-4 gap-2 justify-center ${
+                selectedUrl === url ? 'bg-selected text-black' : 'btn-ghost'
+              }`} // 조건부 스타일링 적용
+              onClick={() => handleSelectUrl(url)}
+            >
             {displayUrl}
-            {savedUrls[url] && (
-              <span className="text-green-500 font-bold">✓</span>
-            )}
           </button>
         );
       })}

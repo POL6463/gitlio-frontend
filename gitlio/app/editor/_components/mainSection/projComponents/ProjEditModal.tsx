@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import EditModalSidebar from './EditModalSidebar'; // 경로는 실제 위치에 맞게 조정하세요.
+import EditModalSidebar from './EditModalSidebar'; 
+import ImgSelectModal from './ImgSelectModal';
 
 interface Data {
   url: string;
@@ -19,6 +20,7 @@ interface ProjEditModalProps {
 const ProjEditModal: React.FC<ProjEditModalProps> = ({ onClose, data, onSave }) => {
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Data | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   // 선택된 프로젝트 데이터를 찾아서 editedData 상태를 설정합니다.
   useEffect(() => {
@@ -38,9 +40,16 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({ onClose, data, onSave }) 
     setEditedData(prev => prev ? { ...prev, [field]: value } : null);
   };
 
+  const handleImageSelect = (selectedImages: string[]) => {
+    if (editedData) {
+      handleChange('images', selectedImages);
+    }
+    setModalIsOpen(false); // 이미지 선택 모달 닫기
+  };
+
   return (
     <dialog open className="modal">
-      <div className="modal-box">
+      <div className="modal-box max-w-none w-4/5" >
         <form method="dialog">
           <button onClick={onClose} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
@@ -66,19 +75,24 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({ onClose, data, onSave }) 
                 className="textarea textarea-bordered w-full mb-4"
                 placeholder="Intro"
               />
+              <div className="btn mb-3" onClick={() => setModalIsOpen(true)}>이미지 편집</div>
+              <ImgSelectModal
+  isOpen={modalIsOpen}
+  onClose={() => setModalIsOpen(false)}
+  onSelect={(selectedImages) => {
+    // editedData 업데이트 로직 추가 예정
+    handleChange('images', selectedImages); // 선택된 이미지 배열로 editedData의 images 필드 업데이트
+    setModalIsOpen(false); // 이미지 선택 모달 닫기
+  }}
+  images={editedData ? editedData.images : []} // 현재 편집 중인 프로젝트의 이미지만 전달
+/>
               {editedData.images.map((image, index) => (
                 <div key={index} className="mb-4">
-                  <input
-                    type="text"
-                    value={image}
-                    onChange={(e) => {
-                      const newImages = [...editedData.images];
-                      newImages[index] = e.target.value;
-                      handleChange('images', newImages);
-                    }}
-                    className="input input-bordered w-full mb-2"
-                    placeholder="Image URL"
-                  />
+                  <img src={image} alt={`Project Image ${index}`} className="w-full max-h-40 object-cover" style={{
+                  maxWidth: '300px',
+                  maxHeight: '200px',
+                  objectFit: 'contain',
+                }} />
                 </div>
               ))}
               <button onClick={() => handleChange('images', [...editedData.images, ''])} className="btn btn-primary mb-4">Add Image</button>

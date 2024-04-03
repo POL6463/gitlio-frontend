@@ -1,3 +1,4 @@
+'use client';
 import cx from 'classnames';
 import TopBar from '@/app/editor/_components/TopBar';
 import LeftSidebar from '@/app/editor/_components/LeftSidebar';

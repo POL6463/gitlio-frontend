@@ -1,137 +1,112 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { Data } from '@/app/editor/(interface)/ProjectData';
+import React, { useState, useEffect } from 'react';
+import EditModalSidebar from './EditModalSidebar'; // 경로는 실제 위치에 맞게 조정하세요.
+
+interface Data {
+  url: string;
+  title: string;
+  intro: string;
+  images: string[];
+  sentences: string[];
+}
 
 interface ProjEditModalProps {
-    onClose: () => void;
-    data: Data[];
-    onSave: (newData: Data[]) => void; 
+  onClose: () => void;
+  data: Data[];
+  onSave: (newData: Data[]) => void;
 }
 
 const ProjEditModal: React.FC<ProjEditModalProps> = ({ onClose, data, onSave }) => {
-  const [projectsData, setProjectsData] = useState<Data[]>(data);
+  const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
+  const [editedData, setEditedData] = useState<Data | null>(null);
 
-  const handleProjectChange = (index: number, field: keyof Data, value: string) => {
-    const updatedProjects = projectsData.map((project, projIndex) => {
-      if (index === projIndex) {
-        return { ...project, [field]: value };
-      }
-      return project;
-    });
+  // 선택된 프로젝트 데이터를 찾아서 editedData 상태를 설정합니다.
+  useEffect(() => {
+    const project = data.find(project => project.url === selectedUrl);
+    setEditedData(project ?? null);
+  }, [selectedUrl, data]);
 
-    setProjectsData(updatedProjects);
+  // 편집된 데이터를 onSave 함수를 통해 저장합니다.
+  const handleSave = () => {
+    if (!editedData) return;
+    onSave(data.map(project => project.url === editedData.url ? editedData : project));
+    onClose(); // 저장 후 모달 닫기
   };
 
-  // 특정 프로젝트의 배열 필드(images, sentences)를 업데이트하는 함수
-  const handleArrayFieldChange = (projectIndex: number, field: 'images' | 'sentences', index: number, value: string) => {
-    const updatedProjects = projectsData.map((project, projIndex) => {
-      if (projectIndex === projIndex) {
-        const newArray = [...project[field]];
-        newArray[index] = value;
-        return { ...project, [field]: newArray };
-      }
-      return project;
-    });
-
-    setProjectsData(updatedProjects);
+  // editedData 상태를 업데이트합니다.
+  const handleChange = <T extends keyof Data>(field: T, value: Data[T]) => {
+    setEditedData(prev => prev ? { ...prev, [field]: value } : null);
   };
 
-  // 특정 프로젝트의 배열 필드에 새 요소를 추가하는 함수
-  const handleAddToArrayField = (projectIndex: number, field: 'images' | 'sentences') => {
-    const updatedProjects = projectsData.map((project, projIndex) => {
-      if (projectIndex === projIndex) {
-        const newArray = [...project[field], '']; // 새로운 빈 요소 추가
-        return { ...project, [field]: newArray };
-      }
-      return project;
-    });
-
-    setProjectsData(updatedProjects);
-  };
-
-  // 특정 프로젝트의 배열 필드에서 요소를 삭제하는 함수
-  const handleRemoveFromArrayField = (projectIndex: number, field: 'images' | 'sentences', index: number) => {
-    const updatedProjects = projectsData.map((project, projIndex) => {
-      if (projectIndex === projIndex) {
-        const newArray = [...project[field]];
-        newArray.splice(index, 1); // 요소 삭제
-        return { ...project, [field]: newArray };
-      }
-      return project;
-    });
-
-    setProjectsData(updatedProjects);
-  };
-
-    
   return (
     <dialog open className="modal">
       <div className="modal-box">
         <form method="dialog">
-          <button onClick={onClose} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
-          </button>
+          <button onClick={onClose} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <h3 className="font-bold text-lg">프로젝트 편집</h3>
-        {projectsData.map((project, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              className="input input-bordered w-full my-2"
-              value={project.title}
-              onChange={(e) => handleProjectChange(index, 'title', e.target.value)}
-              placeholder="Title"
-            />
-            <textarea
-              className="textarea textarea-bordered w-full my-2"
-              value={project.intro}
-              onChange={(e) => handleProjectChange(index, 'intro', e.target.value)}
-              placeholder="Intro"
-            />
-            <div>
-              <p>Images:</p>
-              {project.images.map((image, index) => (
-                <div key={index}>
+        <div className="flex">
+          <EditModalSidebar
+            data={data.map(d => ({ url: d.url, title: d.title }))}
+            onSelectUrl={setSelectedUrl}
+            savedUrls={data.reduce((acc, curr) => ({ ...acc, [curr.url]: true }), {})}
+          />
+          {editedData && (
+            <div className="flex-grow p-4">
+              <h3 className="font-bold text-lg mb-4">프로젝트 편집: {editedData.title}</h3>
+              <input
+                type="text"
+                value={editedData.title}
+                onChange={(e) => handleChange('title', e.target.value)}
+                className="input input-bordered w-full mb-4"
+                placeholder="Title"
+              />
+              <textarea
+                value={editedData.intro}
+                onChange={(e) => handleChange('intro', e.target.value)}
+                className="textarea textarea-bordered w-full mb-4"
+                placeholder="Intro"
+              />
+              {editedData.images.map((image, index) => (
+                <div key={index} className="mb-4">
                   <input
                     type="text"
-                    className="input input-bordered w-full my-2"
                     value={image}
-                    onChange={(e) => handleArrayFieldChange(index, 'images', index, e.target.value)}
+                    onChange={(e) => {
+                      const newImages = [...editedData.images];
+                      newImages[index] = e.target.value;
+                      handleChange('images', newImages);
+                    }}
+                    className="input input-bordered w-full mb-2"
                     placeholder="Image URL"
                   />
-                  <button onClick={() => handleRemoveFromArrayField(index, 'images', index)}>Remove</button>
                 </div>
               ))}
-              <button onClick={() => handleAddToArrayField(index, 'images')}>Add Image</button>
-            </div>
-            <div>
-              <p>Sentences:</p>
-              {project.sentences.map((sentence, index) => (
-                <div key={index}>
+              <button onClick={() => handleChange('images', [...editedData.images, ''])} className="btn btn-primary mb-4">Add Image</button>
+              {editedData.sentences.map((sentence, index) => (
+                <div key={index} className="mb-4">
                   <input
                     type="text"
-                    className="input input-bordered w-full my-2"
                     value={sentence}
-                    onChange={(e) => handleArrayFieldChange(index, 'sentences', index, e.target.value)}
+                    onChange={(e) => {
+                      const newSentences = [...editedData.sentences];
+                      newSentences[index] = e.target.value;
+                      handleChange('sentences', newSentences);
+                    }}
+                    className="input input-bordered w-full mb-2"
                     placeholder="Sentence"
                   />
-                  <button onClick={() => handleRemoveFromArrayField(index, 'sentences', index)}>Remove</button>
                 </div>
               ))}
-              <button onClick={() => handleAddToArrayField(index, 'sentences')}>Add Sentence</button>
+              <button onClick={() => handleChange('sentences', [...editedData.sentences, ''])} className="btn btn-primary mb-4">Add Sentence</button>
+              <div className="modal-action">
+                <button onClick={handleSave} className="btn">Save Changes</button>
+              </div>
             </div>
-          </div>
-        ))}
-        <div>
-        
-        
-        <div className="modal-action">
-          <button className="btn" onClick={() => onSave(projectsData)}>저장</button>
-        </div>
+          )}
         </div>
       </div>
     </dialog>
-  )
-}
+  );
+};
 
-export default ProjEditModal
+export default ProjEditModal;

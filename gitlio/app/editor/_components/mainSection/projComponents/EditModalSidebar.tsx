@@ -1,21 +1,21 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
-interface StdSidebarProps {
+interface EditModalSidebarProps {
+  data: { url: string; title: string; }[];
   onSelectUrl: (url: string) => void;
   savedUrls: { [url: string]: boolean };
 }
 
-const StdSidebar: React.FC<StdSidebarProps> = ({ onSelectUrl, savedUrls }) => {
-  const [repositoryUrls, setRepositoryUrls] = useState([]);
+const EditModalSidebar: React.FC<EditModalSidebarProps> = ({ onSelectUrl, savedUrls }) => {
+  const [repositoryUrls, setRepositoryUrls] = useState<string[]>([]);
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadedUrls = JSON.parse(
-      localStorage.getItem('repositoryUrls') || '[]'
-    );
-    setRepositoryUrls(loadedUrls);
-  }, []);
+    // savedUrls 객체의 키를 사용하여 URL 목록을 생성합니다.
+    const urls = Object.keys(savedUrls);
+    setRepositoryUrls(urls);
+  }, [savedUrls]); // savedUrls가 변경될 때마다 실행
 
   const handleSelectUrl = (url: string) => {
     onSelectUrl(url);
@@ -23,31 +23,26 @@ const StdSidebar: React.FC<StdSidebarProps> = ({ onSelectUrl, savedUrls }) => {
   };
 
   return (
-    <div className="h-full w-72 border border-gray-200">
-      <div className="flex h-[4.15rem] items-center justify-center w-full border-b border-gray-200">
-        
-      </div>
-      <div className="mt-4 flex flex-col items-center">
-        {repositoryUrls.map((url: string, index) => {
-          const displayUrl = url.replace('https://github.com/', ''); // 화면에 표시할 URL
-          return (
-            <button
-              key={index}
-              className={`btn btn-wide my-2 mx-4 gap-2 justify-center ${
-                selectedUrl === url ? 'bg-selected text-black' : 'btn-ghost'
-              }`} // 조건부 스타일링 적용
-              onClick={() => handleSelectUrl(url)}
-            >
-              {displayUrl}
-              {savedUrls[url] && (
-                <span className=" text-green-500 font-bold">✓</span>
-              )}
-            </button>
-          );
-        })}
-      </div>
+    <div className="sidebar w-1/4 h-full overflow-auto bg-gray-100 p-4">
+      {repositoryUrls.map((url: string, index) => {
+        const displayUrl = url.replace('https://github.com/', ''); // 화면에 표시할 URL
+        return (
+          <button
+            key={index}
+            className={`btn btn-wide my-2 mx-4 gap-2 justify-center ${
+              selectedUrl === url ? 'bg-blue-500 text-white' : 'btn-ghost'
+            }`} // 조건부 스타일링 적용
+            onClick={() => handleSelectUrl(url)}
+          >
+            {displayUrl}
+            {savedUrls[url] && (
+              <span className="text-green-500 font-bold">✓</span>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 };
 
-export default StdSidebar;
+export default EditModalSidebar;

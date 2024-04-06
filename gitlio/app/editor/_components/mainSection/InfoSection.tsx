@@ -27,9 +27,16 @@ export default function InfoSection() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-around mr-10">
-        <div className="flex flex-row w-full justify-start font-bold text-2xl mt-10">
-          {profile.title}
-        </div>
+        {profile.title ? (
+          <div className="flex flex-row w-full justify-start font-bold text-2xl mt-10">
+            {profile.title}
+          </div>
+        ) : (
+          <div className="flex flex-row w-full justify-start font-bold text-zinc-300 text-2xl mt-10">
+            {'insert your title'}
+          </div>
+        )}
+
         <div className="flex flex-row justify-start w-full mt-5">
           {profile.tagList?.map((tag, index) => (
             <InfoTagList key={index} data={tag} />

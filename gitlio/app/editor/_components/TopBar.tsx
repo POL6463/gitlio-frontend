@@ -4,7 +4,7 @@ import { LuAlignJustify, LuBarChartBig } from 'react-icons/lu';
 
 export default function TopBar() {
   return (
-    <div className="navbar bg-neutral-800">
+    <div className="navbar bg-neutral-800 fixed top-0 left-0 right-0 z-10">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl text-white hover:bg-base-300/20">
           <Image

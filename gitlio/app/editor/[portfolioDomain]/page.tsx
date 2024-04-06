@@ -1,13 +1,9 @@
-import ProjSection from '@/app/editor/_components/mainSection/ProjSection';
-import InfoSection from '../_components/mainSection/InfoSection';
+import ExperienceSection from '@/app/editor/_components/mainSection/ExperienceSection';
 
 export default function EditPage() {
   return (
-    <div className="">
-      <InfoSection />
-      <InfoSection />
-      <InfoSection />
-      <InfoSection />
+    <div>
+      <ExperienceSection />
     </div>
   );
 }

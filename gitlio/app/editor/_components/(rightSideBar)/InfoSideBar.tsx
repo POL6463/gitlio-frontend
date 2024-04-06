@@ -16,7 +16,7 @@ export default function InfoSideBar() {
     setProfileTitle(e.target.value);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInfoContent(e.target.value);
   };
 
@@ -51,13 +51,14 @@ export default function InfoSideBar() {
         placeholder="Title"
         className="input-md w-full max-w-xs bg-neutral-200 rounded-xl"
       />
-      <input
-        type="text"
+      <textarea
         value={profile.infoContent}
         onChange={handleContentChange}
         placeholder="Description"
-        className="input-md w-full h-[238px] mt-10 max-w-xs bg-neutral-200 rounded-xl"
-      />
+        className="input-md w-full h-[238px] mt-10 max-w-xs bg-neutral-200 rounded-xl resize-none overflow-hidden"
+        style={{ paddingTop: '0.5rem' }}
+      ></textarea>
+
       <div className="flex justify-between mt-10">
         <input
           type="file"

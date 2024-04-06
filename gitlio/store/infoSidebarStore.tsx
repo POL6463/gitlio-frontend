@@ -28,7 +28,7 @@ const loadProfileFromLocalStorage = (): ProfileState => {
   } catch (error) {
     console.error('Failed to load state from localStorage', error);
   }
-  // 로컬 스토리지에 데이터가 없을 경우, 기본 상태를 반환합니다.
+
   return {
     title: '',
     profileImage: '',

@@ -10,7 +10,7 @@ export default function BaseSideBar() {
   const layoutSelected = false;
 
   return (
-    <div className="flex flex-col items-center w-[450px] h-dvh bg-white border-base-300 border-2 overflow-x-auto overscroll-contain">
+    <div className="flex flex-col items-center w-[450px] h-dvh bg-white border-base-300 border-2 overflow-y-auto overscroll-contain pb-16">
       <div
         role="tablist"
         className="tabs bg-neutral-300 tabs-boxed my-6 grid grid-flow-col auto-cols-fr"

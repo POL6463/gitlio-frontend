@@ -3,7 +3,10 @@ import InfoSection from '../_components/mainSection/InfoSection';
 
 export default function EditPage() {
   return (
-    <div>
+    <div className="">
+      <InfoSection />
+      <InfoSection />
+      <InfoSection />
       <InfoSection />
     </div>
   );

@@ -31,12 +31,6 @@ export default function InfoSection() {
     }
   }, [infoContent]);
 
-  const handleInfoContentChange = (e: React.FormEvent<HTMLDivElement>) => {
-    if (infoContentRef.current) {
-      setInfoContent(infoContentRef.current.textContent || '');
-    }
-  };
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = (e.target as HTMLInputElement)?.files;
     if (files && files.length > 0) {
@@ -45,12 +39,10 @@ export default function InfoSection() {
     }
   };
 
-  console.log(infoImage);
-
   return (
     <div className="flex flex-row justify-between bg-white mt-10 rounded-3xl p-10">
       <div className="flex flex-col items-center h-full mr-10">
-        <h1 className="text-3xl font-medium mx-10 mt-10">#Introduction</h1>
+        <h1 className="text-3xl font-semibold ml-10 mr-5">#Introduction</h1>
         <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center">
           <img
             className="w-full h-full rounded-full text-center"
@@ -78,12 +70,7 @@ export default function InfoSection() {
             <InfoTagList key={index} data={data} />
           ))}
         </div>
-        <div
-          className="w-[600px] h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151]"
-          contentEditable="true"
-          suppressContentEditableWarning={true}
-          onInput={(e) => handleInfoContentChange(e)}
-        >
+        <div className="w-[600px] h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151]">
           {infoContent}
         </div>
       </div>

@@ -6,13 +6,18 @@ import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
 type Props = {
   children: React.ReactNode;
 };
+
 export default function EditorLayout({ children }: Props) {
   return (
-    <div className="flex-row bg-backGray">
+    <div className="flex flex-col bg-backGray min-h-dvh">
       <TopBar />
-      <div className="flex justify-between w-full">
+      <div className="flex flex-1">
+        {' '}
         <LeftSidebar />
-        {children}
+        <div className="flex-1 flex justify-center items-start">
+          {' '}
+          {children}
+        </div>
         <BaseSideBar />
       </div>
     </div>

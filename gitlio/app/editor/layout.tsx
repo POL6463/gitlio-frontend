@@ -23,7 +23,6 @@ export default function EditorLayout({ children }: Props) {
         </div>
         <div className="flex-grow flex justify-center items-start overflow-hidden overscroll-none">
           <div className="mt-5 h-full overflow-hidden w-full max-w-3xl px-4">
-            {' '}
             {/* `children` 영역을 뷰포트 높이에 맞추고 스크롤 적용 */}
             {children}
           </div>

@@ -21,8 +21,11 @@ export default function InfoSideBar() {
   };
 
   const handleTagListChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 태그 입력값을 배열로 변환합니다. 실제 사용 시에는 입력 검증이 필요할 수 있습니다.
-    const tags = e.target.value.split(',').map((tag) => tag.trim());
+    const tags = e.target.value
+      .split(',')
+      .map((tag) =>
+        tag.trim().startsWith('#') ? tag.trim() : `#${tag.trim()}`
+      );
     setTagList(tags);
   };
 
@@ -68,7 +71,7 @@ export default function InfoSideBar() {
         </label>
         <input
           type="text"
-          value={profile.tagList.join(', ')}
+          value={profile.tagList?.join(', ')}
           onChange={handleTagListChange}
           placeholder="Tags"
           className="input-md w-1/3 max-w-xs bg-neutral-200 rounded-xl"

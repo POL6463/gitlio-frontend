@@ -16,25 +16,54 @@ interface ProfileStore {
   setTagList: (tagList: string[]) => void;
 }
 
-const InfoSidebarStore = create<ProfileStore>((set) => ({
-  profile: {
+const localStorageKey = 'profile-store';
+
+// localStorage에서 프로필 상태를 불러오는 함수
+const loadProfileFromLocalStorage = (): ProfileState => {
+  try {
+    const storedProfile = localStorage.getItem(localStorageKey);
+    if (storedProfile) {
+      return JSON.parse(storedProfile);
+    }
+  } catch (error) {
+    console.error('Failed to load state from localStorage', error);
+  }
+  // 로컬 스토리지에 데이터가 없을 경우, 기본 상태를 반환합니다.
+  return {
     title: '',
     profileImage: '',
     infoContent: '',
     tagList: [],
+  };
+};
+
+const InfoSidebarStore = create<ProfileStore>((set, get) => ({
+  profile: loadProfileFromLocalStorage(),
+
+  setProfileTitle: (title) => {
+    set((state) => ({ profile: { ...state.profile, title } }));
   },
 
-  setProfileTitle: (title) =>
-    set((state) => ({ profile: { ...state.profile, title } })),
+  setProfileImage: (profileImage) => {
+    set((state) => ({ profile: { ...state.profile, profileImage } }));
+  },
 
-  setProfileImage: (profileImage) =>
-    set((state) => ({ profile: { ...state.profile, profileImage } })),
+  setInfoContent: (infoContent) => {
+    set((state) => ({ profile: { ...state.profile, infoContent } }));
+  },
 
-  setInfoContent: (infoContent) =>
-    set((state) => ({ profile: { ...state.profile, infoContent } })),
-
-  setTagList: (tagList) =>
-    set((state) => ({ profile: { ...state.profile, tagList } })),
+  setTagList: (tagList) => {
+    set((state) => ({ profile: { ...state.profile, tagList } }));
+  },
 }));
+
+// 스토어의 구독을 통해 상태가 변경될 때마다 localStorage에 저장합니다.
+InfoSidebarStore.subscribe((state) => {
+  try {
+    localStorage.setItem(localStorageKey, JSON.stringify(state.profile));
+  } catch (error) {
+    console.error('Failed to save state to localStorage', error);
+  }
+});
 
 export default InfoSidebarStore;

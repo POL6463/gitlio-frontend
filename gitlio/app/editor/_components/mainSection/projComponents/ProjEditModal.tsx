@@ -116,20 +116,18 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 images={editedData ? editedData.images : []} // 현재 편집 중인 프로젝트의 이미지만 전달
                 currentUrl={editedData ? editedData.url : ''}
               />
-              {editedData.images.map((image, index) => (
-                <div key={index} className="mb-4">
-                  <img
-                    src={image}
-                    alt={`Project Image ${index}`}
-                    className="w-full max-h-40 object-cover"
-                    style={{
-                      maxWidth: '300px',
-                      maxHeight: '200px',
-                      objectFit: 'contain',
-                    }}
-                  />
+              <div className="overflow-x-auto" style={{ maxWidth: '100%' }}>
+                <div className="flex space-x-2">
+                  {editedData.images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`Project Image ${index}`}
+                      className="object-contain w-auto h-40" // 이미지 크기 조정
+                    />
+                  ))}
                 </div>
-              ))}
+              </div>
               <button
                 onClick={() =>
                   handleChange('images', [...editedData.images, ''])

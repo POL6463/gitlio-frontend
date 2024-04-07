@@ -11,7 +11,7 @@ export default function InfoSideBar() {
     profile,
     setProfileTitle,
     setProfileImage,
-    setInfoContent,
+    setInfoDescription,
     setTagList,
   } = InfoSidebarStore();
 
@@ -34,7 +34,7 @@ export default function InfoSideBar() {
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfoContent(e.target.value);
+    setInfoDescription(e.target.value);
   };
 
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +86,7 @@ export default function InfoSideBar() {
         <span>Description</span>
       </div>
       <textarea
-        value={profile.infoContent}
+        value={profile.infoDescription}
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"

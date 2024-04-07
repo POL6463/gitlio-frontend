@@ -4,7 +4,7 @@ import { create } from 'zustand';
 interface ProfileState {
   title: string;
   profileImage: string;
-  infoContent: string;
+  infoDescription: string;
   tagList: string[];
 }
 
@@ -12,7 +12,7 @@ interface ProfileStore {
   profile: ProfileState;
   setProfileTitle: (title: string) => void;
   setProfileImage: (profileImage: string) => void;
-  setInfoContent: (infoContent: string) => void;
+  setInfoDescription: (infoDescription: string) => void;
   setTagList: (tagList: string[]) => void;
 }
 
@@ -32,7 +32,7 @@ const loadProfileFromLocalStorage = (): ProfileState => {
   return {
     title: '',
     profileImage: '',
-    infoContent: '',
+    infoDescription: '',
     tagList: [],
   };
 };
@@ -48,8 +48,8 @@ const InfoSidebarStore = create<ProfileStore>((set, get) => ({
     set((state) => ({ profile: { ...state.profile, profileImage } }));
   },
 
-  setInfoContent: (infoContent) => {
-    set((state) => ({ profile: { ...state.profile, infoContent } }));
+  setInfoDescription: (infoDescription) => {
+    set((state) => ({ profile: { ...state.profile, infoDescription } }));
   },
 
   setTagList: (tagList) => {

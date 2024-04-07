@@ -42,7 +42,7 @@ export default function InfoSection() {
           ))}
         </div>
         <div className="w-[600px] h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151]">
-          {profile.infoContent}
+          {profile.infoDescription}
         </div>
       </div>
     </div>

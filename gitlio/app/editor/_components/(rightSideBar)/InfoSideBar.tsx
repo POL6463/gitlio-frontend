@@ -1,9 +1,13 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import InfoSidebarStore from '@/store/infoSidebarStore';
+import InfoTagList from '../mainSection/infoComponents/InfoTagList';
+import SideBarInfoTagList from './SideBarInfoTagList';
 
 export default function InfoSideBar() {
   // useProfileStore 훅을 이용하여 스토어의 상태와 액션들을 가져옵니다.
+  const [tagInput, setTagInput] = useState(''); // 태그 입력을 위한 새로운 상태
+
   const {
     profile,
     setProfileTitle,
@@ -20,13 +24,23 @@ export default function InfoSideBar() {
     setInfoContent(e.target.value);
   };
 
-  const handleTagListChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const tags = e.target.value
-      .split(',')
-      .map((tag) =>
-        tag.trim().startsWith('#') ? tag.trim() : `#${tag.trim()}`
-      );
-    setTagList(tags);
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTagInput(e.target.value);
+  };
+
+  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && tagInput.trim() !== '') {
+      const newTag = tagInput.trim().startsWith('#')
+        ? tagInput.trim()
+        : `#${tagInput.trim()}`;
+      setTagList([...profile.tagList, newTag]);
+      setTagInput(''); // 태그를 추가한 후 입력 필드를 비웁니다.
+    }
+  };
+
+  // 태그를 제거하는 함수
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTagList(profile.tagList.filter((tag) => tag !== tagToRemove));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,23 +57,48 @@ export default function InfoSideBar() {
 
   return (
     <div className="flex flex-col items-center w-96">
-      {/* ... */}
+      <div className="flex flex-row justify-start w-full">
+        <span>Title</span>
+      </div>
       <input
         type="text"
         value={profile.title}
         onChange={handleTitleChange}
         placeholder="Title"
-        className="input-md w-full max-w-xs bg-neutral-200 rounded-xl"
+        className="input-md w-full bg-white rounded-xl border border-gray-300"
       />
+      <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
+      <div className="flex flex-row justify-start w-full">
+        <span>Description</span>
+      </div>
       <textarea
         value={profile.infoContent}
         onChange={handleContentChange}
         placeholder="Description"
-        className="input-md w-full h-[238px] mt-10 max-w-xs bg-neutral-200 rounded-xl resize-none overflow-hidden"
+        className="input-md w-full h-[238px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
         style={{ paddingTop: '0.5rem' }}
       ></textarea>
-
-      <div className="flex justify-between mt-10">
+      <div className="flex flex-row justify-start w-full mt-10">
+        <span>HashTag</span>
+      </div>
+      <input
+        type="text"
+        value={tagInput}
+        onChange={handleTagInputChange} // 입력 값이 변경될 때마다 tagInput 상태를 업데이트
+        onKeyUp={handleAddTag}
+        placeholder="Tags"
+        className="input-md w-full bg-white rounded-xl border border-gray-300"
+      />
+      <div className="flex flex-wrap gap-2 mt-2">
+        {profile.tagList.map((tag, index) => (
+          <SideBarInfoTagList
+            key={index}
+            data={tag}
+            onRemove={() => handleRemoveTag(tag)}
+          />
+        ))}
+      </div>
+      <div className="flex justify-between mt-10 w-full">
         <input
           type="file"
           accept="image/*"
@@ -70,13 +109,6 @@ export default function InfoSideBar() {
         <label htmlFor="fileInput" className="btn">
           이미지 수정
         </label>
-        <input
-          type="text"
-          value={profile.tagList?.join(', ')}
-          onChange={handleTagListChange}
-          placeholder="Tags"
-          className="input-md w-1/3 max-w-xs bg-neutral-200 rounded-xl"
-        />
       </div>
     </div>
   );

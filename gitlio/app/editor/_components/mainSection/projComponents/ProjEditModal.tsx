@@ -26,6 +26,25 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
     setEditedData(project ?? null);
   }, [selectedUrl, data]);
 
+  useEffect(() => {
+    // 스크롤바의 너비 계산
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    // 스크롤바 너비만큼 body의 padding-right 조정
+    document.body.style.paddingRight = '15px';
+    console.log(scrollbarWidth);
+
+    // 스크롤 비활성화
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      // 모달 닫힐 때 원래대로 복구
+      document.body.style.paddingRight = '';
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
     if (!editedData) return;

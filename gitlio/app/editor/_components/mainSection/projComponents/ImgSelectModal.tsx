@@ -52,9 +52,7 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-gray-400 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg max-w-lg w-full">
-        {' '}
-        {/* 너비 조정 */}
+      <div className="bg-white p-4 rounded-lg max-w-lg w-full overflow-visible">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg">이미지 선택</h2>
           <button onClick={onClose} className="btn btn-sm btn-circle">
@@ -62,20 +60,20 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
           </button>
         </div>
         <div
-          className="grid grid-cols-3 gap-2 overflow-auto"
-          style={{ maxHeight: '300px' }}
+          className="grid grid-cols-3 gap-4 overflow-auto" // gap 값을 늘려서 이미지 사이의 공간 확보
+          style={{ maxHeight: '300px', padding: '10px' }} // padding 추가로 내부 공간 확보
         >
-          {' '}
-          {/* 그리드 컬럼과 최대 높이 조정 */}
           {images.map((image, index) => (
             <div
               key={index}
-              className={`relative ${selectedImagesByURL[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
+              className={`relative overflow-visible ${selectedImagesByURL[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`} // overflow-visible 추가
+              style={{ margin: '5px' }} // margin 추가로 테두리 공간 확보
             >
               <img
                 src={image}
                 alt={`선택 가능한 이미지 ${index + 1}`}
                 className="cursor-pointer"
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
                 onClick={() => toggleImageSelection(image)}
               />
               {selectedImagesByURL[currentUrl]?.includes(image) && (

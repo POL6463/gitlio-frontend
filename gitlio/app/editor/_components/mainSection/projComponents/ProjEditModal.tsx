@@ -1,16 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useProjectsStore } from '@/store/projectStore';
 import EditModalSidebar from './EditModalSidebar';
 import ImgSelectModal from './ImgSelectModal';
-
-interface Data {
-  url: string;
-  title: string;
-  intro: string;
-  images: string[];
-  sentences: string[];
-}
-
+import { Data } from '@/app/editor/(interface)/ProjectData';
 interface ProjEditModalProps {
   onClose: () => void;
   data: Data[];
@@ -22,6 +15,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   data,
   onSave,
 }) => {
+  const { projects, updateProject } = useProjectsStore();
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Data | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -35,12 +29,8 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
     if (!editedData) return;
-    onSave(
-      data.map((project) =>
-        project.url === editedData.url ? editedData : project
-      )
-    );
-    onClose(); // 저장 후 모달 닫기
+    updateProject(editedData);
+    onClose();
   };
 
   // editedData 상태를 업데이트합니다.

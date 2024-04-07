@@ -2,7 +2,6 @@
 import cx from 'classnames';
 import ExperienceSideBar from '@/app/editor/_components/(rightSideBar)/ExperienceSideBar';
 import useSidebarStore from '@/store/sidebarStore';
-import SkillSideBar from '@/app/editor/_components/(rightSideBar)/SkillSideBar'; // 스토어 경로는 실제 경로에 맞게 조정하세요.
 
 export default function BaseSideBar() {
   const { selectedSection, setSelectedSection } = useSidebarStore();
@@ -22,7 +21,6 @@ export default function BaseSideBar() {
         </a>
       </div>
       {selectedSection === 'experience' && <ExperienceSideBar />}
-      {selectedSection === 'skill' && <SkillSideBar />}
     </div>
   );
 }

@@ -5,8 +5,6 @@ export default function EditPage() {
   return (
     <div className="">
       <ProjSection />
-      <ExperienceSection />
-      <ProjSection />
     </div>
   );
 }

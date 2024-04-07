@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useProjectsStore } from '@/store/projectStore';
 import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ProjEditModal from './projComponents/ProjEditModal';
@@ -113,8 +114,13 @@ const sampleData: Data[] = [
 ];
 
 export default function ProjSection() {
+  const { projects, setProjects } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [projectsData, setProjectsData] = useState<Data[]>(sampleData); // 프로젝트 데이터 상태 관리
+
+  React.useEffect(() => {
+    setProjects(sampleData); // 초기 프로젝트 데이터 로드
+  }, [setProjects]);
 
   const handleToggleModal = () => {
     setIsEditProjModalOpen(!isEditProjModalOpen);
@@ -135,7 +141,7 @@ export default function ProjSection() {
         </div>
       </div>
       <div className="flex flex-col items-center">
-        {sampleData.map((data, index) => (
+        {projects.map((data, index) => (
           <ProjBox key={index} data={data} />
         ))}
       </div>

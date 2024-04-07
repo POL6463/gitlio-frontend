@@ -15,6 +15,20 @@ export default function InfoSideBar() {
     setTagList,
   } = InfoSidebarStore();
 
+  const handleTitleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
+
+  const handleContentKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileTitle(e.target.value);
   };
@@ -63,6 +77,7 @@ export default function InfoSideBar() {
         type="text"
         value={profile.title}
         onChange={handleTitleChange}
+        onKeyUp={handleTitleKeyUp}
         placeholder="Title"
         className="input-md w-full bg-white rounded-xl border border-gray-300"
       />
@@ -73,6 +88,7 @@ export default function InfoSideBar() {
       <textarea
         value={profile.infoContent}
         onChange={handleContentChange}
+        onKeyUp={handleContentKeyUp}
         placeholder="Description"
         className="input-md w-full h-[238px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
         style={{ paddingTop: '0.5rem' }}

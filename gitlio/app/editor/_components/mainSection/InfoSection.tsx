@@ -5,7 +5,6 @@ import InfoSidebarStore from '@/store/infoSidebarStore';
 import InfoTagList from './infoComponents/InfoTagList';
 
 export default function InfoSection() {
-  // `useProfileStore` 훅을 사용하여 스토어에서 상태를 가져옵니다.
   const { profile } = InfoSidebarStore();
 
   return (

@@ -1,5 +1,9 @@
 import React from 'react';
 
-export default function InfoTagList({ data }: { data: string }) {
+interface InfoTagProps {
+  data: string;
+}
+
+export default function InfoTagList({ data }: InfoTagProps) {
   return <div className="font-semibold mr-2">{data}</div>;
 }

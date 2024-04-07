@@ -10,7 +10,7 @@ export default function SideBarInfoTagList({
   onRemove,
 }: SideBarInfoTagProps) {
   return data ? (
-    <div className="flex items-center justify-between font-semibold mr-2 px-2 py-1 bg-gray-100 rounded border border-gray-300">
+    <div className="badge badge-outline flex items-center justify-between font-semibold mr-2 px-2 py-2 bg-white rounded-lg border border-gray-300">
       <span>{data}</span>
       <button
         onClick={onRemove}

@@ -5,7 +5,6 @@ import InfoTagList from '../mainSection/infoComponents/InfoTagList';
 import SideBarInfoTagList from './SideBarInfoTagList';
 
 export default function InfoSideBar() {
-  // useProfileStore 훅을 이용하여 스토어의 상태와 액션들을 가져옵니다.
   const [tagInput, setTagInput] = useState(''); // 태그 입력을 위한 새로운 상태
 
   const {

@@ -6,33 +6,45 @@ interface ImageSelectionModalProps {
   onClose: () => void;
   onSelect: (images: string[]) => void; // 이미지들을 선택하는 함수
   images: string[];
+  currentUrl: string; // 현재 편집 중인 URL 추가
 }
 
-const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
+const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
   isOpen,
   onClose,
   onSelect,
   images,
+  currentUrl,
 }) => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [selectedImagesByURL, setSelectedImagesByURL] = useState<{
+    [url: string]: string[];
+  }>({});
 
   // 이미지 선택/해제 토글 로직
   const toggleImageSelection = (image: string) => {
+    const selectedImages = selectedImagesByURL[currentUrl] || [];
     if (selectedImages.includes(image)) {
-      setSelectedImages(selectedImages.filter((img) => img !== image));
+      setSelectedImagesByURL({
+        ...selectedImagesByURL,
+        [currentUrl]: selectedImages.filter((img) => img !== image),
+      });
     } else {
-      setSelectedImages([...selectedImages, image]);
+      setSelectedImagesByURL({
+        ...selectedImagesByURL,
+        [currentUrl]: [...selectedImages, image],
+      });
     }
   };
 
   // 선택된 이미지의 순서를 반환하는 함수
   const getImageOrder = (image: string): number => {
+    const selectedImages = selectedImagesByURL[currentUrl] || [];
     return selectedImages.indexOf(image) + 1;
   };
 
   // 선택 완료 시 호출
   const handleSelectionComplete = () => {
-    onSelect(selectedImages);
+    onSelect(selectedImagesByURL[currentUrl] || []);
     onClose();
   };
 
@@ -58,7 +70,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
           {images.map((image, index) => (
             <div
               key={index}
-              className={`relative ${selectedImages.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
+              className={`relative ${selectedImagesByURL[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
             >
               <img
                 src={image}
@@ -66,7 +78,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
                 className="cursor-pointer"
                 onClick={() => toggleImageSelection(image)}
               />
-              {selectedImages.includes(image) && (
+              {selectedImagesByURL[currentUrl]?.includes(image) && (
                 <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
                   {getImageOrder(image)}
                 </div>
@@ -84,4 +96,4 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
   );
 };
 
-export default ImageSelectionModal;
+export default ImgSelectModal;

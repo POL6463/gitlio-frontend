@@ -95,6 +95,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                   setModalIsOpen(false); // 이미지 선택 모달 닫기
                 }}
                 images={editedData ? editedData.images : []} // 현재 편집 중인 프로젝트의 이미지만 전달
+                currentUrl={editedData ? editedData.url : ''}
               />
               {editedData.images.map((image, index) => (
                 <div key={index} className="mb-4">

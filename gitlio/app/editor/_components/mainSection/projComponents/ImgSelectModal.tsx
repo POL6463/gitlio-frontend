@@ -1,12 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ImageSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (images: string[]) => void; // 이미지들을 선택하는 함수
-  images: string[];
-  currentUrl: string; // 현재 편집 중인 URL 추가
+  onSelect: (selectedImages: { [url: string]: string[] }) => void;
+  images: { [url: string]: string[] };
+  currentUrl: string;
 }
 
 const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
@@ -16,35 +16,69 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
   images,
   currentUrl,
 }) => {
-  const [selectedImagesByURL, setSelectedImagesByURL] = useState<{
-    [url: string]: string[];
+  const [selectedImages, setSelectedImages] = useState<{
+    [key: string]: string[];
+  }>({});
+  const [uploadedImages, setUploadedImages] = useState<{
+    [key: string]: string[];
   }>({});
 
+  useEffect(() => {
+    if (!selectedImages[currentUrl]) {
+      setSelectedImages((prev) => ({ ...prev, [currentUrl]: [] }));
+    }
+    if (!uploadedImages[currentUrl]) {
+      setUploadedImages((prev) => ({ ...prev, [currentUrl]: [] }));
+    }
+  }, [currentUrl, selectedImages, uploadedImages]);
+
   // 이미지 선택/해제 토글 로직
-  const toggleImageSelection = (image: string) => {
-    const selectedImages = selectedImagesByURL[currentUrl] || [];
-    if (selectedImages.includes(image)) {
-      setSelectedImagesByURL({
-        ...selectedImagesByURL,
-        [currentUrl]: selectedImages.filter((img) => img !== image),
+  const toggleImageSelection = (url: string, image: string) => {
+    const updatedSelectedImages = selectedImages[url]
+      ? [...selectedImages[url]]
+      : [];
+    if (updatedSelectedImages.includes(image)) {
+      setSelectedImages({
+        ...selectedImages,
+        [url]: updatedSelectedImages.filter((img) => img !== image),
       });
     } else {
-      setSelectedImagesByURL({
-        ...selectedImagesByURL,
-        [currentUrl]: [...selectedImages, image],
+      setSelectedImages({
+        ...selectedImages,
+        [url]: [...updatedSelectedImages, image],
       });
     }
   };
 
-  // 선택된 이미지의 순서를 반환하는 함수
-  const getImageOrder = (image: string): number => {
-    const selectedImages = selectedImagesByURL[currentUrl] || [];
-    return selectedImages.indexOf(image) + 1;
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const fileReader = new FileReader();
+      fileReader.onload = (e: ProgressEvent<FileReader>) => {
+        const imageSrc = e.target?.result as string;
+        setUploadedImages({
+          ...uploadedImages,
+          [currentUrl]: uploadedImages[currentUrl]
+            ? [...uploadedImages[currentUrl], imageSrc]
+            : [imageSrc],
+        });
+      };
+      fileReader.readAsDataURL(event.target.files[0]);
+    }
   };
 
   // 선택 완료 시 호출
   const handleSelectionComplete = () => {
-    onSelect(selectedImagesByURL[currentUrl] || []);
+    const selectedForCurrentUrl = selectedImages[currentUrl] || [];
+    const uploadedForCurrentUrl = uploadedImages[currentUrl] || [];
+    // 현재 URL에 대한 선택된 이미지와 업로드된 이미지를 합칩니다.
+    const allSelectedImagesForCurrentUrl = selectedForCurrentUrl.concat(
+      uploadedForCurrentUrl
+    );
+
+    onSelect({
+      ...selectedImages,
+      [currentUrl]: allSelectedImagesForCurrentUrl, // 수정된 현재 URL의 이미지 배열을 포함합니다.
+    });
     onClose();
   };
 
@@ -54,37 +88,51 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
     <div className="fixed inset-0 bg-gray-400 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-4 rounded-lg max-w-lg w-full overflow-visible">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg">이미지 선택</h2>
+          <div className="flex flex-row items-center">
+            <h2 className="text-lg mr-3">이미지 선택</h2>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e)}
+              style={{ display: 'none' }}
+              id="fileInput"
+            />
+            <label htmlFor="fileInput" className="btn btn-sm">
+              +
+            </label>
+          </div>
           <button onClick={onClose} className="btn btn-sm btn-circle">
             ×
           </button>
         </div>
         <div
-          className="grid grid-cols-3 gap-4 overflow-auto" // gap 값을 늘려서 이미지 사이의 공간 확보
-          style={{ maxHeight: '300px', padding: '10px' }} // padding 추가로 내부 공간 확보
+          className="grid grid-cols-3 gap-4 overflow-auto mb-4"
+          style={{ maxHeight: '300px', padding: '10px' }}
         >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`relative overflow-visible ${selectedImagesByURL[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`} // overflow-visible 추가
-              style={{ margin: '5px' }} // margin 추가로 테두리 공간 확보
-            >
-              <img
-                src={image}
-                alt={`선택 가능한 이미지 ${index + 1}`}
-                className="cursor-pointer"
-                style={{ maxWidth: '100%', maxHeight: '100%' }}
-                onClick={() => toggleImageSelection(image)}
-              />
-              {selectedImagesByURL[currentUrl]?.includes(image) && (
-                <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                  {getImageOrder(image)}
-                </div>
-              )}
-            </div>
-          ))}
+          {(images[currentUrl] || [])
+            .concat(uploadedImages[currentUrl] || [])
+            .map((image, index) => (
+              <div
+                key={index}
+                className={`relative ${selectedImages[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
+                style={{ margin: '5px' }}
+              >
+                <img
+                  src={image}
+                  alt={`Preview ${index + 1}`}
+                  className="cursor-pointer"
+                  style={{ maxWidth: '100%', maxHeight: '100%' }}
+                  onClick={() => toggleImageSelection(currentUrl, image)}
+                />
+                {selectedImages[currentUrl]?.includes(image) && (
+                  <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+                    {selectedImages[currentUrl].indexOf(image) + 1}
+                  </div>
+                )}
+              </div>
+            ))}
         </div>
-        <div className="modal-action mt-4">
+        <div>
           <button onClick={handleSelectionComplete} className="btn">
             선택 완료
           </button>

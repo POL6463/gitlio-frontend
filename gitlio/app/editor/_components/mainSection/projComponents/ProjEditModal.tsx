@@ -22,46 +22,35 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
 
   // 선택된 프로젝트 데이터를 찾아서 editedData 상태를 설정합니다.
   useEffect(() => {
-    const project = data.find((project) => project.url === selectedUrl);
+    const project = projects.find((p) => p.url === selectedUrl);
     setEditedData(project ?? null);
-  }, [selectedUrl, data]);
-
-  useEffect(() => {
-    // 스크롤바의 너비 계산
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    // 스크롤바 너비만큼 body의 padding-right 조정
-    document.body.style.paddingRight = '15px';
-    console.log(scrollbarWidth);
-
-    // 스크롤 비활성화
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      // 모달 닫힐 때 원래대로 복구
-      document.body.style.paddingRight = '';
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
+  }, [selectedUrl, projects]);
 
   // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
-    if (!editedData) return;
-    updateProject(editedData);
-    onClose();
+    if (editedData) {
+      updateProject(editedData); // Update the project in the global state
+      onClose();
+    }
+  };
+
+  const handleImageSelect = (selectedImagesForUrl: {
+    [url: string]: string[];
+  }) => {
+    // 이미지 선택 로직 처리
+    if (selectedUrl && editedData) {
+      // 선택된 URL의 이미지를 업데이트합니다.
+      const updatedImages = selectedImagesForUrl[selectedUrl] || [];
+      handleChange('images', updatedImages);
+    }
+    setModalIsOpen(false);
   };
 
   // editedData 상태를 업데이트합니다.
   const handleChange = <T extends keyof Data>(field: T, value: Data[T]) => {
-    setEditedData((prev) => (prev ? { ...prev, [field]: value } : null));
-  };
-
-  const handleImageSelect = (selectedImages: string[]) => {
     if (editedData) {
-      handleChange('images', selectedImages);
+      setEditedData({ ...editedData, [field]: value });
     }
-    setModalIsOpen(false); // 이미지 선택 모달 닫기
   };
 
   return (
@@ -108,15 +97,17 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
               <ImgSelectModal
                 isOpen={modalIsOpen}
                 onClose={() => setModalIsOpen(false)}
-                onSelect={(selectedImages) => {
-                  // editedData 업데이트 로직 추가 예정
-                  handleChange('images', selectedImages); // 선택된 이미지 배열로 editedData의 images 필드 업데이트
-                  setModalIsOpen(false); // 이미지 선택 모달 닫기
+                onSelect={handleImageSelect}
+                images={{
+                  [selectedUrl || '']: editedData ? editedData.images : [],
                 }}
-                images={editedData ? editedData.images : []} // 현재 편집 중인 프로젝트의 이미지만 전달
-                currentUrl={editedData ? editedData.url : ''}
+                currentUrl={selectedUrl || ''}
               />
-              <div className="overflow-x-auto" style={{ maxWidth: '100%' }}>
+
+              <div
+                className="overflow-x-auto mb-4"
+                style={{ maxWidth: '100%' }}
+              >
                 <div className="flex space-x-2">
                   {editedData.images.map((image, index) => (
                     <img
@@ -128,14 +119,6 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                   ))}
                 </div>
               </div>
-              <button
-                onClick={() =>
-                  handleChange('images', [...editedData.images, ''])
-                }
-                className="btn btn-primary mb-4"
-              >
-                Add Image
-              </button>
               {editedData.sentences.map((sentence, index) => (
                 <div key={index} className="mb-4">
                   <input

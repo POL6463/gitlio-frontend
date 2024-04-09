@@ -68,6 +68,10 @@ export default function InfoSideBar() {
     }
   };
 
+  const handleImageRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setProfileImage('');
+  };
+
   return (
     <div className="flex flex-col items-center w-96">
       <div className="flex flex-row justify-start w-full">
@@ -83,17 +87,6 @@ export default function InfoSideBar() {
       />
       <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
       <div className="flex flex-row justify-start w-full">
-        <span>Description</span>
-      </div>
-      <textarea
-        value={profile.infoDescription}
-        onChange={handleContentChange}
-        onKeyUp={handleContentKeyUp}
-        placeholder="Description"
-        className="input-md w-full h-[238px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
-        style={{ paddingTop: '0.5rem' }}
-      ></textarea>
-      <div className="flex flex-row justify-start w-full mt-10">
         <span>HashTag</span>
       </div>
       <input
@@ -113,7 +106,18 @@ export default function InfoSideBar() {
           />
         ))}
       </div>
-      <div className="flex justify-between mt-10 w-full">
+      <div className="flex flex-row justify-start w-full mt-5">
+        <span>Description</span>
+      </div>
+      <textarea
+        value={profile.infoDescription}
+        onChange={handleContentChange}
+        onKeyUp={handleContentKeyUp}
+        placeholder="Description"
+        className="input-md w-full h-[238px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
+        style={{ paddingTop: '0.5rem' }}
+      ></textarea>
+      <div className="flex justify-around mt-10 w-full">
         <input
           type="file"
           accept="image/*"
@@ -124,6 +128,9 @@ export default function InfoSideBar() {
         <label htmlFor="fileInput" className="btn">
           이미지 수정
         </label>
+        <button className="btn" onClick={(e) => handleImageRemove(e)}>
+          이미지 삭제
+        </button>
       </div>
     </div>
   );

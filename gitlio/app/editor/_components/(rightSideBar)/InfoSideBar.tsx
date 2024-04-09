@@ -52,8 +52,8 @@ export default function InfoSideBar() {
   };
 
   // 태그를 제거하는 함수
-  const handleRemoveTag = (tagToRemove: string) => {
-    setTagList(profile.tagList.filter((tag) => tag !== tagToRemove));
+  const handleRemoveTag = (tagIndex: number) => {
+    setTagList(profile.tagList.filter((tag, index) => index !== tagIndex));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +102,7 @@ export default function InfoSideBar() {
           <SideBarInfoTagList
             key={index}
             data={tag}
-            onRemove={() => handleRemoveTag(tag)}
+            onRemove={() => handleRemoveTag(index)}
           />
         ))}
       </div>

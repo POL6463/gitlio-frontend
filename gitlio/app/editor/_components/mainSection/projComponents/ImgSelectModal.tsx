@@ -33,21 +33,19 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
   }, [currentUrl, selectedImages, uploadedImages]);
 
   // 이미지 선택/해제 토글 로직
-  const toggleImageSelection = (url: string, image: string) => {
-    const updatedSelectedImages = selectedImages[url]
-      ? [...selectedImages[url]]
+  const toggleImageSelection = (image: string) => {
+    const updatedSelectedImages = selectedImages[currentUrl]
+      ? [...selectedImages[currentUrl]]
       : [];
     if (updatedSelectedImages.includes(image)) {
-      setSelectedImages({
-        ...selectedImages,
-        [url]: updatedSelectedImages.filter((img) => img !== image),
-      });
+      updatedSelectedImages.splice(updatedSelectedImages.indexOf(image), 1);
     } else {
-      setSelectedImages({
-        ...selectedImages,
-        [url]: [...updatedSelectedImages, image],
-      });
+      updatedSelectedImages.push(image);
     }
+    setSelectedImages({
+      ...selectedImages,
+      [currentUrl]: updatedSelectedImages,
+    });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,12 +53,11 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
       const fileReader = new FileReader();
       fileReader.onload = (e: ProgressEvent<FileReader>) => {
         const imageSrc = e.target?.result as string;
-        setUploadedImages({
-          ...uploadedImages,
-          [currentUrl]: uploadedImages[currentUrl]
-            ? [...uploadedImages[currentUrl], imageSrc]
-            : [imageSrc],
-        });
+        // currentUrl을 기반으로 업로드된 이미지를 저장합니다.
+        setUploadedImages((prev) => ({
+          ...prev,
+          [currentUrl]: [...(prev[currentUrl] || []), imageSrc],
+        }));
       };
       fileReader.readAsDataURL(event.target.files[0]);
     }
@@ -68,17 +65,17 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
 
   // 선택 완료 시 호출
   const handleSelectionComplete = () => {
-    const selectedForCurrentUrl = selectedImages[currentUrl] || [];
-    const uploadedForCurrentUrl = uploadedImages[currentUrl] || [];
-    // 현재 URL에 대한 선택된 이미지와 업로드된 이미지를 합칩니다.
-    const allSelectedImagesForCurrentUrl = selectedForCurrentUrl.concat(
-      uploadedForCurrentUrl
-    );
-
-    onSelect({
+    // 수정: 업로드된 이미지 중에서 선택된 이미지만 포함시키기
+    const updatedSelectedImages = {
       ...selectedImages,
-      [currentUrl]: allSelectedImagesForCurrentUrl, // 수정된 현재 URL의 이미지 배열을 포함합니다.
-    });
+      [currentUrl]: (selectedImages[currentUrl] || []).filter(
+        (image) =>
+          uploadedImages[currentUrl]?.includes(image) ||
+          images[currentUrl]?.includes(image)
+      ), // 업로드된 이미지 중 선택된 이미지와 기존 이미지 중 선택된 이미지만 포함
+    };
+
+    onSelect(updatedSelectedImages);
     onClose();
   };
 
@@ -122,7 +119,7 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
                   alt={`Preview ${index + 1}`}
                   className="cursor-pointer"
                   style={{ maxWidth: '100%', maxHeight: '100%' }}
-                  onClick={() => toggleImageSelection(currentUrl, image)}
+                  onClick={() => toggleImageSelection(image)}
                 />
                 {selectedImages[currentUrl]?.includes(image) && (
                   <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">

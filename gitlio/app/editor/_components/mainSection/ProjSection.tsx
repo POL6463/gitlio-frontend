@@ -117,6 +117,8 @@ export default function ProjSection() {
   const { projects, setProjects } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [projectsData, setProjectsData] = useState<Data[]>(sampleData); // 프로젝트 데이터 상태 관리
+  const [selectedRadio, setSelectedRadio] = React.useState(0);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
 
   React.useEffect(() => {
     setProjects(sampleData); // 초기 프로젝트 데이터 로드
@@ -131,6 +133,22 @@ export default function ProjSection() {
     setIsEditProjModalOpen(false); // 데이터 저장 후 모달창 닫기
   };
 
+  const handleRadioChange = (index: number) => {
+    setSelectedRadio(index);
+  };
+
+  const goToNextImage = () => {
+    // 다음 프로젝트를 보여줍니다. 마지막 프로젝트에서는 첫 번째 프로젝트로 돌아갑니다.
+    setCurrentProjectIndex((prevIndex) => (prevIndex + 1) % projects.length);
+  };
+
+  const goToPreviousImage = () => {
+    // 이전 프로젝트를 보여줍니다. 첫 번째 프로젝트에서는 마지막 프로젝트로 갑니다.
+    setCurrentProjectIndex(
+      (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
+    );
+  };
+
   return (
     <div className="bg-white m-8 rounded-3xl">
       <br />
@@ -139,11 +157,44 @@ export default function ProjSection() {
         <div className="btn" onClick={handleToggleModal}>
           편집
         </div>
+        <div className="ml-5">
+          {[0, 1].map((index) => (
+            <input
+              key={index}
+              type="radio"
+              name="radio-1"
+              className="radio mr-2 mt-2"
+              checked={selectedRadio === index}
+              onChange={() => setSelectedRadio(index)}
+            />
+          ))}
+        </div>
       </div>
       <div className="flex flex-col items-center">
-        {projects.map((data, index) => (
-          <ProjBox key={index} data={data} />
-        ))}
+        {selectedRadio === 0 && (
+          <div className="flex flex-col items-center">
+            {projects.map((data, index) => (
+              <ProjBox key={index} data={data} />
+            ))}
+          </div>
+        )}
+        {selectedRadio === 1 && (
+          <div className="relative">
+            <ProjBox data={projects[currentProjectIndex]} />
+            <button
+              onClick={goToPreviousImage}
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-1 rounded-full"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={goToNextImage}
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-1 rounded-full"
+            >
+              &gt;
+            </button>
+          </div>
+        )}
       </div>
       {isEditProjModalOpen && (
         <ProjEditModal

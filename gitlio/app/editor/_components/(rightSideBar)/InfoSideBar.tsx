@@ -25,7 +25,6 @@ export default function InfoSideBar() {
   const handleContentKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      e.currentTarget.blur();
     }
   };
 
@@ -85,8 +84,7 @@ export default function InfoSideBar() {
         placeholder="Title"
         className="input-md w-full bg-white rounded-xl border border-gray-300"
       />
-      <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
-      <div className="flex flex-row justify-start w-full">
+      <div className="flex flex-row justify-start w-full mt-10">
         <span>HashTag</span>
       </div>
       <input
@@ -106,6 +104,7 @@ export default function InfoSideBar() {
           />
         ))}
       </div>
+      <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
       <div className="flex flex-row justify-start w-full mt-5">
         <span>Description</span>
       </div>

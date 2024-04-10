@@ -1,11 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import InfoSidebarStore from '@/store/infoSidebarStore';
 import InfoTagList from './infoComponents/InfoTagList';
 
 export default function InfoSection() {
   const { profile } = InfoSidebarStore();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      const element = textareaRef.current;
+      element.style.height = 'inherit';
+      element.style.height = `${element.scrollHeight}px`;
+    }
+  }, [profile.infoDescription]);
 
   return (
     <div className="flex flex-row justify-between bg-white mt-10 rounded-3xl p-10">
@@ -41,9 +50,13 @@ export default function InfoSection() {
             <InfoTagList key={index} data={tag} />
           ))}
         </div>
-        <div className="w-[600px] h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151]">
-          {profile.infoDescription}
-        </div>
+        <textarea
+          ref={textareaRef}
+          className="w-[600px] h-[200px] min-h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
+          value={profile.infoDescription}
+          readOnly={true}
+          style={{ pointerEvents: 'none' }}
+        />
       </div>
     </div>
   );

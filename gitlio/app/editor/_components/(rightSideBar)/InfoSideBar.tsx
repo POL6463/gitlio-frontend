@@ -95,7 +95,7 @@ export default function InfoSideBar() {
         placeholder="Tags"
         className="input-md w-full bg-white rounded-xl border border-gray-300"
       />
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-5">
         {profile.tagList.map((tag, index) => (
           <SideBarInfoTagList
             key={index}
@@ -113,7 +113,7 @@ export default function InfoSideBar() {
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"
-        className="input-md w-full h-[238px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
+        className="input-md w-full h-[160px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
         style={{ paddingTop: '0.5rem' }}
       ></textarea>
       <div className="flex justify-around mt-10 w-full">

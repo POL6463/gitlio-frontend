@@ -52,7 +52,7 @@ export default function InfoSection() {
         </div>
         <textarea
           ref={textareaRef}
-          className="w-[600px] h-[200px] min-h-[200px] text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
+          className="w-[600px] h-[160px] min-h-[180px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
           value={profile.infoDescription}
           readOnly={true}
           style={{ pointerEvents: 'none' }}

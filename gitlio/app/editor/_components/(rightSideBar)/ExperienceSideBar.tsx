@@ -1,11 +1,11 @@
 'use client';
 import { FaRegSquarePlus } from 'react-icons/fa6';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import expSidebarStore from '@/store/experienceSidebarStore';
+import experienceSectionStore from '@/store/experienceSectionStore';
 import ExperienceInput from '@/app/editor/_components/(rightSideBar)/ExperienceInput';
 
 export default function ExperienceSideBar() {
-  const { sections, addSection } = expSidebarStore();
+  const { sections, addSection } = experienceSectionStore();
   return (
     <div className="flex flex-col w-96">
       <div className="flex w-96 flex-row justify-start items-center mb-6">

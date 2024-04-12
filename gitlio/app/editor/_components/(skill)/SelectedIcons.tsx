@@ -1,25 +1,43 @@
 import React from 'react';
-import { icons } from './icons';
 import { useSidebarIconsStore } from '@/store/sidebarIconsStore';
+import DraggableIcon from './DraggableIcon';
+import { DragOverlay } from '@dnd-kit/core';
 
-const SelectedIcons = () => {
-  const { sidebarIcons } = useSidebarIconsStore();
+const SelectedIcons: React.FC = () => {
+  const { dropAreas, activeId } = useSidebarIconsStore();
+
+  // Find the default sidebar area specifically
+  const defaultSidebarArea = dropAreas.find(
+    (area) => area.id === 'default-sidebar'
+  );
+
+  // Find the icon that is currently active across all drop areas, if it belongs to the default-sidebar
+  const activeIcon = defaultSidebarArea?.icons.find(
+    (icon) => icon.id === activeId
+  );
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4">
-      {sidebarIcons.map((icon, index) => {
-        const IconComponent = icon.logo;
-        return (
-          <div
-            key={index}
-            className="p-2 text-md font-semibold flex justify-center items-center bg-gray-200 rounded-lg"
-          >
-            <IconComponent />
-            <span className="ml-2">{icon.label}</span>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="flex flex-wrap justify-center items-center gap-4">
+        {defaultSidebarArea?.icons.map((icon) => (
+          <DraggableIcon
+            key={icon.id}
+            id={icon.id}
+            IconComponent={icon.logo}
+            label={icon.label}
+          />
+        ))}
+      </div>
+      <DragOverlay>
+        {activeIcon && (
+          <DraggableIcon
+            id={activeIcon.id}
+            IconComponent={activeIcon.logo}
+            label={activeIcon.label}
+          />
+        )}
+      </DragOverlay>
+    </>
   );
 };
 

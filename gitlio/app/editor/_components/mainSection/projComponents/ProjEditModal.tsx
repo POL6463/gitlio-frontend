@@ -21,7 +21,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const sidebarData = data.map((d) => ({
-    url: d.url || '기본값', // undefined일 경우 기본값 설정
+    url: d.url || '', // undefined일 경우 기본값 설정
     title: d.title,
   }));
 
@@ -109,6 +109,20 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 onChange={(e) => handleChange('intro', e.target.value)}
                 className="textarea textarea-bordered w-full mb-4"
                 placeholder="Intro"
+              />
+              <input
+                type="text"
+                value={editedData.url ?? ''}
+                onChange={(e) => handleChange('url', e.target.value)}
+                className="input input-bordered w-full mb-4"
+                placeholder="URL (optional)"
+              />
+              <input
+                type="text"
+                value={editedData.serviceUrl ?? ''}
+                onChange={(e) => handleChange('serviceUrl', e.target.value)}
+                className="input input-bordered w-full mb-4"
+                placeholder="Service URL (optional)"
               />
               <div className="btn mb-3" onClick={() => setModalIsOpen(true)}>
                 이미지 편집

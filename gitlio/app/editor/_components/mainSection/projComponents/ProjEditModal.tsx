@@ -29,8 +29,17 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
     if (editedData) {
-      updateProject(editedData); // Update the project in the global state
+      updateProject(editedData);
+      onSave([...projects]);
       onClose();
+    }
+  };
+
+  const handleDeleteSentence = (index: number) => {
+    if (editedData && editedData.sentences) {
+      const newSentences = [...editedData.sentences];
+      newSentences.splice(index, 1);
+      setEditedData({ ...editedData, sentences: newSentences });
     }
   };
 
@@ -47,8 +56,12 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   };
 
   // editedData 상태를 업데이트합니다.
-  const handleChange = <T extends keyof Data>(field: T, value: Data[T]) => {
-    if (editedData) {
+  const handleChange = (field: keyof Data, value: any, index?: number) => {
+    if (field === 'sentences' && editedData && typeof index === 'number') {
+      const newSentences = [...editedData.sentences];
+      newSentences[index] = value;
+      setEditedData({ ...editedData, [field]: newSentences });
+    } else if (editedData) {
       setEditedData({ ...editedData, [field]: value });
     }
   };
@@ -120,18 +133,22 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 </div>
               </div>
               {editedData.sentences.map((sentence, index) => (
-                <div key={index} className="mb-4">
+                <div key={index} className="mb-4 flex">
                   <input
                     type="text"
                     value={sentence}
-                    onChange={(e) => {
-                      const newSentences = [...editedData.sentences];
-                      newSentences[index] = e.target.value;
-                      handleChange('sentences', newSentences);
-                    }}
-                    className="input input-bordered w-full mb-2"
+                    onChange={(e) =>
+                      handleChange('sentences', e.target.value, index)
+                    }
+                    className="input input-bordered w-full mb-2 mr-2"
                     placeholder="Sentence"
                   />
+                  <button
+                    onClick={() => handleDeleteSentence(index)}
+                    className="btn btn-error btn-xs"
+                  >
+                    삭제
+                  </button>
                 </div>
               ))}
               <button
@@ -140,11 +157,11 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 }
                 className="btn btn-primary mb-4"
               >
-                Add Sentence
+                문장 추가
               </button>
               <div className="modal-action">
                 <button onClick={handleSave} className="btn">
-                  Save Changes
+                  저장
                 </button>
               </div>
             </div>

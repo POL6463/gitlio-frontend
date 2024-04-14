@@ -20,7 +20,7 @@ function ProjBox({ data }: { data: Data }) {
   };
 
   return (
-    <div className="flex border border-gray-300 shadow-lg rounded-lg p-4 m-8 w-[800px] relative">
+    <div className="flex border border-gray-300 shadow-lg rounded-lg p-4 m-8 w-[700px] relative">
       <div className="flex-none relative w-2/5 h-80 bg-gray-200 rounded-lg">
         <img
           src={data.images[currentImageIndex]}

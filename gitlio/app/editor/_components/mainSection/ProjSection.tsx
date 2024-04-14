@@ -21,6 +21,7 @@ const sampleData: Data[] = [
       '이미지(url)를 클립보드에 저장하고 drag&drop, download 등으로 활용',
       '새로 url을 넣으면 정해진 갯수를 넘어가는 데이터는 Queue 형식으로 자동 삭제 ',
     ],
+    serviceUrl: 'https://example.com/api',
   },
   {
     url: 'https://github.com/SV-Summer-BootCamp-Team-F',
@@ -37,6 +38,7 @@ const sampleData: Data[] = [
       'D3.js의 zoom 이벤트 핸들러에 transform 속성을 사용하고, 내부에 그래프 렌더링을 통해 복잡한 Network 그래프 구현',
       '프론트엔드 개발 효율을 높이기 위해 퍼블리싱 이후 MSW를 이용한 API Mocking',
     ],
+    serviceUrl: 'https://example.com/api',
   },
   {
     url: 'https://github.com/Fashion-Cloud',
@@ -56,6 +58,7 @@ const sampleData: Data[] = [
       '조회수 기능에 Look Aside + Write back 캐싱 적용',
       'key구성 변경, 단위 분리하기',
     ],
+    serviceUrl: 'https://example.com/api',
   },
   {
     url: 'https://github.com/AI-ary',
@@ -76,6 +79,7 @@ const sampleData: Data[] = [
       'Flask를 이용하여 Dall-E3와 KoNLPy컨트롤러 구현',
       'Nginx를 통해 정적 파일 서빙 및 프록시 설정을 통해 서버와 클라이언트 연결 관리',
     ],
+    serviceUrl: 'https://example.com/api',
   },
   {
     url: 'https://github.com/2023-Summer-Bootcamp-Team-K',
@@ -94,6 +98,7 @@ const sampleData: Data[] = [
       'Flask를 이용하여 Dall-E3와 KoNLPy컨트롤러 구현',
       'Nginx를 통해 정적 파일 서빙 및 프록시 설정을 통해 서버와 클라이언트 연결 관리',
     ],
+    serviceUrl: 'https://example.com/api',
   },
   {
     url: 'https://github.com/2023-Winter-Bootcamp-TeamH',
@@ -110,8 +115,17 @@ const sampleData: Data[] = [
       '사용자가 많이 호출하는 API에 의해 서버 과부하가 발생했고, 서버 부하와 응답시간을 줄이기 위해 Redis를 이용하여 Caching',
       '사용자가 제공하는 이미지로 상품 인식 후 pandas를 사용하여 AI 분석 결과를 반환하는 API',
     ],
+    serviceUrl: 'https://example.com/api',
   },
 ];
+
+function transformDataToProjects(dataArray: Data[]) {
+  return dataArray.map((data) => ({
+    ...data,
+    url: data.url || '', // `undefined`일 경우 빈 문자열로 대체
+    serviceUrl: data.serviceUrl || '', // 마찬가지로 빈 문자열로 대체
+  }));
+}
 
 export default function ProjSection() {
   const { projects, setProjects } = useProjectsStore();
@@ -121,7 +135,8 @@ export default function ProjSection() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
 
   React.useEffect(() => {
-    setProjects(sampleData); // 초기 프로젝트 데이터 로드
+    const projectData = transformDataToProjects(sampleData);
+    setProjects(projectData);
   }, [setProjects]);
 
   const handleToggleModal = () => {

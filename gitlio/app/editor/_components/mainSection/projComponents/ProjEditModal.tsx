@@ -20,6 +20,11 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   const [editedData, setEditedData] = useState<Data | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
+  const sidebarData = data.map((d) => ({
+    url: d.url || '기본값', // undefined일 경우 기본값 설정
+    title: d.title,
+  }));
+
   // 선택된 프로젝트 데이터를 찾아서 editedData 상태를 설정합니다.
   useEffect(() => {
     const project = projects.find((p) => p.url === selectedUrl);
@@ -29,7 +34,8 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
     if (editedData) {
-      updateProject(editedData);
+      const updatedData = { ...editedData, url: editedData.url || '' };
+      updateProject(updatedData);
       onSave([...projects]);
       onClose();
     }
@@ -79,10 +85,10 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
         </form>
         <div className="flex">
           <EditModalSidebar
-            data={data.map((d) => ({ url: d.url, title: d.title }))}
+            data={sidebarData}
             onSelectUrl={setSelectedUrl}
             savedUrls={data.reduce(
-              (acc, curr) => ({ ...acc, [curr.url]: true }),
+              (acc, curr) => ({ ...acc, [curr.url as string]: true }),
               {}
             )}
           />
@@ -133,7 +139,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 </div>
               </div>
               {editedData.sentences.map((sentence, index) => (
-                <div key={index} className="mb-4 flex">
+                <div key={index} className="mb-4 flex items-center">
                   <input
                     type="text"
                     value={sentence}
@@ -145,9 +151,9 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                   />
                   <button
                     onClick={() => handleDeleteSentence(index)}
-                    className="btn btn-error btn-xs"
+                    className="btn btn-error btn-xs mb-2"
                   >
-                    삭제
+                    X
                   </button>
                 </div>
               ))}
@@ -155,7 +161,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 onClick={() =>
                   handleChange('sentences', [...editedData.sentences, ''])
                 }
-                className="btn btn-primary mb-4"
+                className="btn btn-info mb-4"
               >
                 문장 추가
               </button>

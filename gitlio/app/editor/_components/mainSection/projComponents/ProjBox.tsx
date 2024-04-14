@@ -55,12 +55,17 @@ function ProjBox({ data }: { data: Data }) {
             </ul>
           </div>
         </div>
-        <Link href={data.url}>
+        <Link href={data.url || '#'}>
           <div className="btn self-end inline-flex items-center">
             <FaGithub className="w-6 h-6" />
             <p className="text-sm ml-2">자세히 보러가기</p>
           </div>
         </Link>
+        {data.serviceUrl && ( // serviceUrl이 존재하는 경우에만 렌더링
+          <Link href={data.serviceUrl}>
+            <div>Service Link</div>
+          </Link>
+        )}
       </div>
     </div>
   );

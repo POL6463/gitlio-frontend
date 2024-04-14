@@ -82,7 +82,7 @@ export default function InfoSideBar() {
         onChange={handleTitleChange}
         onKeyUp={handleTitleKeyUp}
         placeholder="Title"
-        className="input-md w-full bg-white rounded-xl border border-gray-300"
+        className="input-md w-full bg-neutral-200 rounded-xl"
       />
       <div className="flex flex-row justify-start w-full mt-10">
         <span>HashTag</span>
@@ -93,7 +93,7 @@ export default function InfoSideBar() {
         onChange={handleTagInputChange} // 입력 값이 변경될 때마다 tagInput 상태를 업데이트
         onKeyUp={handleAddTag}
         placeholder="Tags"
-        className="input-md w-full bg-white rounded-xl border border-gray-300"
+        className="input-md w-full bg-neutral-200 rounded-xl"
       />
       <div className="flex flex-wrap gap-2 mt-5">
         {profile.tagList.map((tag, index) => (
@@ -113,7 +113,7 @@ export default function InfoSideBar() {
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"
-        className="input-md w-full h-[160px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
+        className="input-md w-full h-[160px] bg-neutral-200 rounded-xl resize-none overflow-hidden"
         style={{ paddingTop: '0.5rem' }}
       ></textarea>
       <div className="flex justify-around mt-10 w-full">

@@ -17,7 +17,7 @@ export default function InfoSection() {
   }, [profile.infoDescription]);
 
   return (
-    <div className="flex flex-row justify-between bg-white mt-10 rounded-3xl p-10">
+    <div className="flex flex-row w-[800px] justify-between bg-white mt-10 rounded-3xl p-10">
       <div className="flex flex-col items-center h-full mr-10">
         <h1 className="text-3xl font-semibold ml-10 mr-5">#Introduction</h1>
         <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center rounded-full flex items-center justify-center">
@@ -52,7 +52,7 @@ export default function InfoSection() {
         </div>
         <textarea
           ref={textareaRef}
-          className="w-[600px] h-[160px] min-h-[180px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
+          className="w-[400px] h-[160px] min-h-[180px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
           value={profile.infoDescription}
           readOnly={true}
           style={{ pointerEvents: 'none' }}

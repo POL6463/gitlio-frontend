@@ -22,15 +22,16 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
   const [uploadedImages, setUploadedImages] = useState<{
     [key: string]: string[];
   }>({});
+  const [displayImages, setDisplayImages] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!selectedImages[currentUrl]) {
-      setSelectedImages((prev) => ({ ...prev, [currentUrl]: [] }));
-    }
-    if (!uploadedImages[currentUrl]) {
-      setUploadedImages((prev) => ({ ...prev, [currentUrl]: [] }));
-    }
-  }, [currentUrl, selectedImages, uploadedImages]);
+    // 현재 URL에 대한 이미지 목록 초기화 및 중복 제거 로직
+    const allImages = new Set([
+      ...(images[currentUrl] || []),
+      ...(uploadedImages[currentUrl] || []),
+    ]);
+    setDisplayImages(Array.from(allImages));
+  }, [currentUrl, images, uploadedImages]);
 
   // 이미지 선택/해제 토글 로직
   const toggleImageSelection = (image: string) => {
@@ -53,11 +54,15 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
       const fileReader = new FileReader();
       fileReader.onload = (e: ProgressEvent<FileReader>) => {
         const imageSrc = e.target?.result as string;
-        // currentUrl을 기반으로 업로드된 이미지를 저장합니다.
-        setUploadedImages((prev) => ({
-          ...prev,
-          [currentUrl]: [...(prev[currentUrl] || []), imageSrc],
-        }));
+        // 업로드된 이미지 목록에 추가
+        const newUploadedImages = [
+          ...(uploadedImages[currentUrl] || []),
+          imageSrc,
+        ];
+        setUploadedImages({
+          ...uploadedImages,
+          [currentUrl]: Array.from(new Set(newUploadedImages)),
+        });
       };
       fileReader.readAsDataURL(event.target.files[0]);
     }
@@ -65,17 +70,11 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
 
   // 선택 완료 시 호출
   const handleSelectionComplete = () => {
-    // 수정: 업로드된 이미지 중에서 선택된 이미지만 포함시키기
-    const updatedSelectedImages = {
+    // 선택 완료 시, 선택된 이미지 목록 전달
+    onSelect({
       ...selectedImages,
-      [currentUrl]: (selectedImages[currentUrl] || []).filter(
-        (image) =>
-          uploadedImages[currentUrl]?.includes(image) ||
-          images[currentUrl]?.includes(image)
-      ), // 업로드된 이미지 중 선택된 이미지와 기존 이미지 중 선택된 이미지만 포함
-    };
-
-    onSelect(updatedSelectedImages);
+      [currentUrl]: selectedImages[currentUrl] || [],
+    });
     onClose();
   };
 
@@ -106,28 +105,26 @@ const ImgSelectModal: React.FC<ImageSelectionModalProps> = ({
           className="grid grid-cols-3 gap-4 overflow-auto mb-4"
           style={{ maxHeight: '300px', padding: '10px' }}
         >
-          {(images[currentUrl] || [])
-            .concat(uploadedImages[currentUrl] || [])
-            .map((image, index) => (
-              <div
-                key={index}
-                className={`relative ${selectedImages[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
-                style={{ margin: '5px' }}
-              >
-                <img
-                  src={image}
-                  alt={`Preview ${index + 1}`}
-                  className="cursor-pointer"
-                  style={{ maxWidth: '100%', maxHeight: '100%' }}
-                  onClick={() => toggleImageSelection(image)}
-                />
-                {selectedImages[currentUrl]?.includes(image) && (
-                  <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                    {selectedImages[currentUrl].indexOf(image) + 1}
-                  </div>
-                )}
-              </div>
-            ))}
+          {displayImages.map((image, index) => (
+            <div
+              key={index}
+              className={`relative ${selectedImages[currentUrl]?.includes(image) ? 'ring-4 ring-blue-500' : ''}`}
+              style={{ margin: '5px' }}
+            >
+              <img
+                src={image}
+                alt={`Preview ${index + 1}`}
+                className="cursor-pointer"
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
+                onClick={() => toggleImageSelection(image)}
+              />
+              {selectedImages[currentUrl]?.includes(image) && (
+                <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+                  {selectedImages[currentUrl].indexOf(image) + 1}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
         <div>
           <button onClick={handleSelectionComplete} className="btn">

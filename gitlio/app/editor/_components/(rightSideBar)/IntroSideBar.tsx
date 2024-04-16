@@ -1,19 +1,19 @@
 'use client';
 import React, { useState } from 'react';
-import InfoSidebarStore from '@/store/infoSidebarStore';
-import InfoTagList from '../mainSection/infoComponents/InfoTagList';
-import SideBarInfoTagList from './SideBarInfoTagList';
+import IntroSidebarStore from '@/store/introSidebarStore';
+import IntroTagList from '../mainSection/introComponents/IntroTagList';
+import SideBarIntroTagList from './SideBarIntroTagList';
 
-export default function InfoSideBar() {
+export default function IntroSideBar() {
   const [tagInput, setTagInput] = useState(''); // 태그 입력을 위한 새로운 상태
 
   const {
     profile,
     setProfileTitle,
     setProfileImage,
-    setInfoDescription,
+    setIntroDescription,
     setTagList,
-  } = InfoSidebarStore();
+  } = IntroSidebarStore();
 
   const handleTitleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -33,7 +33,7 @@ export default function InfoSideBar() {
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfoDescription(e.target.value);
+    setIntroDescription(e.target.value);
   };
 
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +97,7 @@ export default function InfoSideBar() {
       />
       <div className="flex flex-wrap gap-2 mt-5">
         {profile.tagList.map((tag, index) => (
-          <SideBarInfoTagList
+          <SideBarIntroTagList
             key={index}
             data={tag}
             onRemove={() => handleRemoveTag(index)}
@@ -109,7 +109,7 @@ export default function InfoSideBar() {
         <span>Description</span>
       </div>
       <textarea
-        value={profile.infoDescription}
+        value={profile.introDescription}
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"

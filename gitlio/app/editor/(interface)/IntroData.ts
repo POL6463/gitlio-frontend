@@ -1,4 +1,4 @@
-export interface infoData {
+export interface introData {
   title: string;
   profileImage: string;
   infoContent: string;

@@ -1,14 +1,14 @@
 import React from 'react';
 
-interface SideBarInfoTagProps {
+interface SideBarIntroTagProps {
   data: string;
   onRemove: () => void;
 }
 
-export default function SideBarInfoTagList({
+export default function SideBarIntroTagList({
   data,
   onRemove,
-}: SideBarInfoTagProps) {
+}: SideBarIntroTagProps) {
   return data ? (
     <div className="badge badge-outline flex items-center justify-between font-semibold mr-2 px-2 py-2 bg-white rounded-lg border border-gray-300">
       <span>{data}</span>

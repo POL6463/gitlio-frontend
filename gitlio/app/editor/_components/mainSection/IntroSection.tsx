@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import InfoSidebarStore from '@/store/infoSidebarStore';
-import InfoTagList from './infoComponents/InfoTagList';
+import IntroSidebarStore from '@/store/introSidebarStore';
+import IntroTagList from './introComponents/IntroTagList';
 
-export default function InfoSection() {
-  const { profile } = InfoSidebarStore();
+export default function IntroSection() {
+  const { profile } = IntroSidebarStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function InfoSection() {
       element.style.height = 'inherit';
       element.style.height = `${element.scrollHeight}px`;
     }
-  }, [profile.infoDescription]);
+  }, [profile.introDescription]);
 
   return (
     <div className="flex flex-row w-[800px] justify-between bg-white mt-10 rounded-3xl p-10">
@@ -47,13 +47,13 @@ export default function InfoSection() {
 
         <div className="flex flex-row justify-start w-full mt-5">
           {profile.tagList?.map((tag, index) => (
-            <InfoTagList key={index} data={tag} />
+            <IntroTagList key={index} data={tag} />
           ))}
         </div>
         <textarea
           ref={textareaRef}
           className="w-[400px] h-[160px] min-h-[180px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
-          value={profile.infoDescription}
+          value={profile.introDescription}
           readOnly={true}
           style={{ pointerEvents: 'none' }}
         />

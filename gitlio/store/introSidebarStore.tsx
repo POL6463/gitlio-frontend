@@ -4,7 +4,7 @@ import { create } from 'zustand';
 interface ProfileState {
   title: string;
   profileImage: string;
-  infoDescription: string;
+  introDescription: string;
   tagList: string[];
 }
 
@@ -12,7 +12,7 @@ interface ProfileStore {
   profile: ProfileState;
   setProfileTitle: (title: string) => void;
   setProfileImage: (profileImage: string) => void;
-  setInfoDescription: (infoDescription: string) => void;
+  setIntroDescription: (introDescription: string) => void;
   setTagList: (tagList: string[]) => void;
 }
 
@@ -32,12 +32,12 @@ const loadProfileFromLocalStorage = (): ProfileState => {
   return {
     title: '',
     profileImage: '',
-    infoDescription: '',
+    introDescription: '',
     tagList: [],
   };
 };
 
-const InfoSidebarStore = create<ProfileStore>((set, get) => ({
+const IntroSidebarStore = create<ProfileStore>((set, get) => ({
   profile: loadProfileFromLocalStorage(),
 
   setProfileTitle: (title) => {
@@ -48,8 +48,8 @@ const InfoSidebarStore = create<ProfileStore>((set, get) => ({
     set((state) => ({ profile: { ...state.profile, profileImage } }));
   },
 
-  setInfoDescription: (infoDescription) => {
-    set((state) => ({ profile: { ...state.profile, infoDescription } }));
+  setIntroDescription: (introDescription) => {
+    set((state) => ({ profile: { ...state.profile, introDescription } }));
   },
 
   setTagList: (tagList) => {
@@ -58,7 +58,7 @@ const InfoSidebarStore = create<ProfileStore>((set, get) => ({
 }));
 
 // 스토어의 구독을 통해 상태가 변경될 때마다 localStorage에 저장합니다.
-InfoSidebarStore.subscribe((state) => {
+IntroSidebarStore.subscribe((state) => {
   try {
     localStorage.setItem(localStorageKey, JSON.stringify(state.profile));
   } catch (error) {
@@ -66,4 +66,4 @@ InfoSidebarStore.subscribe((state) => {
   }
 });
 
-export default InfoSidebarStore;
+export default IntroSidebarStore;

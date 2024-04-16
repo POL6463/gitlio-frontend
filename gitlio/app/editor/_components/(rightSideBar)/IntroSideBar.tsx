@@ -82,7 +82,7 @@ export default function IntroSideBar() {
         onChange={handleTitleChange}
         onKeyUp={handleTitleKeyUp}
         placeholder="Title"
-        className="input-md w-full bg-neutral-200 rounded-xl"
+        className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <div className="flex flex-row justify-start w-full mt-10">
         <span>HashTag</span>
@@ -93,7 +93,7 @@ export default function IntroSideBar() {
         onChange={handleTagInputChange} // 입력 값이 변경될 때마다 tagInput 상태를 업데이트
         onKeyUp={handleAddTag}
         placeholder="Tags"
-        className="input-md w-full bg-neutral-200 rounded-xl"
+        className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <div className="flex flex-wrap gap-2 mt-5">
         {profile.tagList.map((tag, index) => (
@@ -104,7 +104,6 @@ export default function IntroSideBar() {
           />
         ))}
       </div>
-      <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
       <div className="flex flex-row justify-start w-full mt-5">
         <span>Description</span>
       </div>
@@ -113,7 +112,7 @@ export default function IntroSideBar() {
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"
-        className="input-md w-full h-[160px] bg-neutral-200 rounded-xl resize-none overflow-hidden"
+        className="input-md w-full h-[160px] bg-neutral-200 rounded-xl resize-none overflow-hidden mt-2"
         style={{ paddingTop: '0.5rem' }}
       ></textarea>
       <div className="flex justify-around mt-10 w-full">

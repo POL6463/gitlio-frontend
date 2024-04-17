@@ -19,7 +19,7 @@ export default function IntroSection() {
   return (
     <div className="flex flex-row w-[800px] justify-between bg-white mt-10 rounded-3xl p-10">
       <div className="flex flex-col items-center h-full mr-15">
-        <h1 className="text-3xl font-semibold ml-10 mr-5">#Introduction</h1>
+        <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
         <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center rounded-full flex items-center justify-center">
           {profile.profileImage ? (
             <img

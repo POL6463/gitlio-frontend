@@ -28,15 +28,6 @@ const SelectedIcons: React.FC = () => {
           />
         ))}
       </div>
-      <DragOverlay>
-        {activeIcon && (
-          <DraggableIcon
-            id={activeIcon.id}
-            IconComponent={activeIcon.logo}
-            label={activeIcon.label}
-          />
-        )}
-      </DragOverlay>
     </>
   );
 };

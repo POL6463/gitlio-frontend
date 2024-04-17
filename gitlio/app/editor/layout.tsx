@@ -1,11 +1,13 @@
 // EditorLayout.tsx
 'use client';
 import React from 'react';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { useDragDrop } from '@/hooks/useDragDrop';
 import TopBar from '@/app/editor/_components/TopBar';
 import LeftSidebar from '@/app/editor/_components/LeftSidebar';
 import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
+import DraggableIcon from '@/app/editor/_components/(skill)/DraggableIcon';
+import GlobalDragOverlay from '@/app/editor/_components/(skill)/DragOverlay';
 
 const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -32,6 +34,7 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
           </div>
         </div>
       </div>
+      <GlobalDragOverlay />
     </DndContext>
   );
 };

@@ -20,11 +20,7 @@ export interface SidebarIconsState {
   addDropArea: (id?: string) => void; // Optional id parameter for dynamic creation
   addIconToDefaultArea: (icon: IconBlock) => void;
   removeDropArea: (areaId: string) => void;
-  moveIcon: (
-    iconId: string,
-    sourceAreaId: string,
-    targetAreaId: string
-  ) => void;
+  moveIcon: (iconId: string, targetAreaId: string) => void;
 }
 
 export const useSidebarIconsStore = create<SidebarIconsState>((set) => ({

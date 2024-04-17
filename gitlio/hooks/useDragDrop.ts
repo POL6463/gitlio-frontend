@@ -25,6 +25,7 @@ export const useDragDrop = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+    if (!active || !over) return;
     console.log('Drag ended, active ID:', active.id, 'over ID:', over?.id);
 
     const currentIcon = useSidebarIconsStore
@@ -40,7 +41,7 @@ export const useDragDrop = () => {
     );
 
     // Ensure the icon is moved only if dropped on a different area
-    if (over.id !== currentAreaId) {
+    if (over?.id !== currentAreaId) {
       moveIcon(active.id, over.id);
     }
 

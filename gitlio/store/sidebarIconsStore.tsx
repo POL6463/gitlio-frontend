@@ -11,39 +11,60 @@ export interface IconBlock {
 export interface DropArea {
   id: string;
   icons: IconBlock[];
+  title: string;
 }
 
 export interface SidebarIconsState {
   dropAreas: DropArea[];
   activeId: string | null; // 현재 드래그 중인 아이콘의 ID
   setActiveId: (id: string | null) => void; // activeId를 설정하는 액션
-  addDropArea: (id?: string) => void; // Optional id parameter for dynamic creation
+  addDropArea: () => void; // Optional id parameter for dynamic creation
   addIconToDefaultArea: (icon: IconBlock) => void;
-  removeDropArea: (areaId: string) => void;
+  removeDropArea: () => void;
   moveIcon: (iconId: string, targetAreaId: string) => void;
+  setTitle: (areaId: string, newTitle: string) => void; // 제목을 변경하는 함수 추가
 }
 
 export const useSidebarIconsStore = create<SidebarIconsState>((set) => ({
   dropAreas: [
-    { id: 'default-sidebar', icons: [] }, // 기본 드롭 영역 설정
-    { id: 'skill-section', icons: [] }, // Main area
+    { id: 'default-sidebar', icons: [], title: 'default-sidebar' }, // 기본 드롭 영역 설정
   ],
   activeId: null, // 초기 activeId 값은 null
 
   setActiveId: (id) => set({ activeId: id }),
 
   addDropArea: () =>
-    set((state) => ({
-      dropAreas: [
-        ...state.dropAreas,
-        { id: `area-${state.dropAreas.length}`, icons: [] },
-      ],
-    })),
+    set((state) => {
+      const newId = `area-${state.dropAreas.length + 1}`;
+      const newTitle = ''; // 새로운 제목 생성
+      return {
+        dropAreas: [
+          ...state.dropAreas,
+          { id: newId, icons: [], title: newTitle },
+        ],
+      };
+    }),
 
-  removeDropArea: (areaId) =>
-    set((state) => ({
-      dropAreas: state.dropAreas.filter((area) => area.id !== areaId),
-    })),
+  removeDropArea: () =>
+    set((state) => {
+      if (state.dropAreas.length > 1) {
+        // Ensures that the initial two areas cannot be removed
+        const updatedAreas = state.dropAreas.slice(0, -1); // Remove the last area
+        return { dropAreas: updatedAreas };
+      }
+      return { dropAreas: state.dropAreas }; // Return the state unchanged if the condition is not met
+    }),
+
+  setTitle: (areaId, newTitle) =>
+    set((state) => {
+      const updatedAreas = state.dropAreas.map((area) => {
+        if (area.id === areaId) {
+          return { ...area, title: newTitle };
+        }
+        return area;
+      });
+      return { dropAreas: updatedAreas };
+    }),
 
   moveIcon: (iconId, targetAreaId) =>
     set((state) => {

@@ -4,16 +4,19 @@ import { useProjectsStore } from '@/store/projectStore';
 import EditModalSidebar from './EditModalSidebar';
 import ImgSelectModal from './ImgSelectModal';
 import { Data } from '@/app/editor/(interface)/ProjectData';
+
 interface ProjEditModalProps {
   onClose: () => void;
   data: Data[];
   onSave: (newData: Data[]) => void;
+  isAddingNewProject?: boolean;
 }
 
 const ProjEditModal: React.FC<ProjEditModalProps> = ({
   onClose,
   data,
   onSave,
+  isAddingNewProject = false,
 }) => {
   const { projects, updateProject } = useProjectsStore();
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
@@ -25,17 +28,21 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
     title: d.title,
   }));
 
-  // 선택된 프로젝트 데이터를 찾아서 editedData 상태를 설정합니다.
   useEffect(() => {
-    const project = projects.find((p) => p.url === selectedUrl);
-    setEditedData(project ?? null);
-  }, [selectedUrl, projects]);
+    if (!isAddingNewProject) {
+      const project = projects.find((p) => p.url === selectedUrl);
+      setEditedData(project ?? null);
+    }
+  }, [selectedUrl, projects, isAddingNewProject]);
 
-  // 편집된 데이터를 onSave 함수를 통해 저장합니다.
   const handleSave = () => {
     if (editedData) {
       const updatedData = { ...editedData, url: editedData.url || '' };
-      updateProject(updatedData);
+      if (isAddingNewProject) {
+        projects.push(updatedData); // 새 프로젝트를 배열에 추가
+      } else {
+        updateProject(updatedData);
+      }
       onSave([...projects]);
       onClose();
     }
@@ -52,16 +59,13 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   const handleImageSelect = (selectedImagesForUrl: {
     [url: string]: string[];
   }) => {
-    // 이미지 선택 로직 처리
     if (selectedUrl && editedData) {
-      // 선택된 URL의 이미지를 업데이트합니다.
       const updatedImages = selectedImagesForUrl[selectedUrl] || [];
       handleChange('images', updatedImages);
     }
     setModalIsOpen(false);
   };
 
-  // editedData 상태를 업데이트합니다.
   const handleChange = (field: keyof Data, value: any, index?: number) => {
     if (field === 'sentences' && editedData && typeof index === 'number') {
       const newSentences = [...editedData.sentences];
@@ -95,8 +99,13 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
           {editedData && (
             <div className="flex-grow p-4">
               <h3 className="font-bold text-lg mb-4">
-                프로젝트 편집: {editedData.title}
+                {isAddingNewProject
+                  ? '새 프로젝트 추가'
+                  : `프로젝트 편집: ${editedData.title}`}
               </h3>
+              <label className="block mb-1 text-gray-600 text-sm">
+                프로젝트 제목:
+              </label>
               <input
                 type="text"
                 value={editedData.title}
@@ -104,12 +113,18 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 className="input input-bordered w-full mb-4"
                 placeholder="Title"
               />
+              <label className="block mb-1 text-gray-600 text-sm">
+                프로젝트 소개:
+              </label>
               <textarea
                 value={editedData.intro}
                 onChange={(e) => handleChange('intro', e.target.value)}
                 className="textarea textarea-bordered w-full mb-4"
                 placeholder="Intro"
               />
+              <label className="block mb-1 text-gray-600 text-sm">
+                깃허브 URL:
+              </label>
               <input
                 type="text"
                 value={editedData.url ?? ''}
@@ -117,6 +132,9 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 className="input input-bordered w-full mb-4"
                 placeholder="URL (optional)"
               />
+              <label className="block mb-1 text-gray-600 text-sm">
+                서비스 URL:
+              </label>
               <input
                 type="text"
                 value={editedData.serviceUrl ?? ''}
@@ -136,7 +154,6 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 }}
                 currentUrl={selectedUrl || ''}
               />
-
               <div
                 className="overflow-x-auto mb-4"
                 style={{ maxWidth: '100%' }}
@@ -147,13 +164,16 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                       key={index}
                       src={image}
                       alt={`Project Image ${index}`}
-                      className="object-contain w-auto h-40" // 이미지 크기 조정
+                      className="object-contain w-auto h-40"
                     />
                   ))}
                 </div>
               </div>
+              <label className="block mb-1 text-gray-600 text-sm">
+                주요 개발 내용:
+              </label>
               {editedData.sentences.map((sentence, index) => (
-                <div key={index} className="mb-4 flex items-center">
+                <div key={index} className="mb-2 flex items-center">
                   <input
                     type="text"
                     value={sentence}
@@ -175,7 +195,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 onClick={() =>
                   handleChange('sentences', [...editedData.sentences, ''])
                 }
-                className="btn btn-info mb-4"
+                className="btn btn-info "
               >
                 문장 추가
               </button>

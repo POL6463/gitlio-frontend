@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useProjectsStore } from '@/store/projectStore';
 import EditModalSidebar from './EditModalSidebar';
 import ImgSelectModal from './ImgSelectModal';
+import ProjectEditForm from './projectForm/ProjectEditForm';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 
 interface ProjEditModalProps {
@@ -96,116 +97,17 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
               {}
             )}
           />
-          {editedData && (
-            <div className="flex-grow p-4">
-              <h3 className="font-bold text-lg mb-4">
-                {isAddingNewProject
-                  ? '새 프로젝트 추가'
-                  : `프로젝트 편집: ${editedData.title}`}
-              </h3>
-              <label className="block mb-1 text-gray-600 text-sm">
-                프로젝트 제목:
-              </label>
-              <input
-                type="text"
-                value={editedData.title}
-                onChange={(e) => handleChange('title', e.target.value)}
-                className="input input-bordered w-full mb-4"
-                placeholder="Title"
-              />
-              <label className="block mb-1 text-gray-600 text-sm">
-                프로젝트 소개:
-              </label>
-              <textarea
-                value={editedData.intro}
-                onChange={(e) => handleChange('intro', e.target.value)}
-                className="textarea textarea-bordered w-full mb-4"
-                placeholder="Intro"
-              />
-              <label className="block mb-1 text-gray-600 text-sm">
-                깃허브 URL:
-              </label>
-              <input
-                type="text"
-                value={editedData.url ?? ''}
-                onChange={(e) => handleChange('url', e.target.value)}
-                className="input input-bordered w-full mb-4"
-                placeholder="URL (optional)"
-              />
-              <label className="block mb-1 text-gray-600 text-sm">
-                서비스 URL:
-              </label>
-              <input
-                type="text"
-                value={editedData.serviceUrl ?? ''}
-                onChange={(e) => handleChange('serviceUrl', e.target.value)}
-                className="input input-bordered w-full mb-4"
-                placeholder="Service URL (optional)"
-              />
-              <div className="btn mb-3" onClick={() => setModalIsOpen(true)}>
-                이미지 편집
-              </div>
-              <ImgSelectModal
-                isOpen={modalIsOpen}
-                onClose={() => setModalIsOpen(false)}
-                onSelect={handleImageSelect}
-                images={{
-                  [selectedUrl || '']: editedData ? editedData.images : [],
-                }}
-                currentUrl={selectedUrl || ''}
-              />
-              <div
-                className="overflow-x-auto mb-4"
-                style={{ maxWidth: '100%' }}
-              >
-                <div className="flex space-x-2">
-                  {editedData.images.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`Project Image ${index}`}
-                      className="object-contain w-auto h-40"
-                    />
-                  ))}
-                </div>
-              </div>
-              <label className="block mb-1 text-gray-600 text-sm">
-                주요 개발 내용:
-              </label>
-              {editedData.sentences.map((sentence, index) => (
-                <div key={index} className="mb-2 flex items-center">
-                  <input
-                    type="text"
-                    value={sentence}
-                    onChange={(e) =>
-                      handleChange('sentences', e.target.value, index)
-                    }
-                    className="input input-bordered w-full mb-2 mr-2"
-                    placeholder="Sentence"
-                  />
-                  <button
-                    onClick={() => handleDeleteSentence(index)}
-                    className="btn btn-error btn-xs mb-2"
-                  >
-                    X
-                  </button>
-                </div>
-              ))}
-              <button
-                onClick={() =>
-                  handleChange('sentences', [...editedData.sentences, ''])
-                }
-                className="btn btn-info "
-              >
-                문장 추가
-              </button>
-              <div className="modal-action">
-                <button onClick={handleSave} className="btn">
-                  저장
-                </button>
-              </div>
-            </div>
-          )}
+          <ProjectEditForm
+            editedData={editedData}
+            onChange={handleChange}
+            onSave={handleSave}
+            onClose={onClose}
+            handleDeleteSentence={handleDeleteSentence}
+            handleImageSelect={handleImageSelect}
+            modalIsOpen={modalIsOpen}
+            setModalIsOpen={setModalIsOpen}
+            selectedUrl={selectedUrl}
+          />
         </div>
       </div>
     </dialog>

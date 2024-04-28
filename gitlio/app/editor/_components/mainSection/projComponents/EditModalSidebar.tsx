@@ -6,11 +6,13 @@ interface EditModalSidebarProps {
   data: { url: string; title: string }[];
   onSelectUrl: (url: string) => void;
   savedUrls: { [url: string]: boolean };
+  setProjectCreationType: (type: string) => void;
 }
 
 const EditModalSidebar: React.FC<EditModalSidebarProps> = ({
   onSelectUrl,
   savedUrls,
+  setProjectCreationType,
 }) => {
   const [repositoryUrls, setRepositoryUrls] = useState<string[]>([]);
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
@@ -25,11 +27,6 @@ const EditModalSidebar: React.FC<EditModalSidebarProps> = ({
   const handleSelectUrl = (url: string) => {
     onSelectUrl(url);
     setSelectedUrl(url); // 선택된 URL 상태 업데이트
-  };
-
-  const handleAddProject = (type: 'gpt' | 'manual') => {
-    console.log(`Project type selected: ${type}`);
-    // Here you would handle the actual project addition logic
   };
 
   return (
@@ -57,7 +54,7 @@ const EditModalSidebar: React.FC<EditModalSidebarProps> = ({
       <SelectNewProjModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        onAddProject={handleAddProject}
+        onAddProject={setProjectCreationType}
       />
     </div>
   );

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useProjectsStore } from '@/store/projectStore';
 import EditModalSidebar from './EditModalSidebar';
-import ImgSelectModal from './ImgSelectModal';
 import ProjectEditForm from './projectForm/ProjectEditForm';
+import ProjectAddForm from './projectForm/ProjectAddForm';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 
 interface ProjEditModalProps {
@@ -23,6 +23,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Data | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [projectCreationType, setProjectCreationType] = useState<string>('');
 
   const sidebarData = data.map((d) => ({
     url: d.url || '', // undefined일 경우 기본값 설정
@@ -30,6 +31,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   }));
 
   useEffect(() => {
+    console.log(`isAddingNewProject: ${isAddingNewProject}`);
     if (!isAddingNewProject) {
       const project = projects.find((p) => p.url === selectedUrl);
       setEditedData(project ?? null);
@@ -96,18 +98,29 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
               (acc, curr) => ({ ...acc, [curr.url as string]: true }),
               {}
             )}
+            setProjectCreationType={setProjectCreationType}
           />
-          <ProjectEditForm
-            editedData={editedData}
-            onChange={handleChange}
-            onSave={handleSave}
-            onClose={onClose}
-            handleDeleteSentence={handleDeleteSentence}
-            handleImageSelect={handleImageSelect}
-            modalIsOpen={modalIsOpen}
-            setModalIsOpen={setModalIsOpen}
-            selectedUrl={selectedUrl}
-          />
+          {projectCreationType === 'manual' ? (
+            <ProjectAddForm
+              onAdd={(newProject) => {
+                projects.push({ ...newProject, url: newProject.url || '' });
+                onSave([...projects]);
+              }}
+              onClose={onClose}
+            />
+          ) : (
+            <ProjectEditForm
+              editedData={editedData}
+              onChange={handleChange}
+              onSave={handleSave}
+              onClose={onClose}
+              handleDeleteSentence={handleDeleteSentence}
+              handleImageSelect={handleImageSelect}
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen}
+              selectedUrl={selectedUrl}
+            />
+          )}
         </div>
       </div>
     </dialog>

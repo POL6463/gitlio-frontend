@@ -1,5 +1,5 @@
 // store/projectsStore.js
-import create from 'zustand';
+import { create } from 'zustand';
 
 // 프로젝트 데이터 타입 정의
 interface Project {

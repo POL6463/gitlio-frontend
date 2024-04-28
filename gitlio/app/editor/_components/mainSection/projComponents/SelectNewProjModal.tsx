@@ -13,7 +13,6 @@ const SelectNewProjModal: React.FC<ProjectAddModalProps> = ({
   onAddProject,
 }) => {
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 bg-gray-400 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-5 rounded-lg shadow-lg">

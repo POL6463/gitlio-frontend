@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
+import { SiGithub, SiTistory, SiVelog } from 'react-icons/si';
 
 export default function ContactSideBar() {
   const {
@@ -28,7 +29,7 @@ export default function ContactSideBar() {
   };
 
   const handleVelogUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGithubUrl(e.target.value);
+    setVelogUrl(e.target.value);
   };
 
   return (
@@ -55,34 +56,37 @@ export default function ContactSideBar() {
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <hr className="w-full mt-10" />
-      <div className="flex flex-row justify-start w-full mt-5">
+      <div className="flex flex-row justify-start items-center w-full mt-5">
         <span>Github</span>
+        <SiGithub className="ml-2 text-xl mr-2 shrink-0" />
       </div>
       <input
         type="text"
         value={contactInfo.githubUrl}
         onChange={handleGithubUrlChange}
-        placeholder="블로그 주소"
+        placeholder="github 주소"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
-      <div className="flex flex-row justify-start w-full mt-5">
+      <div className="flex flex-row justify-start items-center w-full mt-5">
         <span>Tistory</span>
+        <SiTistory className="ml-2 text-lg text-orange-500 mr-2 shrink-0" />
       </div>
       <input
         type="text"
         value={contactInfo.tistoryUrl}
         onChange={handleTistoryUrlChange}
-        placeholder="블로그 주소"
+        placeholder="tistory 주소"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
-      <div className="flex flex-row justify-start w-full mt-5">
+      <div className="flex flex-row justify-start items-center w-full mt-5">
         <span>Velog</span>
+        <SiVelog className="ml-2 text-lg text-green-600 mr-2 shrink-0" />
       </div>
       <input
         type="text"
         value={contactInfo.velogUrl}
         onChange={handleVelogUrlChange}
-        placeholder="블로그 주소"
+        placeholder="velog 주소"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
     </div>

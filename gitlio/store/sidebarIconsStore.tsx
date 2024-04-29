@@ -3,7 +3,7 @@ import { IconType } from 'react-icons';
 
 export interface IconBlock {
   id: string;
-  logo: IconType;
+  logo?: IconType;
   label: string;
   areaId: string;
 }
@@ -101,7 +101,6 @@ export const useSidebarIconsStore = create<SidebarIconsState>((set) => ({
         (area) => area.id === 'default-sidebar'
       );
       if (defaultArea) {
-        icon.areaId = 'default-sidebar'; // Set the areaId to default
         defaultArea.icons.push(icon);
         console.log('icon.id: ', icon.id);
       }

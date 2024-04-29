@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Select, { SingleValue, GroupBase } from 'react-select';
 import { useSidebarIconsStore, IconBlock } from '@/store/sidebarIconsStore'; // Adjust the import path as needed.
-import { icons, IconOption } from '@/app/editor/_components/(skill)/icons'; // Adjust the import path as needed.
+import { icons, IconOption } from '@/app/editor/_components/(skill)/icons';
+import CreatableSelect from 'react-select/creatable'; // Adjust the import path as needed.
 
 // Prepare icon options from the icons object
 const iconOptions: IconOption[] = Object.keys(icons).map((iconName) => ({
@@ -19,11 +20,15 @@ const IconSelect: React.FC = () => {
   // Handle change events from the select input
   const handleChange = (newValue: SingleValue<IconOption>) => {
     if (newValue) {
-      // Create an IconBlock object with a unique id, the selected logo, and label
+      // Check if the icon exists, if not, set logo as undefined or an empty string
+      const logoExists = icons.hasOwnProperty(newValue.value);
       const iconBlock: IconBlock = {
         id: Math.random().toString(36).substring(2, 15), // More unique ID
-        logo: icons[newValue.value as keyof typeof icons],
+        logo: logoExists
+          ? icons[newValue.value as keyof typeof icons]
+          : undefined,
         label: newValue.value,
+        areaId: 'default-sidebar', // Default area ID
       };
       addIconToDefaultArea(iconBlock); // Add the icon to the specified area in the Zustand store
       setSelectedValue(null); // Reset the selected value
@@ -31,7 +36,7 @@ const IconSelect: React.FC = () => {
   };
 
   return (
-    <Select<IconOption, false, GroupBase<IconOption>>
+    <CreatableSelect<IconOption, false, GroupBase<IconOption>>
       options={iconOptions}
       value={selectedValue}
       onChange={handleChange}
@@ -40,7 +45,7 @@ const IconSelect: React.FC = () => {
       className="text-base w-64" // Apply Tailwind CSS classes
       classNamePrefix="react-select"
       isClearable
-      placeholder="Select an icon..."
+      placeholder="Select or create an icon..."
     />
   );
 };

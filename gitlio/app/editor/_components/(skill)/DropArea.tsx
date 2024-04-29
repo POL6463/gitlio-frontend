@@ -2,6 +2,7 @@ import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { useSidebarIconsStore } from '@/store/sidebarIconsStore';
 import DraggableIcon from './DraggableIcon';
+import { SortableContext } from '@dnd-kit/sortable';
 
 interface DropAreaProps {
   id: string;

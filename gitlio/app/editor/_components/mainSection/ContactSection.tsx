@@ -29,38 +29,33 @@ export default function ContactSection() {
             </div>
           )}
           <div className="w-full flex justify-evenly items-center">
-            <div className="flex justify-start w-[150px] items-center mb-2">
-              <MdEmail className="text-xl mr-2 shrink-0" />
-              <div className="text-sm font-semibold break-words max-w-[160px]">
-                {contactInfo.email}
+            <div className="flex flex-col justify-center">
+              <div className="flex justify-start w-auto items-center mb-2">
+                <MdEmail className="text-xl mr-2" />
+                <div className="break-words max-w-[180px]">
+                  {contactInfo.email}
+                </div>
+              </div>
+              <div className="flex justify-start w-auto items-center mb-2">
+                <SiGithub className="text-xl mr-2" />
+                <div className="break-words max-w-[180px]">
+                  {contactInfo.githubUrl}
+                </div>
               </div>
             </div>
-            <div className="flex justify-start w-[150px] items-center mb-2">
-              <SiTistory className="text-xl text-orange-500 mr-2 shrink-0" />
-              <div className="text-sm font-semibold break-words max-w-[160px]">
-                {contactInfo.tistoryUrl}
+            <div className="flex flex-col justify-center">
+              <div className="flex justify-between max-w-[267px] items-center mb-2">
+                {contactInfo.selectedBlog === 'Tistory' ? (
+                  <SiTistory className="text-lg text-orange-500 mr-2 shrink-0" />
+                ) : (
+                  <SiVelog className="text-lg text-green-600 mr-2 shrink-0" />
+                )}
+                <div className="break-words w-[245px] max-w-[250px]">
+                  {contactInfo.selectedBlogUrl}
+                </div>
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-evenly items-center">
-            <div className="flex justify-start w-[150px] items-center mb-2">
-              <SiGithub className="text-xl mr-2 shrink-0" />
-              <div className="text-sm font-semibold break-words max-w-[160px]">
-                {contactInfo.githubUrl}
-              </div>
-            </div>
-            <div className="flex justify-start w-[150px] items-center mb-2">
-              <SiVelog className="text-xl text-green-600 mr-2 shrink-0" />
-              <div className="text-sm font-semibold break-words max-w-[160px]">
-                {contactInfo.velogUrl}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-evenly items-center w-[700px] h-[100px] bg-gray-200 rounded-3xl mt-10">
-          <SiInstagram className="text-pink-600 text-3xl hover:text-pink-700 hover:scale-110 transition-transform cursor-pointer" />
-          <SiFacebook className="text-blue-600 text-3xl hover:text-blue-700 hover:scale-110 transition-transform cursor-pointer" />
-          <SiKakao className="text-yellow-500 text-3xl hover:text-yellow-600 hover:scale-110 transition-transform cursor-pointer" />
         </div>
       </div>
     </div>

@@ -4,8 +4,8 @@ interface ContactState {
   name: string;
   email: string;
   githubUrl: string;
-  tistoryUrl: string;
-  velogUrl: string;
+  selectedBlog?: string; // 블로그 선택 상태 추가
+  selectedBlogUrl?: string; //사용자가 기입한 블로그의 url
 }
 
 interface ContactStore {
@@ -13,9 +13,9 @@ interface ContactStore {
   setContactInfo: (info: Partial<ContactState>) => void;
   setContactName: (name: string) => void;
   setContactEmail: (email: string) => void;
-  setTistoryUrl: (tistoryUrl: string) => void;
-  setVelogUrl: (velogUrl: string) => void;
   setGithubUrl: (githubUrl: string) => void;
+  setSelectedBlog: (blog: string) => void;
+  setSelectedBlogUrl: (blogUrl?: string) => void;
 }
 
 const localStorageKey = 'contact-info-store';
@@ -37,8 +37,8 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
     name: '',
     email: '',
     githubUrl: '',
-    tistoryUrl: '',
-    velogUrl: '',
+    selectedBlog: '',
+    selectedBlogUrl: '',
   };
 };
 
@@ -53,17 +53,24 @@ const ContactSidebarStore = create<ContactStore>((set) => ({
   setContactName: (name: string) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, name } }));
   },
+
   setContactEmail: (email: string) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, email } }));
   },
+
   setGithubUrl: (githubUrl: string) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, githubUrl } }));
   },
-  setTistoryUrl: (tistoryUrl: string) => {
-    set((state) => ({ contactInfo: { ...state.contactInfo, tistoryUrl } }));
+
+  setSelectedBlog: (blog?: string) => {
+    set((state) => ({
+      contactInfo: { ...state.contactInfo, selectedBlog: blog },
+    }));
   },
-  setVelogUrl: (velogUrl: string) => {
-    set((state) => ({ contactInfo: { ...state.contactInfo, velogUrl } }));
+  setSelectedBlogUrl: (blogUrl?: string) => {
+    set((state) => ({
+      contactInfo: { ...state.contactInfo, selectedBlogUrl: blogUrl },
+    }));
   },
 }));
 

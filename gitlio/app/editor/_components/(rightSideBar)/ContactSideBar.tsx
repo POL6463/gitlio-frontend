@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
 import { SiGithub } from 'react-icons/si';
 import ContactSelectOption from './ContactSelectOption';
+import ContactTextArea from './ContactTextArea';
 
 export default function ContactSideBar() {
   const {
@@ -78,14 +79,11 @@ export default function ContactSideBar() {
       </div>
       <div className="flex flex-col justify-between items-start w-full h-auto mt-2">
         <div className="flex flex-col justify-start w-full min-h-[120px]">
-          <textarea
+          <ContactTextArea
             value={contactInfo.contactMessage}
             onChange={handleMessageChange}
             onKeyDown={handleKeyDown}
-            placeholder="Message"
-            className="input-md w-full h-full bg-neutral-200 rounded-xl resize-none overflow-hidden mt-2"
-            style={{ paddingTop: '0.5rem' }}
-          ></textarea>
+          />
         </div>
         <div className="flex justify-end w-full mt-3">
           <button className="btn btn-primary btn-sm w-auto">Send</button>

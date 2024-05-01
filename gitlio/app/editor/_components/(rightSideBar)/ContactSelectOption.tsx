@@ -4,11 +4,13 @@ import React from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
 import { SiTistory, SiVelog } from 'react-icons/si';
 
-interface SelectOptionProps {
+interface ContactSelectOptionProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function ContactSelectOption({ onChange }: SelectOptionProps) {
+export default function ContactSelectOption({
+  onChange,
+}: ContactSelectOptionProps) {
   const { contactInfo } = ContactSidebarStore();
 
   return (

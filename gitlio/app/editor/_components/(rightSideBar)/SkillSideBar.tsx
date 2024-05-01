@@ -13,9 +13,9 @@ export default function SkillSideBar() {
   };
   return (
     // flex 컨테이너를 사용하고, justify-content 속성으로 중앙 정렬을 적용합니다.
-    <div className="flex flex-col w-full justify-center px-3">
+    <div className="flex flex-col w-96">
       <div className="flex w-96 flex-row justify-start items-center mb-6">
-        <div className="text-lg font-semibold">ADD SECTION</div>
+        <div className="text font-semibold">ADD SECTION</div>
         <button
           onClick={addDropArea}
           className="btn btn-sm bg-transparent border-none shadow-none ml-6"
@@ -36,11 +36,11 @@ export default function SkillSideBar() {
             placeholder="Enter title..."
             value={section.title}
             onChange={(e) => handleTitleChange(section.id, e.target.value)}
-            className="input input-md w-full max-w-xs bg-neutral-200 rounded-xl mb-2"
+            className="input input-md w-full bg-neutral-200 rounded-xl mb-2"
           />
         </div>
       ))}
-      <div className="text-lg font-semibold mb-5">Select Skills</div>
+      <div className="text font-semibold mb-5">Select Skills</div>
       <div className="flex justify-center">
         <IconSelect />
       </div>

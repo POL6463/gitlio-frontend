@@ -9,7 +9,7 @@ export default function ExperienceSideBar() {
   return (
     <div className="flex flex-col w-96">
       <div className="flex w-96 flex-row justify-start items-center mb-6">
-        <div className="text font-bold">CONTENT</div>
+        <div className="text font-semibold">CONTENT</div>
         <button
           onClick={addSection}
           className="btn btn-sm bg-transparent border-none shadow-none ml-6"

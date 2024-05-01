@@ -61,6 +61,7 @@ export default function ContactSideBar() {
         type="email"
         value={contactInfo.email}
         onChange={handleEmailChange}
+        onKeyDown={handleKeyDown}
         placeholder="이메일"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />

@@ -17,7 +17,7 @@ export default function ContactSection() {
     <div className="bg-white w-[800px] flex flex-col flex-1 justify-start rounded-xl pb-5">
       <h1 className="text-3xl font-semibold ml-10 mr-5 pt-5">#Contact</h1>
       <div className="flex flex-col items-center h-full w-full mt-5">
-        <div className="flex flex-col justify-evenly items-center w-[630px] min-h-[300px]  p-5 bg-gray-200 rounded-3xl shadow-md">
+        <div className="flex flex-col justify-evenly items-center w-[630px] min-h-[300px]  p-5 bg-neutral-content/30 rounded-3xl shadow-md">
           <div className="text-left self-start font-semibold mb-5">
             Contact me
           </div>
@@ -30,13 +30,13 @@ export default function ContactSection() {
           )}
           <div className="w-full flex justify-evenly items-center">
             <div className="flex flex-col justify-center">
-              <div className="flex justify-start w-auto items-center mb-2">
+              <div className="flex justify-start w-[210px] items-center mb-2">
                 <MdEmail className="text-xl mr-2" />
                 <div className="break-words max-w-[180px]">
                   {contactInfo.email}
                 </div>
               </div>
-              <div className="flex justify-start w-auto items-center mb-2">
+              <div className="flex justify-start w-auto items-center">
                 <SiGithub className="text-xl mr-2" />
                 <div className="break-words max-w-[180px]">
                   {contactInfo.githubUrl}

@@ -6,6 +6,7 @@ interface ContactState {
   githubUrl: string;
   selectedBlog: string; // 블로그 선택 상태 추가
   selectedBlogUrl: string; //사용자가 기입한 블로그의 url
+  contactMessage: string;
 }
 
 interface ContactStore {
@@ -13,6 +14,7 @@ interface ContactStore {
   setContactInfo: (info: Partial<ContactState>) => void;
   setContactName: (name: string) => void;
   setContactEmail: (email: string) => void;
+  setContactMessage: (message: string) => void;
   setGithubUrl: (githubUrl: string) => void;
   setSelectedBlog: (blog: string) => void;
   setSelectedBlogUrl: (blogUrl: string) => void;
@@ -39,6 +41,7 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
     githubUrl: '',
     selectedBlog: '',
     selectedBlogUrl: '',
+    contactMessage: '',
   };
 };
 
@@ -56,6 +59,10 @@ const ContactSidebarStore = create<ContactStore>((set) => ({
 
   setContactEmail: (email: string) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, email } }));
+  },
+
+  setContactMessage: (contactMessage: string) => {
+    set((state) => ({ contactInfo: { ...state.contactInfo, contactMessage } }));
   },
 
   setGithubUrl: (githubUrl: string) => {

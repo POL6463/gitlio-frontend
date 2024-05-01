@@ -1,13 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
-import { SiGithub, SiTistory, SiVelog } from 'react-icons/si';
+import { SiGithub } from 'react-icons/si';
+import ContactSelectOption from './ContactSelectOption';
 
 export default function ContactSideBar() {
   const {
     contactInfo,
     setContactName,
     setContactEmail,
+    setContactMessage,
     setGithubUrl,
     setSelectedBlog,
     setSelectedBlogUrl,
@@ -17,7 +19,9 @@ export default function ContactSideBar() {
     setContactName(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       e.currentTarget.blur();
@@ -26,6 +30,10 @@ export default function ContactSideBar() {
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContactEmail(e.target.value);
+  };
+
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContactMessage(e.target.value);
   };
 
   const handleGithubUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +49,7 @@ export default function ContactSideBar() {
   };
 
   return (
-    <div className="flex flex-col items-center w-96">
+    <div className="flex flex-col items-center w-96 pb-10">
       <div className="flex flex-row justify-start w-full mt-5">
         <span>Name</span>
       </div>
@@ -65,6 +73,24 @@ export default function ContactSideBar() {
         placeholder="이메일"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
+      <div className="flex flex-row justify-center w-full mt-5">
+        <span className="font-semibold">send your message</span>
+      </div>
+      <div className="flex flex-col justify-between items-start w-full h-auto mt-2">
+        <div className="flex flex-col justify-start w-full min-h-[120px]">
+          <textarea
+            value={contactInfo.contactMessage}
+            onChange={handleMessageChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Message"
+            className="input-md w-full h-full bg-neutral-200 rounded-xl resize-none overflow-hidden mt-2"
+            style={{ paddingTop: '0.5rem' }}
+          ></textarea>
+        </div>
+        <div className="flex justify-end w-full mt-3">
+          <button className="btn btn-primary btn-sm w-auto">Send</button>
+        </div>
+      </div>
       <hr className="w-full mt-10" />
       <div className="flex flex-row justify-start items-center w-full mt-5">
         <span>Github</span>
@@ -82,40 +108,15 @@ export default function ContactSideBar() {
       <div className="flex flex-col justify-evenly items-start w-full mt-5">
         <span className="w-full">Blog</span>
       </div>
-      <div className="flex justify-around w-full">
-        <select
-          className="select select-bordered select-sm w-1/2 max-w-xs mt-5"
-          onChange={handleBlogChange}
-        >
-          <option disabled selected className="font-light">
-            choose
-          </option>
-          <option value="Tistory">Tistory</option>
-          <option value="Velog">Velog</option>
-        </select>
-        {contactInfo.selectedBlog && (
-          <div className="flex justify-start items-center w-auto mt-5">
-            <span>
-              {contactInfo.selectedBlog === 'Tistory' ? (
-                <SiTistory className="text-2xl text-orange-500" />
-              ) : contactInfo.selectedBlog === 'Velog' ? (
-                <SiVelog className="text-2xl text-green-600" />
-              ) : (
-                ''
-              )}
-              {/* 선택되지 않았을 때는 아무 것도 표시하지 않음 */}
-            </span>
-          </div>
-        )}
-      </div>
+      <ContactSelectOption onChange={handleBlogChange} />
       <div className="flex w-full">
         <input
-          type="email"
+          type="text"
           value={contactInfo.selectedBlogUrl}
           onChange={handleBlogUrlChange}
           onKeyDown={handleKeyDown}
           placeholder="insert your blog url"
-          className="input-md w-full bg-neutral-200 rounded-xl mt-8"
+          className="input-md w-full bg-neutral-200 rounded-xl mt-5"
         />
       </div>
     </div>

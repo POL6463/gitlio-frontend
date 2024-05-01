@@ -18,12 +18,12 @@ const DraggableIcon: React.FC<DraggableIconProps> = ({
   areaId,
 }) => {
   const { attributes, listeners, setNodeRef } = useDraggable({ id });
-  //const { removeIcon } = useSidebarIconsStore();
+  const { removeIcon } = useSidebarIconsStore();
 
   const handleRemoveIcon = (event) => {
     event.stopPropagation(); // 클릭 이벤트의 전파를 중지하여 드래그 시작을 방지
     console.log('Remove icon', id);
-    //removeIcon(id);
+    removeIcon(id);
   };
 
   const areaClass = areaId ? `area-${areaId}` : 'default-area';

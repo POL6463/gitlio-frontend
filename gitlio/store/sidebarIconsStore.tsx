@@ -23,6 +23,7 @@ export interface SidebarIconsState {
   removeDropArea: () => void;
   moveIcon: (iconId: string, targetAreaId: string) => void;
   setTitle: (areaId: string, newTitle: string) => void; // 제목을 변경하는 함수 추가
+  removeIcon: (iconId: string) => void;
 }
 
 export const useSidebarIconsStore = create<SidebarIconsState>((set) => ({
@@ -105,5 +106,17 @@ export const useSidebarIconsStore = create<SidebarIconsState>((set) => ({
         console.log('icon.id: ', icon.id);
       }
       return { ...state };
+    }),
+
+  removeIcon: (iconId) =>
+    set((state) => {
+      const updatedAreas = state.dropAreas.map((area) => {
+        const iconIndex = area.icons.findIndex((icon) => icon.id === iconId);
+        if (iconIndex !== -1) {
+          area.icons.splice(iconIndex, 1);
+        }
+        return { ...area, icons: [...area.icons] };
+      });
+      return { dropAreas: updatedAreas };
     }),
 }));

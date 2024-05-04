@@ -4,6 +4,7 @@ import ContactSidebarStore from '@/store/contactSidebarStore';
 import { SiGithub } from 'react-icons/si';
 import ContactSelectOption from './ContactSelectOption';
 import ContactTextArea from './ContactTextArea';
+import { FaRegSquareMinus, FaRegSquarePlus } from 'react-icons/fa6';
 
 export default function ContactSideBar() {
   const {
@@ -33,16 +34,8 @@ export default function ContactSideBar() {
     setContactEmail(e.target.value);
   };
 
-  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContactMessage(e.target.value);
-  };
-
   const handleGithubUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGithubUrl(e.target.value);
-  };
-
-  const handleBlogChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedBlog(e.target.value);
   };
 
   const handleBlogUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,21 +67,6 @@ export default function ContactSideBar() {
         placeholder="이메일"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
-      <div className="flex flex-row justify-center w-full mt-5">
-        <span className="font-semibold">send your message</span>
-      </div>
-      <div className="flex flex-col justify-between items-start w-full h-auto mt-2">
-        <div className="flex flex-col justify-start w-full min-h-[120px]">
-          <ContactTextArea
-            value={contactInfo.contactMessage}
-            onChange={handleMessageChange}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
-        <div className="flex justify-end w-full mt-3">
-          <button className="btn btn-primary btn-sm w-auto">Send</button>
-        </div>
-      </div>
       <hr className="w-full mt-10" />
       <div className="flex flex-row justify-start items-center w-full mt-5">
         <span>Github</span>
@@ -106,16 +84,21 @@ export default function ContactSideBar() {
       <div className="flex flex-col justify-evenly items-start w-full mt-5">
         <span className="w-full">Blog</span>
       </div>
-      <ContactSelectOption onChange={handleBlogChange} />
-      <div className="flex w-full">
+      <div className="flex justify-between items-center w-full mt-5">
         <input
           type="text"
           value={contactInfo.selectedBlogUrl}
           onChange={handleBlogUrlChange}
           onKeyDown={handleKeyDown}
           placeholder="insert your blog url"
-          className="input-md w-full bg-neutral-200 rounded-xl mt-5"
+          className="input-md w-full bg-neutral-200 rounded-xl"
         />
+        <button className="btn btn-sm bg-transparent border-none shadow-none">
+          <FaRegSquarePlus className="size-5" />
+        </button>
+        <button className="btn btn-sm bg-transparent border-none shadow-none">
+          <FaRegSquareMinus className="size-5" />
+        </button>
       </div>
     </div>
   );

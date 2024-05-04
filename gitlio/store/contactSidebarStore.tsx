@@ -7,6 +7,7 @@ interface ContactState {
   selectedBlog: string; // 블로그 선택 상태 추가
   selectedBlogUrl: string; //사용자가 기입한 블로그의 url
   contactMessage: string;
+  faviconUrl: string;
 }
 
 interface ContactStore {
@@ -42,6 +43,7 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
     selectedBlog: '',
     selectedBlogUrl: '',
     contactMessage: '',
+    faviconUrl: '',
   };
 };
 
@@ -79,9 +81,18 @@ const ContactSidebarStore = create<ContactStore>((set) => ({
     }));
   },
   setSelectedBlogUrl: (blogUrl: string) => {
-    set((state) => ({
-      contactInfo: { ...state.contactInfo, selectedBlogUrl: blogUrl },
-    }));
+    set((state) => {
+      const faviconUrl = blogUrl
+        ? new URL(blogUrl).origin + '/favicon.ico'
+        : '';
+      return {
+        contactInfo: {
+          ...state.contactInfo,
+          selectedBlogUrl: blogUrl,
+          faviconUrl,
+        },
+      };
+    });
   },
 }));
 

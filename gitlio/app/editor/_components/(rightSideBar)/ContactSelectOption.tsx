@@ -1,14 +1,16 @@
-'use clinent';
+'use client';
 
 import React from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
 import { SiTistory, SiVelog } from 'react-icons/si';
 
 interface ContactSelectOptionProps {
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function ContactSelectOption({
+  value,
   onChange,
 }: ContactSelectOptionProps) {
   const { contactInfo } = ContactSidebarStore();
@@ -18,7 +20,7 @@ export default function ContactSelectOption({
       <select
         className="select select-bordered select-sm w-1/2 max-w-xs mt-5"
         onChange={onChange}
-        value={contactInfo.selectedBlog || ''}
+        value={value || ''}
       >
         <option disabled value="" className="font-light">
           choose

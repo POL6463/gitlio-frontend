@@ -2,6 +2,7 @@ import cx from 'classnames';
 import TopBar from '@/app/editor/_components/TopBar';
 import LeftSidebar from '@/app/editor/_components/LeftSidebar';
 import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
+import TopIconBar from './_components/TopIconBar';
 
 type Props = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export default function EditorLayout({ children }: Props) {
     <div className="flex flex-col min-h-screen bg-base-200">
       {/* 전체 레이아웃을 화면 높이에 맞춤 */}
       <TopBar />
+      <TopIconBar />
       <div className="flex-grow flex overflow-hidden">
         {' '}
         {/* 높이를 전체로 설정 */}

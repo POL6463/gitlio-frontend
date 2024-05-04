@@ -17,10 +17,7 @@ export default function ContactSection() {
     <div className="bg-white w-[800px] flex flex-col flex-1 justify-start rounded-xl pb-5">
       <h1 className="text-3xl font-semibold ml-10 mr-5 pt-5">#Contact</h1>
       <div className="flex flex-col items-center h-full w-full mt-5">
-        <div className="flex flex-col justify-evenly items-center w-[630px] min-h-[300px]  p-5 bg-neutral-content/30 rounded-3xl shadow-md">
-          <div className="text-left self-start font-semibold mb-5">
-            Contact me
-          </div>
+        <div className="flex flex-col justify-evenly items-center w-[630px] min-h-[300px] px-5 bg-neutral-content/30 rounded-3xl shadow-md">
           {contactInfo.name ? (
             <div className="text-lg font-semibold mb-5">{contactInfo.name}</div>
           ) : (
@@ -45,11 +42,15 @@ export default function ContactSection() {
             </div>
             <div className="flex flex-col justify-center">
               <div className="flex justify-between max-w-[267px] items-center mb-2">
-                {contactInfo.selectedBlog === 'Tistory' ? (
-                  <SiTistory className="text-lg text-orange-500 mr-2 shrink-0" />
-                ) : (
-                  <SiVelog className="text-lg text-green-600 mr-2 shrink-0" />
-                )}
+                <div className="w-5 h-5 mr-2 shrink-0">
+                  {contactInfo.faviconUrl && (
+                    <img
+                      src={contactInfo.faviconUrl}
+                      alt="Blog Favicon"
+                      className="w-full h-full"
+                    />
+                  )}
+                </div>
                 <div className="break-words w-[245px] max-w-[250px]">
                   {contactInfo.selectedBlogUrl}
                 </div>

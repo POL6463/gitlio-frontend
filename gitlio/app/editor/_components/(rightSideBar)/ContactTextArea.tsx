@@ -1,4 +1,4 @@
-'use clinent';
+'use client';
 
 import React from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';

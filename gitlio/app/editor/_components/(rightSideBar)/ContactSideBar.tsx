@@ -11,10 +11,10 @@ export default function ContactSideBar() {
     contactInfo,
     setContactName,
     setContactEmail,
-    setContactMessage,
     setGithubUrl,
-    setSelectedBlog,
-    setSelectedBlogUrl,
+    setBlogUrl,
+    addBlogUrl,
+    removeBlogUrl,
   } = ContactSidebarStore();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +38,11 @@ export default function ContactSideBar() {
     setGithubUrl(e.target.value);
   };
 
-  const handleBlogUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedBlogUrl(e.target.value);
+  const handleBlogUrlChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setBlogUrl(index, e.target.value);
   };
 
   return (
@@ -84,22 +87,30 @@ export default function ContactSideBar() {
       <div className="flex flex-col justify-evenly items-start w-full mt-5">
         <span className="w-full">Blog</span>
       </div>
-      <div className="flex justify-between items-center w-full mt-5">
-        <input
-          type="text"
-          value={contactInfo.selectedBlogUrl}
-          onChange={handleBlogUrlChange}
-          onKeyDown={handleKeyDown}
-          placeholder="insert your blog url"
-          className="input-md w-full bg-neutral-200 rounded-xl"
-        />
-        <button className="btn btn-sm bg-transparent border-none shadow-none">
-          <FaRegSquarePlus className="size-5" />
-        </button>
-        <button className="btn btn-sm bg-transparent border-none shadow-none">
-          <FaRegSquareMinus className="size-5" />
-        </button>
-      </div>
+      {contactInfo.blogUrls.map((blog, index) => (
+        <div
+          key={index}
+          className="flex justify-between items-center w-full mt-5"
+        >
+          <input
+            type="text"
+            value={blog.url}
+            onChange={(e) => handleBlogUrlChange(index, e)}
+            onKeyDown={handleKeyDown}
+            placeholder="블로그 URL 입력"
+            className="input-md w-full bg-neutral-200 rounded-xl"
+          />
+          <button onClick={addBlogUrl} className="w-auto shrink-0 p-2 ml-2">
+            <FaRegSquarePlus className="text-xl" />
+          </button>
+          <button
+            onClick={() => removeBlogUrl(index)}
+            className="w-auto shrink-0 p-2"
+          >
+            <FaRegSquareMinus className="text-xl" />
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

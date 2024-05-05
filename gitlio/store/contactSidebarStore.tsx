@@ -1,13 +1,15 @@
 import create from 'zustand';
 
+interface BlogUrl {
+  url: string;
+  faviconUrl: string;
+}
+
 interface ContactState {
   name: string;
   email: string;
   githubUrl: string;
-  selectedBlog: string; // 블로그 선택 상태 추가
-  selectedBlogUrl: string; //사용자가 기입한 블로그의 url
-  contactMessage: string;
-  faviconUrl: string;
+  blogUrls: BlogUrl[]; //사용자가 기입한 블로그의 url
 }
 
 interface ContactStore {
@@ -15,10 +17,10 @@ interface ContactStore {
   setContactInfo: (info: Partial<ContactState>) => void;
   setContactName: (name: string) => void;
   setContactEmail: (email: string) => void;
-  setContactMessage: (message: string) => void;
   setGithubUrl: (githubUrl: string) => void;
-  setSelectedBlog: (blog: string) => void;
-  setSelectedBlogUrl: (blogUrl: string) => void;
+  setBlogUrl: (index: number, url: string) => void;
+  addBlogUrl: () => void;
+  removeBlogUrl: (index: number) => void;
 }
 
 const localStorageKey = 'contact-info-store';
@@ -27,7 +29,13 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
   try {
     const storedInfo = localStorage.getItem(localStorageKey);
     if (storedInfo) {
-      return JSON.parse(storedInfo);
+      const parsedInfo = JSON.parse(storedInfo);
+      // 블로그 URL 배열이 적어도 하나의 빈 객체를 포함하도록 보장
+      parsedInfo.blogUrls =
+        parsedInfo.blogUrls && parsedInfo.blogUrls.length > 0
+          ? parsedInfo.blogUrls
+          : [{ url: '', faviconUrl: '' }];
+      return parsedInfo;
     }
   } catch (error) {
     console.error(
@@ -40,14 +48,11 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
     name: '',
     email: '',
     githubUrl: '',
-    selectedBlog: '',
-    selectedBlogUrl: '',
-    contactMessage: '',
-    faviconUrl: '',
+    blogUrls: [{ url: '', faviconUrl: '' }],
   };
 };
 
-const ContactSidebarStore = create<ContactStore>((set) => ({
+const ContactSidebarStore = create<ContactStore>((set, get) => ({
   contactInfo: loadContactInfoFromLocalStorage(),
 
   // 전체 ContactInfoState 객체를 업데이트하는 함수
@@ -71,27 +76,47 @@ const ContactSidebarStore = create<ContactStore>((set) => ({
     set((state) => ({ contactInfo: { ...state.contactInfo, githubUrl } }));
   },
 
-  setSelectedBlog: (blog: string) => {
+  setBlogUrl: (index: number, url: string) => {
+    set((state) => {
+      const newBlogUrls = state.contactInfo.blogUrls.map((blog, idx) => {
+        if (idx === index) {
+          let faviconUrl = '';
+          try {
+            faviconUrl = new URL(url).origin + '/favicon.ico';
+          } catch (error) {
+            console.error('Invalid URL format', error);
+          }
+          return { ...blog, url, faviconUrl };
+        }
+        return blog;
+      });
+      return { contactInfo: { ...state.contactInfo, blogUrls: newBlogUrls } };
+    });
+  },
+
+  addBlogUrl: () => {
     set((state) => ({
       contactInfo: {
         ...state.contactInfo,
-        selectedBlog: blog,
-        selectedBlogUrl: '',
+        blogUrls: [...state.contactInfo.blogUrls, { url: '', faviconUrl: '' }],
       },
     }));
   },
-  setSelectedBlogUrl: (blogUrl: string) => {
+
+  removeBlogUrl: (index: number) => {
     set((state) => {
-      const faviconUrl = blogUrl
-        ? new URL(blogUrl).origin + '/favicon.ico'
-        : '';
-      return {
-        contactInfo: {
-          ...state.contactInfo,
-          selectedBlogUrl: blogUrl,
-          faviconUrl,
-        },
-      };
+      if (state.contactInfo.blogUrls.length > 1) {
+        const filteredBlogUrls = state.contactInfo.blogUrls.filter(
+          (_, idx) => idx !== index
+        );
+        return {
+          contactInfo: {
+            ...state.contactInfo,
+            blogUrls: filteredBlogUrls,
+          },
+        };
+      }
+      return state;
     });
   },
 }));

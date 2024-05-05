@@ -41,20 +41,23 @@ export default function ContactSection() {
               </div>
             </div>
             <div className="flex flex-col justify-center">
-              <div className="flex justify-between max-w-[267px] items-center mb-2">
-                <div className="w-5 h-5 mr-2 shrink-0">
-                  {contactInfo.faviconUrl && (
+              {contactInfo.blogUrls.map((blog, index) => (
+                <div
+                  key={index}
+                  className="flex justify-start w-auto items-center mb-2"
+                >
+                  {blog.faviconUrl && (
                     <img
-                      src={contactInfo.faviconUrl}
+                      src={blog.faviconUrl}
                       alt="Blog Favicon"
-                      className="w-full h-full"
+                      className="w-5 h-5 mr-2"
                     />
                   )}
+                  <div className="break-words w-[245px] max-w-[250px]">
+                    {blog.url}
+                  </div>
                 </div>
-                <div className="break-words w-[245px] max-w-[250px]">
-                  {contactInfo.selectedBlogUrl}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

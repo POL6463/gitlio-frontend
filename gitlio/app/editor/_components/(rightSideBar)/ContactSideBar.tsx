@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import ContactSidebarStore from '@/store/contactSidebarStore';
 import { SiGithub } from 'react-icons/si';
-import ContactSelectOption from './ContactSelectOption';
 import ContactTextArea from './ContactTextArea';
 import { FaRegSquareMinus, FaRegSquarePlus } from 'react-icons/fa6';
 

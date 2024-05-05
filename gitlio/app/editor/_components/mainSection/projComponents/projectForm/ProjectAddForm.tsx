@@ -83,6 +83,18 @@ const ProjectAddForm: React.FC<ProjectAddFormProps> = ({ onAdd, onClose }) => {
         images={{ [newProject.url || '']: newProject.images }}
         currentUrl={newProject.url || ''}
       />
+      <div className="overflow-x-auto mb-4" style={{ maxWidth: '100%' }}>
+        <div className="flex space-x-2">
+          {newProject.images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Project Image ${index}`}
+              className="object-contain w-auto h-40"
+            />
+          ))}
+        </div>
+      </div>
       <label className="block mb-1 text-gray-600 text-sm">
         주요 개발 내용:
       </label>

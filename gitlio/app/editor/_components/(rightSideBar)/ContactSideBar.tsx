@@ -67,7 +67,15 @@ export default function ContactSideBar() {
       />
       <hr className="w-full mt-10" />
       <div className="flex flex-col justify-evenly items-start w-full mt-5">
-        <span className="w-full">Blog</span>
+        <div className="flex justify-start items-center w-[112px]">
+          <div className="flex items-center text">Blog</div>
+          <button
+            onClick={addBlogUrl}
+            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2 ml-2"
+          >
+            <FaRegSquarePlus className="text-xl" />
+          </button>
+        </div>
       </div>
       {contactInfo.blogUrls.map((blog) => (
         <div
@@ -83,14 +91,8 @@ export default function ContactSideBar() {
             className="input-md w-full bg-neutral-200 rounded-xl"
           />
           <button
-            onClick={addBlogUrl}
-            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2 ml-2"
-          >
-            <FaRegSquarePlus className="text-xl" />
-          </button>
-          <button
             onClick={() => removeBlogUrl(blog.id)}
-            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2"
+            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2 ml-2"
           >
             <FaRegSquareMinus className="text-xl" />
           </button>

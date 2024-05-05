@@ -18,7 +18,6 @@ interface ContactStore {
   setContactInfo: (info: Partial<ContactState>) => void;
   setContactName: (name: string) => void;
   setContactEmail: (email: string) => void;
-  setGithubUrl: (githubUrl: string) => void;
   setBlogUrl: (id: string, url: string) => void;
   addBlogUrl: () => void;
   removeBlogUrl: (id: string) => void;
@@ -75,10 +74,6 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
 
   setContactMessage: (contactMessage: string) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, contactMessage } }));
-  },
-
-  setGithubUrl: (githubUrl: string) => {
-    set((state) => ({ contactInfo: { ...state.contactInfo, githubUrl } }));
   },
 
   setBlogUrl: (id: string, url: string) => {

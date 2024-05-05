@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FaGlobeAsia } from 'react-icons/fa';
 import { LuAlignJustify, LuBarChartBig } from 'react-icons/lu';
+import PreviewButton from '@/app/editor/_components/PreviewButton';
 
 export default function TopBar() {
   return (
@@ -21,6 +22,7 @@ export default function TopBar() {
           <FaGlobeAsia className="text-white size-6" />
           공유
         </a>
+        <PreviewButton />
         <button className="btn">
           <div className="mx-2 text-lg text">저장</div>
         </button>

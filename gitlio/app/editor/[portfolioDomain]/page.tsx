@@ -31,9 +31,7 @@ export default function EditPage() {
       >
         <ExperienceSection />
       </div>
-      <div
-        className="mb-4 cursor-pointer"
-      >
+      <div className="mb-4 cursor-pointer">
         <ProjSection />
       </div>
       <div

@@ -39,10 +39,10 @@ export default function ContactSideBar() {
   };
 
   const handleBlogUrlChange = (
-    index: number,
+    id: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setBlogUrl(index, e.target.value);
+    setBlogUrl(id, e.target.value);
   };
 
   return (
@@ -87,15 +87,15 @@ export default function ContactSideBar() {
       <div className="flex flex-col justify-evenly items-start w-full mt-5">
         <span className="w-full">Blog</span>
       </div>
-      {contactInfo.blogUrls.map((blog, index) => (
+      {contactInfo.blogUrls.map((blog) => (
         <div
-          key={index}
+          key={blog.id}
           className="flex justify-between items-center w-full mt-5"
         >
           <input
             type="text"
             value={blog.url}
-            onChange={(e) => handleBlogUrlChange(index, e)}
+            onChange={(e) => handleBlogUrlChange(blog.id, e)}
             onKeyDown={handleKeyDown}
             placeholder="블로그 URL 입력"
             className="input-md w-full bg-neutral-200 rounded-xl"
@@ -107,7 +107,7 @@ export default function ContactSideBar() {
             <FaRegSquarePlus className="text-xl" />
           </button>
           <button
-            onClick={() => removeBlogUrl(index)}
+            onClick={() => removeBlogUrl(blog.id)}
             className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2"
           >
             <FaRegSquareMinus className="text-xl" />

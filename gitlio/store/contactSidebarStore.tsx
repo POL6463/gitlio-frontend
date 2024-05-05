@@ -1,6 +1,7 @@
 import create from 'zustand';
 
 interface BlogUrl {
+  id: string;
   url: string;
   faviconUrl: string;
 }
@@ -18,9 +19,13 @@ interface ContactStore {
   setContactName: (name: string) => void;
   setContactEmail: (email: string) => void;
   setGithubUrl: (githubUrl: string) => void;
-  setBlogUrl: (index: number, url: string) => void;
+  setBlogUrl: (id: string, url: string) => void;
   addBlogUrl: () => void;
-  removeBlogUrl: (index: number) => void;
+  removeBlogUrl: (id: string) => void;
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
 const localStorageKey = 'contact-info-store';
@@ -48,7 +53,7 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
     name: '',
     email: '',
     githubUrl: '',
-    blogUrls: [{ url: '', faviconUrl: '' }],
+    blogUrls: [{ id: '', url: '', faviconUrl: '' }],
   };
 };
 
@@ -76,10 +81,10 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
     set((state) => ({ contactInfo: { ...state.contactInfo, githubUrl } }));
   },
 
-  setBlogUrl: (index: number, url: string) => {
+  setBlogUrl: (id: string, url: string) => {
     set((state) => {
-      const newBlogUrls = state.contactInfo.blogUrls.map((blog, idx) => {
-        if (idx === index) {
+      const newBlogUrls = state.contactInfo.blogUrls.map((blog) => {
+        if (blog.id === id) {
           let faviconUrl = '';
           try {
             faviconUrl = new URL(url).origin + '/favicon.ico';
@@ -99,7 +104,7 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
       if (state.contactInfo.blogUrls.length < 3) {
         const newBlogUrls = [
           ...state.contactInfo.blogUrls,
-          { url: '', faviconUrl: '' },
+          { id: generateId(), url: '', faviconUrl: '' },
         ];
         return {
           contactInfo: {
@@ -112,11 +117,11 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
     });
   },
 
-  removeBlogUrl: (index: number) => {
+  removeBlogUrl: (id: string) => {
     set((state) => {
       if (state.contactInfo.blogUrls.length > 1) {
         const filteredBlogUrls = state.contactInfo.blogUrls.filter(
-          (_, idx) => idx !== index
+          (url) => url.id !== id
         );
         return {
           contactInfo: {

@@ -37,7 +37,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
           <h3 className="font-bold text-lg mb-4">
             프로젝트 편집: {editedData.title}
           </h3>
-          <label className="block mb-1 text-gray-600 text-sm">
+          <label className="block mb-1 text-gray-700 text-sm">
             프로젝트 제목:
           </label>
           <input
@@ -47,7 +47,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
             className="input input-bordered w-full mb-4"
             placeholder="Title"
           />
-          <label className="block mb-1 text-gray-600 text-sm">
+          <label className="block mb-1 text-gray-700 text-sm">
             프로젝트 소개:
           </label>
           <textarea
@@ -56,7 +56,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
             className="textarea textarea-bordered w-full mb-4"
             placeholder="Intro"
           />
-          <label className="block mb-1 text-gray-600 text-sm">
+          <label className="block mb-1 text-gray-700 text-sm">
             깃허브 URL:
           </label>
           <input
@@ -66,7 +66,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
             className="input input-bordered w-full mb-4"
             placeholder="URL (optional)"
           />
-          <label className="block mb-1 text-gray-600 text-sm">
+          <label className="block mb-1 text-gray-700 text-sm">
             서비스 URL:
           </label>
           <input
@@ -100,7 +100,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
               ))}
             </div>
           </div>
-          <label className="block mb-1 text-gray-600 text-sm">
+          <label className="block mb-1 text-gray-700 text-sm">
             주요 개발 내용:
           </label>
           {editedData.sentences.map((sentence, index) => (

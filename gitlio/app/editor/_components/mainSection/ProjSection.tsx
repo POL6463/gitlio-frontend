@@ -128,7 +128,7 @@ function transformDataToProjects(dataArray: Data[]) {
 }
 
 export default function ProjSection() {
-  const { projects, setProjects } = useProjectsStore();
+  const { projects, setProjects, updateProject } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [projectsData, setProjectsData] = useState<Data[]>(sampleData); // 프로젝트 데이터 상태 관리
   const [selectedRadio, setSelectedRadio] = React.useState(0);
@@ -146,10 +146,6 @@ export default function ProjSection() {
   const handleSaveData = (newData: Data[]) => {
     setProjectsData(newData);
     setIsEditProjModalOpen(false); // 데이터 저장 후 모달창 닫기
-  };
-
-  const handleRadioChange = (index: number) => {
-    setSelectedRadio(index);
   };
 
   const goToNextImage = () => {

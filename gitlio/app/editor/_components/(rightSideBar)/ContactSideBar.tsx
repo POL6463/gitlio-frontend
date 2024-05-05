@@ -11,7 +11,6 @@ export default function ContactSideBar() {
     contactInfo,
     setContactName,
     setContactEmail,
-    setGithubUrl,
     setBlogUrl,
     addBlogUrl,
     removeBlogUrl,
@@ -32,10 +31,6 @@ export default function ContactSideBar() {
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContactEmail(e.target.value);
-  };
-
-  const handleGithubUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGithubUrl(e.target.value);
   };
 
   const handleBlogUrlChange = (
@@ -68,19 +63,6 @@ export default function ContactSideBar() {
         onChange={handleEmailChange}
         onKeyDown={handleKeyDown}
         placeholder="이메일"
-        className="input-md w-full bg-neutral-200 rounded-xl mt-2"
-      />
-      <hr className="w-full mt-10" />
-      <div className="flex flex-row justify-start items-center w-full mt-5">
-        <span>Github</span>
-        <SiGithub className="ml-2 text-xl mr-2 shrink-0" />
-      </div>
-      <input
-        type="text"
-        value={contactInfo.githubUrl}
-        onChange={handleGithubUrlChange}
-        onKeyDown={handleKeyDown}
-        placeholder="github 주소"
         className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <hr className="w-full mt-10" />

@@ -33,12 +33,6 @@ export default function ContactSection() {
                   {contactInfo.email}
                 </div>
               </div>
-              <div className="flex justify-start w-auto items-center">
-                <SiGithub className="text-xl mr-2" />
-                <div className="break-words max-w-[180px]">
-                  {contactInfo.githubUrl}
-                </div>
-              </div>
             </div>
             <div className="flex flex-col justify-center">
               {contactInfo.blogUrls.map((blog, index) => (
@@ -53,7 +47,7 @@ export default function ContactSection() {
                       className="w-5 h-5 mr-2"
                     />
                   )}
-                  <div className="break-words w-[245px] max-w-[250px]">
+                  <div className="break-words w-[255px] max-w-[250px]">
                     {blog.url}
                   </div>
                 </div>

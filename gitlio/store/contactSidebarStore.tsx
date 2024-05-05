@@ -95,12 +95,21 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
   },
 
   addBlogUrl: () => {
-    set((state) => ({
-      contactInfo: {
-        ...state.contactInfo,
-        blogUrls: [...state.contactInfo.blogUrls, { url: '', faviconUrl: '' }],
-      },
-    }));
+    set((state) => {
+      if (state.contactInfo.blogUrls.length < 3) {
+        const newBlogUrls = [
+          ...state.contactInfo.blogUrls,
+          { url: '', faviconUrl: '' },
+        ];
+        return {
+          contactInfo: {
+            ...state.contactInfo,
+            blogUrls: newBlogUrls,
+          },
+        };
+      }
+      return state;
+    });
   },
 
   removeBlogUrl: (index: number) => {

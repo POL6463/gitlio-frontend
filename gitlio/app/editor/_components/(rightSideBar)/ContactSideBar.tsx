@@ -100,12 +100,15 @@ export default function ContactSideBar() {
             placeholder="블로그 URL 입력"
             className="input-md w-full bg-neutral-200 rounded-xl"
           />
-          <button onClick={addBlogUrl} className="w-auto shrink-0 p-2 ml-2">
+          <button
+            onClick={addBlogUrl}
+            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2 ml-2"
+          >
             <FaRegSquarePlus className="text-xl" />
           </button>
           <button
             onClick={() => removeBlogUrl(index)}
-            className="w-auto shrink-0 p-2"
+            className="w-auto btn btn-sm bg-transparent border-none shadow-none shrink-0 p-2"
           >
             <FaRegSquareMinus className="text-xl" />
           </button>

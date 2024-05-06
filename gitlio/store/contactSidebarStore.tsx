@@ -9,7 +9,6 @@ interface BlogUrl {
 interface ContactState {
   name: string;
   email: string;
-  githubUrl: string;
   blogUrls: BlogUrl[]; //사용자가 기입한 블로그의 url
 }
 
@@ -51,7 +50,6 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
   return {
     name: '',
     email: '',
-    githubUrl: '',
     blogUrls: [{ id: '', url: '', faviconUrl: '' }],
   };
 };
@@ -114,18 +112,15 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
 
   removeBlogUrl: (id: string) => {
     set((state) => {
-      if (state.contactInfo.blogUrls.length > 1) {
-        const filteredBlogUrls = state.contactInfo.blogUrls.filter(
-          (url) => url.id !== id
-        );
-        return {
-          contactInfo: {
-            ...state.contactInfo,
-            blogUrls: filteredBlogUrls,
-          },
-        };
-      }
-      return state;
+      const filteredBlogUrls = state.contactInfo.blogUrls.filter(
+        (url) => url.id !== id
+      );
+      return {
+        contactInfo: {
+          ...state.contactInfo,
+          blogUrls: filteredBlogUrls,
+        },
+      };
     });
   },
 }));

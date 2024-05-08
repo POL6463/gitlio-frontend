@@ -151,10 +151,10 @@ import {
   SiXamarin,
 } from 'react-icons/si';
 
-export type IconOption = {
+export interface IconOption {
   value: string;
   label: string;
-};
+}
 
 export const icons = {
   Amazon: SiAmazon,

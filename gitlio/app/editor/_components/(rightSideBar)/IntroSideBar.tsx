@@ -1,19 +1,19 @@
 'use client';
 import React, { useState } from 'react';
-import InfoSidebarStore from '@/store/infoSidebarStore';
-import InfoTagList from '../mainSection/infoComponents/InfoTagList';
-import SideBarInfoTagList from './SideBarInfoTagList';
+import IntroSidebarStore from '@/store/introSidebarStore';
+import IntroTagList from '../mainSection/introComponents/IntroTagList';
+import SideBarIntroTagList from './SideBarIntroTagList';
 
-export default function InfoSideBar() {
+export default function IntroSideBar() {
   const [tagInput, setTagInput] = useState(''); // 태그 입력을 위한 새로운 상태
 
   const {
     profile,
     setProfileTitle,
     setProfileImage,
-    setInfoDescription,
+    setIntroDescription,
     setTagList,
-  } = InfoSidebarStore();
+  } = IntroSidebarStore();
 
   const handleTitleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -33,7 +33,7 @@ export default function InfoSideBar() {
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfoDescription(e.target.value);
+    setIntroDescription(e.target.value);
   };
 
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +82,7 @@ export default function InfoSideBar() {
         onChange={handleTitleChange}
         onKeyUp={handleTitleKeyUp}
         placeholder="Title"
-        className="input-md w-full bg-white rounded-xl border border-gray-300"
+        className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <div className="flex flex-row justify-start w-full mt-10">
         <span>HashTag</span>
@@ -93,27 +93,26 @@ export default function InfoSideBar() {
         onChange={handleTagInputChange} // 입력 값이 변경될 때마다 tagInput 상태를 업데이트
         onKeyUp={handleAddTag}
         placeholder="Tags"
-        className="input-md w-full bg-white rounded-xl border border-gray-300"
+        className="input-md w-full bg-neutral-200 rounded-xl mt-2"
       />
       <div className="flex flex-wrap gap-2 mt-5">
         {profile.tagList.map((tag, index) => (
-          <SideBarInfoTagList
+          <SideBarIntroTagList
             key={index}
             data={tag}
             onRemove={() => handleRemoveTag(index)}
           />
         ))}
       </div>
-      <hr className="w-full my-8 bg-gray-200 border dark:bg-gray-700" />
       <div className="flex flex-row justify-start w-full mt-5">
         <span>Description</span>
       </div>
       <textarea
-        value={profile.infoDescription}
+        value={profile.introDescription}
         onChange={handleContentChange}
         onKeyUp={handleContentKeyUp}
         placeholder="Description"
-        className="input-md w-full h-[160px] bg-white border border-gray-300 rounded-xl resize-none overflow-hidden"
+        className="input-md w-full h-[160px] bg-neutral-200 rounded-xl resize-none overflow-hidden mt-2"
         style={{ paddingTop: '0.5rem' }}
       ></textarea>
       <div className="flex justify-around mt-10 w-full">

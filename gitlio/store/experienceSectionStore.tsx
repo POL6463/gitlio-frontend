@@ -12,7 +12,7 @@ interface Section {
 }
 
 // Define the state structure
-type ExperienceSidebarState = {
+type ExperienceSectionState = {
   sections: Section[];
   addSection: () => void;
   removeSection: (id: string) => void;
@@ -57,7 +57,7 @@ const getSavedSections = () => {
 const generateId = () => Math.floor(Math.random() * 10001).toString();
 
 // Define the store
-const experienceSidebarStore = create<ExperienceSidebarState>((set) => ({
+const experienceSectionStore = create<ExperienceSectionState>((set) => ({
   sections: getSavedSections(),
   addSection: () =>
     set((state) => {
@@ -91,4 +91,4 @@ const experienceSidebarStore = create<ExperienceSidebarState>((set) => ({
     }),
 }));
 
-export default experienceSidebarStore;
+export default experienceSectionStore;

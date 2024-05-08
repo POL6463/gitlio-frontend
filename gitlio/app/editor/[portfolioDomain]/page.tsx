@@ -1,7 +1,7 @@
 'use client';
 import ExperienceSection from '@/app/editor/_components/mainSection/ExperienceSection';
 import useSidebarStore from '@/store/sidebarStore';
-import InfoSection from '@/app/editor/_components/mainSection/InfoSection';
+import IntroSection from '@/app/editor/_components/mainSection/IntroSection';
 import SkillSection from '@/app/editor/_components/mainSection/SkillSection';
 import ProjSection from '../_components/mainSection/ProjSection';
 
@@ -16,7 +16,7 @@ export default function EditPage() {
         onClick={() => setSelectedSection('information')}
         className="mb-4 cursor-pointer"
       >
-        <InfoSection />
+        <IntroSection />
       </div>
       <div
         onClick={() => setSelectedSection('skill')}

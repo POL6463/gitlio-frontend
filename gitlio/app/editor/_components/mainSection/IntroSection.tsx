@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import InfoSidebarStore from '@/store/infoSidebarStore';
-import InfoTagList from './infoComponents/InfoTagList';
+import IntroSidebarStore from '@/store/introSidebarStore';
+import IntroTagList from './introComponents/IntroTagList';
 
-export default function InfoSection() {
-  const { profile } = InfoSidebarStore();
+export default function IntroSection() {
+  const { profile } = IntroSidebarStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -14,12 +14,12 @@ export default function InfoSection() {
       element.style.height = 'inherit';
       element.style.height = `${element.scrollHeight}px`;
     }
-  }, [profile.infoDescription]);
+  }, [profile.introDescription]);
 
   return (
-    <div className="flex flex-row justify-between bg-white mt-10 rounded-3xl p-10">
-      <div className="flex flex-col items-center h-full mr-10">
-        <h1 className="text-3xl font-semibold ml-10 mr-5">#Introduction</h1>
+    <div className="flex flex-row w-[800px] justify-between bg-white mt-10 rounded-3xl p-10">
+      <div className="flex flex-col items-start h-full mr-15">
+        <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
         <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center rounded-full flex items-center justify-center">
           {profile.profileImage ? (
             <img
@@ -36,24 +36,24 @@ export default function InfoSection() {
       </div>
       <div className="flex flex-col items-center justify-around mr-10">
         {profile.title ? (
-          <div className="flex flex-row w-full justify-start font-bold text-2xl mt-10">
+          <div className="flex flex-row w-full justify-start font-bold text-2xl mt-20">
             {profile.title}
           </div>
         ) : (
-          <div className="flex flex-row w-full justify-start font-bold text-zinc-300 text-2xl mt-10">
+          <div className="flex flex-row w-full justify-start font-bold text-zinc-300 text-2xl mt-20">
             {'insert your title'}
           </div>
         )}
 
         <div className="flex flex-row justify-start w-full mt-5">
           {profile.tagList?.map((tag, index) => (
-            <InfoTagList key={index} data={tag} />
+            <IntroTagList key={index} data={tag} />
           ))}
         </div>
         <textarea
           ref={textareaRef}
-          className="w-[600px] h-[160px] min-h-[180px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
-          value={profile.infoDescription}
+          className="w-[400px] h-[100px] min-h-[100px] text-center text-white border rounded-2xl my-10 p-5 bg-[#374151] resize-none overflow-hidden"
+          value={profile.introDescription}
           readOnly={true}
           style={{ pointerEvents: 'none' }}
         />

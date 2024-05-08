@@ -57,7 +57,7 @@ const EditModalSidebar: React.FC<EditModalSidebarProps> = ({
           className="flex justify-between items-center my-2 mx-4"
         >
           <button
-            className={`btn btn-wide gap-2 ${selectedUrl === url ? 'bg-selected text-black' : 'btn-ghost'} ${creationType === 'manual' ? 'disabled:opacity-50 disabled:bg-gray-300 disabled:text-gray-600' : ''}`}
+            className={`btn btn-wide gap-2 ${selectedUrl === url ? 'bg-selected text-black' : 'btn-ghost'} ${creationType === 'manual' ? 'disabled:opacity-50 disabled:bg-gray-100 disabled:text-gray-600' : ''}`}
             onClick={() => handleSelectUrl(url)}
             disabled={creationType === 'manual'}
           >

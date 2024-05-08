@@ -1,6 +1,6 @@
 // EditorLayout.tsx
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { useDragDrop } from '@/hooks/useDragDrop';
 import TopBar from '@/app/editor/_components/TopBar';
@@ -9,12 +9,43 @@ import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
 import TopBlogBar from './_components/TopBlogBar';
 import DraggableIcon from '@/app/editor/_components/(skill)/DraggableIcon';
 import GlobalDragOverlay from '@/app/editor/_components/(skill)/DragOverlay';
+import { useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { getIdAfterLogin } from '@/actions/user';
+import { useUserStore } from '@/store/userStore';
 
 const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { sensors, handleDragStart, handleDragEnd } = useDragDrop();
+  const { isSignedIn, user } = useUser();
+  const setUser = useUserStore((state) => state.setUser);
+  const userId = useUserStore((state) => state.userId);
+  const setUserId = useUserStore((state) => state.setUserId);
+  const isRequesting = useRef(false); // 요청 중 상태 관리
 
+  useEffect(() => {
+    if (isSignedIn && user && user.id && !userId && !isRequesting.current) {
+      isRequesting.current = true; // 요청 시작
+      const data = {
+        clerk_id: user.id,
+        email: user.emailAddresses[0]?.emailAddress,
+        name: user.fullName,
+      };
+
+      getIdAfterLogin(data)
+        .then((fetchedUserId) => {
+          if (!userId) {
+            setUserId(fetchedUserId);
+          }
+          isRequesting.current = false; // 요청 완료
+        })
+        .catch((err) => {
+          console.error('Failed to fetch userId:', err);
+          isRequesting.current = false; // 요청 실패
+        });
+    }
+  }, [isSignedIn, user, userId]);
   return (
     <DndContext
       sensors={sensors}

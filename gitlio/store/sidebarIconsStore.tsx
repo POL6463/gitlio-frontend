@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { IconType } from 'react-icons';
 
 export interface IconBlock {

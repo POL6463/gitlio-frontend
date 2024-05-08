@@ -1,5 +1,5 @@
 // store/sidebarStore.ts
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface SidebarState {
   selectedSection: string;

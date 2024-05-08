@@ -129,9 +129,12 @@ export const useProjectsStore = create<ProjectsState>((set) => ({
   updateProject: (updatedProject) =>
     set((state) => ({
       projects: state.projects.map((project) =>
-        project.url === updatedProject.url ? updatedProject : project
+        project.url === updatedProject.url
+          ? { ...project, ...updatedProject }
+          : project
       ),
     })),
+
   deleteProject: (projectUrl) =>
     set((state) => ({
       projects: state.projects.filter((project) => project.url !== projectUrl),

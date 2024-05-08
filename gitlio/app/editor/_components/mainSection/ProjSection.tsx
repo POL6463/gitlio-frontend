@@ -1,12 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProjectsStore } from '@/store/projectStore';
 import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ProjEditModal from './projComponents/ProjEditModal';
 
 export default function ProjSection() {
-  const { projects, setProjects } = useProjectsStore();
+  const { projects, setProjects, updateProject } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [selectedRadio, setSelectedRadio] = React.useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
@@ -17,7 +17,7 @@ export default function ProjSection() {
 
   const handleSaveData = (newData: Data[]) => {
     setProjects(newData);
-    setIsEditProjModalOpen(false); // 데이터 저장 후 모달창 닫기
+    setIsEditProjModalOpen(false);
   };
 
   const goToNextImage = () => {

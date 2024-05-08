@@ -37,7 +37,6 @@ const EditModalSidebar: React.FC<EditModalSidebarProps> = ({
 
   useEffect(() => {
     setProjectCreationType(creationType ?? ''); // 외부 prop 업데이트를 유지
-    console.log('creation Type: ', creationType);
   }, [creationType, setProjectCreationType]);
 
   const handleDelete = (url: string, e: React.MouseEvent) => {

@@ -31,7 +31,6 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   }));
 
   useEffect(() => {
-    console.log(`isAddingNewProject: ${isAddingNewProject}`);
     if (!isAddingNewProject) {
       const project = projects.find((p) => p.url === selectedUrl);
       setEditedData(project ?? null);
@@ -40,13 +39,14 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
 
   const handleSave = () => {
     if (editedData) {
-      const updatedData = { ...editedData, url: editedData.url || '' };
-      if (isAddingNewProject) {
-        projects.push(updatedData); // 새 프로젝트를 배열에 추가
+      const updatedData = [...projects]; // 현재 프로젝트 리스트를 복사
+      const index = updatedData.findIndex((p) => p.url === editedData.url);
+      if (index !== -1) {
+        updatedData[index] = { ...updatedData[index], ...editedData };
       } else {
-        updateProject(updatedData);
+        updatedData.push(editedData); // 새 프로젝트 추가
       }
-      onSave([...projects]);
+      onSave(updatedData); // 업데이트된 데이터 전달
       onClose();
     }
   };

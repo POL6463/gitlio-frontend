@@ -6,6 +6,7 @@ interface ProjectsState {
   projects: Data[];
   setProjects: (projects: Data[]) => void;
   updateProject: (updatedProject: Data) => void;
+  deleteProject: (projectUrl: string) => void;
 }
 
 const sampleData: Data[] = [
@@ -130,5 +131,9 @@ export const useProjectsStore = create<ProjectsState>((set) => ({
       projects: state.projects.map((project) =>
         project.url === updatedProject.url ? updatedProject : project
       ),
+    })),
+  deleteProject: (projectUrl) =>
+    set((state) => ({
+      projects: state.projects.filter((project) => project.url !== projectUrl),
     })),
 }));

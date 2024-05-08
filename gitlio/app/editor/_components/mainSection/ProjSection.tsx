@@ -5,14 +5,6 @@ import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ProjEditModal from './projComponents/ProjEditModal';
 
-function transformDataToProjects(dataArray: Data[]) {
-  return dataArray.map((data) => ({
-    ...data,
-    url: data.url || '', // `undefined`일 경우 빈 문자열로 대체
-    serviceUrl: data.serviceUrl || '', // 마찬가지로 빈 문자열로 대체
-  }));
-}
-
 export default function ProjSection() {
   const { projects, setProjects } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);

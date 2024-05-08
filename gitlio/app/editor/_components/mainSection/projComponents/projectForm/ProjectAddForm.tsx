@@ -135,7 +135,7 @@ const ProjectAddForm: React.FC<ProjectAddFormProps> = ({ onAdd, onClose }) => {
 
       <div className="modal-action">
         <button onClick={handleAdd} className="btn btn-primary">
-          추가
+          생성
         </button>
       </div>
     </div>

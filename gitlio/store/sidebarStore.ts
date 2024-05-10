@@ -7,6 +7,7 @@ interface SidebarState {
 }
 
 const useSidebarStore = create<SidebarState>((set) => ({
+
   selectedSection: 'skill', // 기본값은 "content"
   setSelectedSection: (section) => set({ selectedSection: section }),
 }));

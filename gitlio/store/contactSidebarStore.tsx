@@ -79,10 +79,14 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
       const newBlogUrls = state.contactInfo.blogUrls.map((blog) => {
         if (blog.id === id) {
           let faviconUrl = '';
-          try {
-            faviconUrl = new URL(url).origin + '/favicon.ico';
-          } catch (error) {
-            console.error('Invalid URL format', error);
+          if (url) {
+            // URL이 비어 있지 않은지 확인
+            try {
+              faviconUrl = new URL(url).origin + '/favicon.ico';
+            } catch (error) {
+              console.error('Invalid URL format', error);
+              faviconUrl = ''; // 유효하지 않은 URL일 경우 파비콘 URL을 빈 문자열로 설정
+            }
           }
           return { ...blog, url, faviconUrl };
         }

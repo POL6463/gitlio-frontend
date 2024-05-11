@@ -25,8 +25,8 @@ export default function ContactSection() {
               insert your name
             </div>
           )}
-          <div className="flex flex-wrap w-full justify-start items-center">
-            <div className="flex min-w-[295px] max-w-[295px] justify-center items-center mb-2">
+          <div className="flex flex-wrap w-full justify-center items-center">
+            <div className="flex w-[295px] max-w-[295px] justify-center items-center mb-2">
               <MdEmail className="text-xl mr-2" />
               <div className="break-words overflow-hidden text-ellipsis">
                 {contactInfo.email}
@@ -35,17 +35,19 @@ export default function ContactSection() {
             {contactInfo.blogUrls.map((blog) => (
               <div
                 key={blog.id}
-                className="flex min-w-[295px] max-w-[295px] break-words justify-center items-center mb-2"
+                className="flex w-[295px] max-w-[295px] justify-center items-center mb-2"
               >
-                {blog.faviconUrl && (
+                {blog.faviconUrl ? (
                   <img
                     src={blog.faviconUrl}
                     alt="Blog Favicon"
                     className="w-5 h-5 mr-2"
                   />
+                ) : (
+                  ''
                 )}
-                <div className="break-words overflow-hidden text-ellipsis">
-                  {blog.url}
+                <div className="break-words overflow-hidden text-ellipsis w-full">
+                  {blog.url ? blog.url : ''}
                 </div>
               </div>
             ))}

@@ -26,7 +26,7 @@ export default function ContactSection() {
             </div>
           )}
           <div className="flex flex-wrap w-full justify-start items-center">
-            <div className="flex w-[295px] max-w-[295px] justify-center items-center mb-2">
+            <div className="flex w-[295px] max-w-[295px] justify-start items-center mb-1">
               <MdEmail className="text-xl mr-2" />
               <div className="flex justify-start items-center break-all max-w-[267px]">
                 {contactInfo.email}
@@ -35,7 +35,7 @@ export default function ContactSection() {
             {contactInfo.blogUrls.map((blog) => (
               <div
                 key={blog.id}
-                className="flex w-[295px] max-w-[295px] justify-center items-center mb-2"
+                className="flex w-[295px] max-w-[295px] justify-start items-center mb-1"
               >
                 {blog.faviconUrl ? (
                   <img

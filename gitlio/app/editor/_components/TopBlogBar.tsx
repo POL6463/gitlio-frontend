@@ -7,9 +7,9 @@ export default function TopBlogBar() {
   return (
     <div className="fixed left-[350px] top-[67px] z-50 space-y-8">
       <div className="flex flex-col justify-evenly items-center w-full h-auto">
-        <div className="w-1 bg-black h-[250px]"></div>
+        <div className="w-1 bg-black h-[150px] mt-32"></div>
         <div className="flex flex-col justify-center bg-[#555459] items-center h-auto rounded-xl border-2 border-slate-800 p-2 box-border space-y-2">
-          {contactInfo.blogUrls.map((blog) => (
+          {contactInfo.blogUrls?.map((blog) => (
             <a
               key={blog.id}
               href={blog.url}
@@ -24,9 +24,7 @@ export default function TopBlogBar() {
                     className="w-full h-full"
                   />
                 </div>
-              ) : (
-                ''
-              )}
+              ) : null}
             </a>
           ))}
         </div>

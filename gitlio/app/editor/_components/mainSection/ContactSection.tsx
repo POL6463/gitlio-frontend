@@ -19,40 +19,36 @@ export default function ContactSection() {
       <div className="flex flex-col items-center h-full w-full mt-5">
         <div className="flex flex-col justify-evenly items-center w-[630px] min-h-[300px] px-5 bg-neutral-content/30 rounded-3xl shadow-md">
           {contactInfo.name ? (
-            <div className="text-lg font-semibold mb-5">{contactInfo.name}</div>
+            <div className="text-lg font-semibold mb-8">{contactInfo.name}</div>
           ) : (
             <div className="font-bold text-zinc-300 text-xl">
               insert your name
             </div>
           )}
-          <div className="w-full flex justify-evenly items-center">
-            <div className="flex flex-col justify-center">
-              <div className="flex justify-start w-[210px] items-center mb-2">
-                <MdEmail className="text-xl mr-2" />
-                <div className="break-words max-w-[180px]">
-                  {contactInfo.email}
-                </div>
+          <div className="flex flex-wrap w-full justify-center items-center">
+            <div className="flex min-w-[295px] max-w-[295px] justify-center items-center mb-2">
+              <MdEmail className="text-xl mr-2" />
+              <div className="break-words overflow-hidden text-ellipsis">
+                {contactInfo.email}
               </div>
             </div>
-            <div className="flex flex-col justify-center">
-              {contactInfo.blogUrls.map((blog, index) => (
-                <div
-                  key={index}
-                  className="flex justify-start w-auto items-center mb-2"
-                >
-                  {blog.faviconUrl && (
-                    <img
-                      src={blog.faviconUrl}
-                      alt="Blog Favicon"
-                      className="w-5 h-5 mr-2"
-                    />
-                  )}
-                  <div className="break-words w-[255px] max-w-[250px]">
-                    {blog.url}
-                  </div>
+            {contactInfo.blogUrls.map((blog) => (
+              <div
+                key={blog.id}
+                className="flex min-w-[295px] max-w-[295px] break-words justify-center items-center mb-2"
+              >
+                {blog.faviconUrl && (
+                  <img
+                    src={blog.faviconUrl}
+                    alt="Blog Favicon"
+                    className="w-5 h-5 mr-2"
+                  />
+                )}
+                <div className="break-words overflow-hidden text-ellipsis">
+                  {blog.url}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

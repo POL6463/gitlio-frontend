@@ -25,10 +25,10 @@ export default function ContactSection() {
               insert your name
             </div>
           )}
-          <div className="flex flex-wrap w-full justify-center items-center">
+          <div className="flex flex-wrap w-full justify-start items-center">
             <div className="flex w-[295px] max-w-[295px] justify-center items-center mb-2">
               <MdEmail className="text-xl mr-2" />
-              <div className="break-words overflow-hidden text-ellipsis">
+              <div className="flex justify-start items-center break-all max-w-[267px]">
                 {contactInfo.email}
               </div>
             </div>
@@ -41,12 +41,12 @@ export default function ContactSection() {
                   <img
                     src={blog.faviconUrl}
                     alt="Blog Favicon"
-                    className="w-5 h-5 mr-2"
+                    className="w-5 h-5 mr-2 shrink-0"
                   />
                 ) : (
                   ''
                 )}
-                <div className="break-words overflow-hidden text-ellipsis w-full">
+                <div className="flex justify-start items-center break-all max-w-[267px]">
                   {blog.url ? blog.url : ''}
                 </div>
               </div>

@@ -9,7 +9,7 @@ export default function TopBlogBar() {
       <div className="flex flex-col justify-evenly items-center w-full h-auto">
         <div className="w-1 bg-black h-[150px] mt-32"></div>
         <div className="flex flex-col justify-center bg-[#555459] items-center h-auto rounded-xl border-2 border-slate-800 p-2 box-border space-y-2">
-          {contactInfo.blogUrls?.map((blog) => (
+          {contactInfo.blogUrls.map((blog) => (
             <a
               key={blog.id}
               href={blog.url}

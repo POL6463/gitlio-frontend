@@ -6,6 +6,7 @@ import { useDragDrop } from '@/hooks/useDragDrop';
 import TopBar from '@/app/editor/_components/TopBar';
 import LeftSidebar from '@/app/editor/_components/LeftSidebar';
 import BaseSideBar from '@/app/editor/_components/(rightSideBar)/BaseSideBar';
+import TopBlogBar from './_components/TopBlogBar';
 import DraggableIcon from '@/app/editor/_components/(skill)/DraggableIcon';
 import GlobalDragOverlay from '@/app/editor/_components/(skill)/DragOverlay';
 
@@ -22,6 +23,7 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
     >
       <div className="flex flex-col min-h-screen bg-base-200">
         <TopBar />
+        <TopBlogBar />
         <div className="flex-grow flex overflow-hidden">
           {/*<div className="fixed left-0 top-16 bottom-0">*/}
           {/*  <LeftSidebar />*/}

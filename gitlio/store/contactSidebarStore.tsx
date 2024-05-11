@@ -23,7 +23,7 @@ interface ContactStore {
 }
 
 function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  return Math.floor(Math.random() * 10001).toString();
 }
 
 const localStorageKey = 'contact-info-store';
@@ -37,7 +37,7 @@ const loadContactInfoFromLocalStorage = (): ContactState => {
       parsedInfo.blogUrls =
         parsedInfo.blogUrls && parsedInfo.blogUrls.length > 0
           ? parsedInfo.blogUrls
-          : [{ url: '', faviconUrl: '' }];
+          : [{ id: '', url: '', faviconUrl: '' }];
       return parsedInfo;
     }
   } catch (error) {

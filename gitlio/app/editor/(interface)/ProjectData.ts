@@ -1,7 +1,8 @@
 export interface Data {
-  url: string;
+  url?: string;
   title: string;
   intro: string;
   images: string[];
   sentences: string[];
+  serviceUrl?: string;
 }

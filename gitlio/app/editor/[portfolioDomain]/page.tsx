@@ -4,6 +4,7 @@ import useSidebarStore from '@/store/sidebarStore';
 import IntroSection from '@/app/editor/_components/mainSection/IntroSection';
 import SkillSection from '@/app/editor/_components/mainSection/SkillSection';
 import ContactSection from '@/app/editor/_components/mainSection/ContactSection';
+import ProjSection from '../_components/mainSection/ProjSection';
 
 export default function EditPage() {
   const setSelectedSection = useSidebarStore(
@@ -29,6 +30,11 @@ export default function EditPage() {
         className="mb-4 cursor-pointer"
       >
         <ExperienceSection />
+      </div>
+      <div
+        className="mb-4 cursor-pointer"
+      >
+        <ProjSection />
       </div>
       <div
         onClick={() => setSelectedSection('contact')}

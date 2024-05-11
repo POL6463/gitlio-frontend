@@ -1,13 +1,13 @@
 'use client';
 import { MdBrightness1 } from 'react-icons/md';
 import cx from 'classnames';
-import experienceSidebarStore from '@/store/experienceSidebarStore'; // 경로는 프로젝트에 맞게 조정하세요.
+import experienceSectionStore from '@/store/experienceSectionStore'; // 경로는 프로젝트에 맞게 조정하세요.
 
 export default function ExperienceSection() {
-  const { sections } = experienceSidebarStore(); // 스토어에서 sections 상태를 가져옵니다.
+  const { sections } = experienceSectionStore(); // 스토어에서 sections 상태를 가져옵니다.
 
   return (
-    <div className="bg-white w-[800px] flex flex-col flex-1 justify-start rounded-xl">
+    <div className="bg-white w-[800px] min-h-[200px] mr-32 rounded-xl flex flex-col flex-1 justify-start">
       <br />
       <h1 className="text-3xl font-semibold ml-10 mr-5">#Experience</h1>
       <ul className="timeline timeline-snap-icon timeline-compact timeline-vertical px-10 py-10">

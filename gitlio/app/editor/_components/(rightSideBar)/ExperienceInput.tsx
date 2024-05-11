@@ -1,5 +1,5 @@
 'use client';
-import experienceSidebarStore from '@/store/experienceSidebarStore';
+import experienceSectionStore from '@/store/experienceSectionStore';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import cx from 'classnames';
 
@@ -8,7 +8,7 @@ type SectionComponentProps = {
 };
 
 export default function ExperienceInput({ id }: SectionComponentProps) {
-  const { sections, removeSection, updateSection } = experienceSidebarStore();
+  const { sections, removeSection, updateSection } = experienceSectionStore();
 
   const currentId = id || (sections.length > 0 ? sections[0].id : null);
   const section = sections.find((s) => s.id === currentId) || {

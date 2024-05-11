@@ -25,7 +25,7 @@ export default function ContactSection() {
               insert your name
             </div>
           )}
-          <div className="flex flex-wrap w-full justify-center items-center">
+          <div className="flex flex-wrap w-full justify-start items-center">
             <div className="flex min-w-[295px] max-w-[295px] justify-center items-center mb-2">
               <MdEmail className="text-xl mr-2" />
               <div className="break-words overflow-hidden text-ellipsis">

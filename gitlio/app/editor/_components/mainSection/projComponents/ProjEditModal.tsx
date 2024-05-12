@@ -4,6 +4,7 @@ import { useProjectsStore } from '@/store/projectStore';
 import EditModalSidebar from './EditModalSidebar';
 import ProjectEditForm from './projectForm/ProjectEditForm';
 import ProjectAddForm from './projectForm/ProjectAddForm';
+import GptAddModal from './GptAddModal';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 
 interface ProjEditModalProps {
@@ -19,7 +20,7 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
   onSave,
   isAddingNewProject = false,
 }) => {
-  const { projects, updateProject } = useProjectsStore();
+  const { projects, setProjects } = useProjectsStore();
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Data | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -79,6 +80,21 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
     }
   };
 
+  const handleGptResponse = (gptData: any) => {
+    const newProjects = [
+      ...projects,
+      ...gptData.map((gpt: any) => ({
+        url: gpt.repository_url,
+        title: gpt.organization,
+        images: gpt.readme_images,
+        sentences: gpt.gpt_response,
+        serviceUrl: '', // Additional data can be added here.
+      })),
+    ];
+    setProjects(newProjects);
+    onClose();
+  };
+
   return (
     <dialog open className="modal">
       <div className="modal-box max-w-none w-4/5">
@@ -107,6 +123,12 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
                 onSave([...projects]);
               }}
               onClose={onClose}
+            />
+          ) : projectCreationType === 'gpt' ? (
+            <GptAddModal
+              isOpen={projectCreationType === 'gpt'}
+              onClose={() => setProjectCreationType('')}
+              onGptResponse={handleGptResponse}
             />
           ) : (
             <ProjectEditForm

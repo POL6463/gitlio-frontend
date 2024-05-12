@@ -22,14 +22,12 @@ const StartPage: React.FC = () => {
         <Logo />
         <SignedOut>
           <SignInButton
-            fallbackRedirectUrl="/studio/dashboard"
             forceRedirectUrl="/studio/dashboard"
-            signUpForceRedirectUrl="/studio/dashboard"
-            signUpFallbackRedirectUrl="/studio/dashboard"
+            fallbackRedirectUrl="/studio/dashboard"
           />
         </SignedOut>
         <SignedIn>
-          <UserButton afterSignOutUrl="/studio/dashboard" />
+          <UserButton afterSignOutUrl="/" />
         </SignedIn>
       </nav>{' '}
       <div className="bg-primary flex flex-col justify-center items-center h-screen">

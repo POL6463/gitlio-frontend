@@ -1,7 +1,7 @@
-import Navbar from '../../../../../components/studio/StdNavbar';
-import Sidebar from '../../../../../components/studio/StdSidebar';
-import PostList from '../../../../../components/studio/post/PostList';
-import PostMenu from '../../../../../components/studio/post/PostMenu';
+import Navbar from '../../../../components/Studio/StdNavbar';
+import Sidebar from '../../../../components/Studio/StdSidebar';
+import PostList from '../../../../components/Studio/post/PostList';
+import PostMenu from '../../../../components/Studio/post/PostMenu';
 
 export default function PostPage() {
   return (

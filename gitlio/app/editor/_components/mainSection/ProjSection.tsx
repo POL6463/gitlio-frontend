@@ -33,7 +33,7 @@ export default function ProjSection() {
   };
 
   return (
-    <div className="bg-white w-[800px] min-h-[200px] mr-32 rounded-xl flex flex-col flex-1 justify-start">
+    <div className="bg-white w-[800px] min-h-[200px] rounded-xl flex flex-col flex-1 justify-start">
       <br />
       <div className="flex items-center -mb-3">
         <h1 className="text-3xl font-semibold ml-10 mr-5">#Project</h1>

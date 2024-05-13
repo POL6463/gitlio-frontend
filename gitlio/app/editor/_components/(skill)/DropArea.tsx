@@ -20,7 +20,7 @@ const DropArea: React.FC<DropAreaProps> = ({ id }) => {
     >
       {area.icons.length > 0 ? (
         area.icons.map((icon) => (
-          <div className="m-2">
+          <div className="m-2" key="">
             <DraggableIcon
               key={icon.id}
               id={icon.id}

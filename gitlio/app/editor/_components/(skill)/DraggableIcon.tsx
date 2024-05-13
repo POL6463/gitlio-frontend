@@ -22,7 +22,7 @@ const DraggableIcon: React.FC<DraggableIconProps> = ({
   const { removeIcon } = useSidebarIconsStore();
   const { preview } = usePreviewStore(); // Access the preview state
 
-  const handleRemoveIcon = (event) => {
+  const handleRemoveIcon = (event: React.MouseEvent) => {
     event.stopPropagation(); // 클릭 이벤트의 전파를 중지하여 드래그 시작을 방지
     console.log('Remove icon', id);
     removeIcon(id);

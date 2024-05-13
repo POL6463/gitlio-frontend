@@ -80,21 +80,6 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
     }
   };
 
-  const handleGptResponse = (gptData: any) => {
-    const newProjects = [
-      ...projects,
-      ...gptData.map((gpt: any) => ({
-        url: gpt.repository_url,
-        title: gpt.organization,
-        images: gpt.readme_images,
-        sentences: gpt.gpt_response,
-        serviceUrl: '', // Additional data can be added here.
-      })),
-    ];
-    setProjects(newProjects);
-    onClose();
-  };
-
   return (
     <dialog open className="modal">
       <div className="modal-box max-w-none w-4/5">
@@ -128,7 +113,6 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
             <GptAddModal
               isOpen={projectCreationType === 'gpt'}
               onClose={() => setProjectCreationType('')}
-              onGptResponse={handleGptResponse}
             />
           ) : (
             <ProjectEditForm

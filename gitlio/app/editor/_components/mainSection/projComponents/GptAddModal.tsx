@@ -1,30 +1,32 @@
 'use client';
 import React, { useState } from 'react';
-import axios from 'axios';
-import { domain } from '@/domain/domain';
+import { CreateProjectServer } from '@/api/GptCreateProject';
 
 interface GptAddModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onGptResponse: (data: any) => void;
 }
 
-const GptAddModal: React.FC<GptAddModalProps> = ({
-  isOpen,
-  onClose,
-  onGptResponse,
-}) => {
+const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [githubId, setGithubId] = useState<string>('');
   const [repoUrl, setRepoUrl] = useState<string>('');
+  const [submitTrigger, setSubmitTrigger] = useState<number>(0); // API 요청을 트리거하기 위한 상태
 
   if (!isOpen) return null;
 
-  const handleSubmit = async () => {
-    const requestBody = {
-      user_id: 0, // 이 값은 상황에 따라 변경할 수 있습니다.
-      github_username: githubId,
-      repository_url: [repoUrl], // 배열 형태로 전달
-    };
+  const handleSuccess = (data: any) => {
+    console.log('API 성공:', data);
+    onClose(); // 성공 후 모달 닫기
+  };
+
+  const handleError = (error: any) => {
+    console.error('API 실패:', error);
+    alert('프로젝트 생성에 실패했습니다.');
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitTrigger(Date.now()); // 현재 시각을 기준으로 상태 업데이트하여 API 호출 트리거
   };
 
   return (
@@ -36,12 +38,7 @@ const GptAddModal: React.FC<GptAddModalProps> = ({
             ×
           </button>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               GitHub ID:
@@ -67,9 +64,18 @@ const GptAddModal: React.FC<GptAddModalProps> = ({
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            제출
+            생성
           </button>
         </form>
+        {/* 서버 컴포넌트 호출 부분 */}
+        {submitTrigger > 0 && (
+          <CreateProjectServer
+            githubId={githubId}
+            repoUrl={repoUrl}
+            onSuccess={handleSuccess}
+            onError={handleError}
+          />
+        )}
       </div>
     </div>
   );

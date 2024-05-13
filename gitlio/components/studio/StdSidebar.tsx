@@ -16,7 +16,7 @@ export default function StdSidebar() {
   const toggleMakeNewPortModal = () =>
     setIsMakeNewPortModalOpen(!isMakeNewPortModalOpen);
   const openGitInputModal = () => {
-    setIsGitInputModalOpen(true);
+    //setIsGitInputModalOpen(true);
     setIsMakeNewPortModalOpen(false); // 첫 번째 모달을 닫고 두 번째 모달을 열기
   };
 

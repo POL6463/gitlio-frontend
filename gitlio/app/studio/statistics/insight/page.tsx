@@ -1,6 +1,6 @@
-import Navbar from '../../../../../components/studio/StdNavbar';
-import Sidebar from '../../../../../components/studio/StdSidebar';
-import Menubar from '../../../../../components/studio/statistic/StatMenu';
+import Navbar from '@/components/studio/StdNavbar';
+import Sidebar from '@/components/studio/StdSidebar';
+import Menubar from '@/components/studio/statistic/StatMenu';
 
 export default function StatisticsPage() {
   return (

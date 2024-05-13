@@ -4,6 +4,8 @@ import Logo from '@/components/Logo';
 import LoginModal from '@/components/start/LoginModal';
 import SignInModal from '@/components/start/SignInModal';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 const StartPage: React.FC = () => {
   const [modalType, setModalType] = useState<string>('');
@@ -31,8 +33,14 @@ const StartPage: React.FC = () => {
         </SignedIn>
       </nav>{' '}
       <div className="bg-primary flex flex-col justify-center items-center h-screen">
+        <Link
+          href="/studio/dashboard"
+          className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
+        >
+          DASHBOARD
+        </Link>
         <button
-          className="btn btn-ghost mt-8 text-xl text-[#8288a1] underline underline-offset-4"
+          className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
           onClick={() => openModal('login')}
         >
           LOG IN

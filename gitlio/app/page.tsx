@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Logo from '@/components/Logo';
 import LoginModal from '@/components/start/LoginModal';
 import SignInModal from '@/components/start/SignInModal';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 const StartPage: React.FC = () => {
   const [modalType, setModalType] = useState<string>('');
@@ -19,22 +22,25 @@ const StartPage: React.FC = () => {
     <div className="bg-primary flex justify-center items-center h-screen">
       <nav className="flex justify-between items-center border-b border-border h-[60px] px-4 py-2 absolute top-0 w-full">
         <Logo />
-      </nav>
+        <SignedOut>
+          <SignInButton
+            forceRedirectUrl="/studio/dashboard"
+            fallbackRedirectUrl="/studio/dashboard"
+          />
+        </SignedOut>
+        <SignedIn>
+          <UserButton afterSignOutUrl="/" />
+        </SignedIn>
+      </nav>{' '}
       <div className="bg-primary flex flex-col justify-center items-center h-screen">
-        <div className="relative flex justify-center items-center">
-          <img
-            src="https://i.ibb.co/7WRLdst/Group-69.png"
-            alt="deco icon"
-            className="absolute w-auto h-auto max-w-xs lg:max-w-lg xl:max-w-xl"
-          />
-          <img
-            src="/gitlio.png"
-            alt="Profile Image"
-            className="relative z-10 w-auto h-auto max-w-xs lg:max-w-lg xl:max-w-xl"
-          />
-        </div>
+        <Link
+          href="/studio/dashboard"
+          className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
+        >
+          DASHBOARD
+        </Link>
         <button
-          className="btn btn-ghost mt-8 text-xl text-[#8288a1] underline underline-offset-4"
+          className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
           onClick={() => openModal('login')}
         >
           LOG IN
@@ -46,7 +52,6 @@ const StartPage: React.FC = () => {
           SIGN IN
         </button>
       </div>
-
       {modalType === 'login' && <LoginModal onClose={closeModal} />}
       {modalType === 'signin' && <SignInModal onClose={closeModal} />}
     </div>

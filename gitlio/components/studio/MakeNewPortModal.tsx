@@ -1,19 +1,45 @@
 'use client';
 import React, { useState } from 'react';
-
+import { createPortfolio } from '@/actions/user';
+import { useUserStore } from '@/store/userStore';
+import { useRouter } from 'next/navigation';
 interface MakeNewPortModalProps {
   onClose: () => void;
 }
 
 const MakeNewPortModal: React.FC<MakeNewPortModalProps> = ({ onClose }) => {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [domainPath, setDomainPath] = useState('');
+  const userId = useUserStore((state) => state.userId);
+  const [tempId, setTempId] = useState<string | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (title.trim() !== '' && domainPath.trim() !== '') {
+      if (!userId) {
+        alert('로그인이 필요합니다.');
+        return;
+      }
       console.log('포트폴리오 제목:', title);
       console.log('도메인 경로:', domainPath);
-      onClose(); // 모달 닫기
+      try {
+        const portfolioId = await createPortfolio({
+          user_id: userId.toString(),
+          title: title,
+          domain_name: domainPath,
+        });
+        if (portfolioId) {
+          router.push(`/editor/${portfolioId}`);
+          onClose(); // 모달 닫기
+        } else {
+          console.error('No portfolio ID returned');
+          alert('포트폴리오 ID가 반환되지 않았습니다.');
+        }
+        onClose(); // 모달 닫기
+      } catch (error) {
+        console.error('포트폴리오 생성 실패:', error);
+        alert('포트폴리오 생성에 실패하였습니다.');
+      }
     } else {
       alert('모든 필드를 채워주세요.');
     }

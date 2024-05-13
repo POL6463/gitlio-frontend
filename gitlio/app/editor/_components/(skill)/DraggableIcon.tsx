@@ -3,6 +3,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { IconType } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import { useSidebarIconsStore } from '@/store/sidebarIconsStore';
+import usePreviewStore from '@/store/previewStore';
 
 interface DraggableIconProps {
   id: string;
@@ -19,6 +20,7 @@ const DraggableIcon: React.FC<DraggableIconProps> = ({
 }) => {
   const { attributes, listeners, setNodeRef } = useDraggable({ id });
   const { removeIcon } = useSidebarIconsStore();
+  const { preview } = usePreviewStore(); // Access the preview state
 
   const handleRemoveIcon = (event) => {
     event.stopPropagation(); // 클릭 이벤트의 전파를 중지하여 드래그 시작을 방지
@@ -46,11 +48,13 @@ const DraggableIcon: React.FC<DraggableIconProps> = ({
         {IconComponent && <IconComponent />}
         <span className="ml-2 mr-2">{label}</span>
       </div>
-      <FaTimes
-        className="text-red-500 cursor-pointer"
-        onClick={handleRemoveIcon}
-        aria-label="Remove icon"
-      />
+      {!preview && ( // Conditionally render the FaTimes icon based on the preview state
+        <FaTimes
+          className="text-red-500 cursor-pointer"
+          onClick={handleRemoveIcon}
+          aria-label="Remove icon"
+        />
+      )}
     </div>
   );
 };

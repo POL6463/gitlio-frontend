@@ -36,7 +36,7 @@ export async function CreateGPTProject({
     console.log('Sending POST request to:', url);
     console.log('Request Body:', requestBody); // 요청 바디 확인
 
-    const response = await axios.post(url, requestBody, {
+    const response = await axios.post<ProjectResponse>(url, requestBody, {
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -50,8 +50,10 @@ export async function CreateGPTProject({
     };
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.error('Error creating project:', error.message);
       throw new ProjectCreationError(error.message);
     } else {
+      console.error('Unknown error:', error);
       throw new ProjectCreationError('An unknown error occurred');
     }
   }

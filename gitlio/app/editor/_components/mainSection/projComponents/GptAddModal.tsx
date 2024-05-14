@@ -1,6 +1,7 @@
 // 'use client';
 import React, { useState } from 'react';
 import { CreateGPTProject } from '@/actions/creategpt';
+import { useProjectsStore } from '@/store/projectStore';
 
 interface GptAddModalProps {
   isOpen: boolean;
@@ -10,14 +11,16 @@ interface GptAddModalProps {
 const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [githubId, setGithubId] = useState<string>('');
   const [repoUrl, setRepoUrl] = useState<string>('');
+  const setProjects = useProjectsStore((state) => state.setProjects);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await CreateGPTProject({ githubId, repoUrl });
-      console.log('Project created:', result);
+      const newProject = await CreateGPTProject({ githubId, repoUrl });
+      setProjects((prevProjects) => [...prevProjects, newProject]);
+      console.log('Project created:', newProject);
       onClose();
     } catch (error) {
       console.error('Failed to create project:', error);

@@ -1,1 +1,1 @@
-export const domain = 'https://gitlio.fly.dev';
+export const domain = 'https://gitlio.fly.dev/api/';

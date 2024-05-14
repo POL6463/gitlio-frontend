@@ -1,6 +1,6 @@
-'use client';
+// 'use client';
 import React, { useState } from 'react';
-import { CreateProjectServer } from '@/api/GptCreateProject';
+import { CreateGPTProject } from '@/actions/creategpt';
 
 interface GptAddModalProps {
   isOpen: boolean;
@@ -10,23 +10,19 @@ interface GptAddModalProps {
 const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [githubId, setGithubId] = useState<string>('');
   const [repoUrl, setRepoUrl] = useState<string>('');
-  const [submitTrigger, setSubmitTrigger] = useState<number>(0); // API 요청을 트리거하기 위한 상태
 
   if (!isOpen) return null;
 
-  const handleSuccess = (data: any) => {
-    console.log('API 성공:', data);
-    onClose(); // 성공 후 모달 닫기
-  };
-
-  const handleError = (error: any) => {
-    console.error('API 실패:', error);
-    alert('프로젝트 생성에 실패했습니다.');
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitTrigger(Date.now()); // 현재 시각을 기준으로 상태 업데이트하여 API 호출 트리거
+    try {
+      const result = await CreateGPTProject({ githubId, repoUrl });
+      console.log('Project created:', result);
+      onClose();
+    } catch (error) {
+      console.error('Failed to create project:', error);
+      alert('프로젝트 생성에 실패했습니다.');
+    }
   };
 
   return (
@@ -67,15 +63,6 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
             생성
           </button>
         </form>
-        {/* 서버 컴포넌트 호출 부분 */}
-        {submitTrigger > 0 && (
-          <CreateProjectServer
-            githubId={githubId}
-            repoUrl={repoUrl}
-            onSuccess={handleSuccess}
-            onError={handleError}
-          />
-        )}
       </div>
     </div>
   );

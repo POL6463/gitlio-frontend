@@ -5,10 +5,12 @@ import useSidebarStore from '@/store/sidebarStore';
 import SkillSideBar from '@/app/editor/_components/(rightSideBar)/SkillSideBar'; // 스토어 경로는 실제 경로에 맞게 조정하세요.
 import IntroSideBar from './IntroSideBar';
 import ContactSideBar from './ContactSideBar';
+import { useState } from 'react';
+import SectionLayout from '../(sideBarLayout)/SectionLayout';
 
 export default function BaseSideBar() {
   const { selectedSection, setSelectedSection } = useSidebarStore();
-  const layoutSelected = false;
+  const [layoutSelected, setLayoutSelected] = useState<boolean>(false); //탭 선택을 관리해주는 상태관리
 
   return (
     <div className="flex flex-col items-center w-[450px] h-dvh bg-white border-base-300 border-2 overflow-y-auto overscroll-contain pb-16">
@@ -16,17 +18,30 @@ export default function BaseSideBar() {
         role="tablist"
         className="tabs bg-neutral-300 tabs-boxed my-6 grid grid-flow-col auto-cols-fr"
       >
-        <a role="tab" className={cx('tab', !layoutSelected && 'bg-base-100')}>
+        <a
+          role="tab"
+          className={cx('tab', !layoutSelected && 'bg-base-100')}
+          onClick={() => setLayoutSelected(false)}
+        >
           Content
         </a>
-        <a role="tab" className={cx('tab', layoutSelected && 'bg-base-100')}>
+        <a
+          role="tab"
+          className={cx('tab', layoutSelected && 'bg-base-100')}
+          onClick={() => setLayoutSelected(true)}
+        >
           Layout
         </a>
       </div>
-      {selectedSection === 'experience' && <ExperienceSideBar />}
-      {selectedSection === 'skill' && <SkillSideBar />}
-      {selectedSection === 'information' && <IntroSideBar />}
-      {selectedSection === 'contact' && <ContactSideBar />}
+      {!layoutSelected && selectedSection === 'experience' && (
+        <ExperienceSideBar />
+      )}
+      {!layoutSelected && selectedSection === 'skill' && <SkillSideBar />}
+      {!layoutSelected && selectedSection === 'introduction' && (
+        <IntroSideBar />
+      )}
+      {!layoutSelected && selectedSection === 'contact' && <ContactSideBar />}
+      {layoutSelected && <SectionLayout section={selectedSection} />}
     </div>
   );
 }

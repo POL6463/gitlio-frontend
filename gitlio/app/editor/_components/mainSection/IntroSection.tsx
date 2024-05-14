@@ -24,11 +24,9 @@ export default function IntroSection() {
         <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
       </div>
       <div
-        className={`flex w-full justify-between ${
-          layoutOption === 'option2' ? 'flex-row-reverse' : 'flex-row'
-        }`}
+        className={`flex w-full justify-between ${layoutOption === 'option2' ? 'flex-row-reverse' : 'flex-row'}`}
       >
-        <div className="flex flex-col items-start h-full mr-15">
+        <div className="flex flex-col items-start h-full">
           <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center rounded-full flex items-center justify-center">
             {profile.profileImage ? (
               <img
@@ -48,20 +46,20 @@ export default function IntroSection() {
         >
           {profile.title ? (
             <div
-              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-20`}
+              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
             >
               {profile.title}
             </div>
           ) : (
             <div
-              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-20`}
+              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
             >
               {'insert your title'}
             </div>
           )}
 
           <div
-            className={`flex flex-row ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} w-full mt-5`}
+            className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} mt-5`}
           >
             {profile.tagList?.map((tag, index) => (
               <IntroTagList key={index} data={tag} />

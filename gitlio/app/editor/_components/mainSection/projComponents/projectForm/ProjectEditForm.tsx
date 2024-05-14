@@ -1,4 +1,3 @@
-// ProjectEditForm.tsx
 import React from 'react';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ImgSelectModal from '../ImgSelectModal';

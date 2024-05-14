@@ -1,13 +1,39 @@
 import create from 'zustand';
 
+//객체로 그룹화 해서 리팩토링 완료!
+interface LayoutOptions {
+  option: string;
+  setOption: (option: string) => void;
+}
+
 interface LayoutProps {
-  layoutOption: string;
-  setLayoutOption: (option: string) => void;
+  intro: LayoutOptions;
+  skill: LayoutOptions;
+  experience: LayoutOptions;
+  contact: LayoutOptions;
 }
 
 const useLayoutStore = create<LayoutProps>((set) => ({
-  layoutOption: 'option1',
-  setLayoutOption: (option: string): void => set({ layoutOption: option }),
+  intro: {
+    option: 'option1',
+    setOption: (option: string) =>
+      set((state) => ({ intro: { ...state.intro, option } })),
+  },
+  skill: {
+    option: 'option1',
+    setOption: (option: string) =>
+      set((state) => ({ skill: { ...state.skill, option } })),
+  },
+  experience: {
+    option: 'option1',
+    setOption: (option: string) =>
+      set((state) => ({ experience: { ...state.experience, option } })),
+  },
+  contact: {
+    option: 'option1',
+    setOption: (option: string) =>
+      set((state) => ({ contact: { ...state.contact, option } })),
+  },
 }));
 
 export default useLayoutStore;

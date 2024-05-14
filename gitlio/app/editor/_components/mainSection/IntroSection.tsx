@@ -3,11 +3,11 @@
 import React, { useEffect, useRef } from 'react';
 import IntroSidebarStore from '@/store/introSidebarStore';
 import IntroTagList from './introComponents/IntroTagList';
-import useDesignStore from '@/store/layoutDesignStore';
+import useLayoutStore from '@/store/layoutDesignStore';
 
 export default function IntroSection() {
   const { profile } = IntroSidebarStore();
-  const { layoutOption } = useDesignStore();
+  const { intro } = useLayoutStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function IntroSection() {
         <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
       </div>
       <div
-        className={`flex w-full justify-between ${layoutOption === 'option2' ? 'flex-row-reverse' : 'flex-row'}`}
+        className={`flex w-full justify-between ${intro.option === 'option2' ? 'flex-row-reverse' : 'flex-row'}`}
       >
         <div className="flex flex-col items-start h-full">
           <div className="w-[244px] h-[160px] px-10 my-10 bg-cover bg-center rounded-full flex items-center justify-center">
@@ -42,24 +42,24 @@ export default function IntroSection() {
           </div>
         </div>
         <div
-          className={`flex flex-col items-center justify-around ${layoutOption === 'option2' ? 'mr-0' : 'mr-10'}`}
+          className={`flex flex-col items-center justify-around ${intro.option === 'option2' ? 'mr-0' : 'mr-10'}`}
         >
           {profile.title ? (
             <div
-              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
+              className={`flex flex-row w-full ${intro.option === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
             >
               {profile.title}
             </div>
           ) : (
             <div
-              className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
+              className={`flex flex-row w-full ${intro.option === 'option2' ? 'justify-end' : 'justify-start'} font-bold text-2xl mt-10`}
             >
               {'insert your title'}
             </div>
           )}
 
           <div
-            className={`flex flex-row w-full ${layoutOption === 'option2' ? 'justify-end' : 'justify-start'} mt-5`}
+            className={`flex flex-row w-full ${intro.option === 'option2' ? 'justify-end' : 'justify-start'} mt-5`}
           >
             {profile.tagList?.map((tag, index) => (
               <IntroTagList key={index} data={tag} />

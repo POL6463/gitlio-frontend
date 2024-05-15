@@ -30,13 +30,19 @@ const SectionLayout = ({ section }: SectionProps) => {
         <div className="flex justify-evenly w-full space-x-4 mt-4">
           <div className="flex flex-col items-center">
             <LayoutPreview section={section} option="option1" />
-            <button onClick={handleOptionOne} className="btn mt-4">
+            <button
+              onClick={handleOptionOne}
+              className={`${section === 'skill' ? 'btn btn-info' : 'btn'} mt-4`}
+            >
               Option 1
             </button>
           </div>
           <div className="flex flex-col items-center">
             <LayoutPreview section={section} option="option2" />
-            <button onClick={handleOptionTwo} className="btn mt-4">
+            <button
+              onClick={handleOptionTwo}
+              className={`${section === 'skill' ? 'btn btn-error' : 'btn'} mt-4`}
+            >
               Option 2
             </button>
           </div>

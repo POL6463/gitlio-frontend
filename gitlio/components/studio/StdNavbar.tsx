@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import React from 'react';
+import { FaSignInAlt } from 'react-icons/fa';
 
 export default function StdNavbar() {
   const pathname = usePathname();
@@ -27,6 +28,11 @@ export default function StdNavbar() {
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">{getNavbarText()}</a>
       </div>
+      <SignedOut>
+        <SignInButton>
+          <FaSignInAlt className="text-white size-6" />
+        </SignInButton>
+      </SignedOut>
       <SignedIn>
         <UserButton afterSignOutUrl="/" />
       </SignedIn>

@@ -9,7 +9,7 @@ interface BlogUrl {
 interface ContactState {
   name: string;
   email: string;
-  blogUrls: BlogUrl[]; //사용자가 기입한 블로그의 url
+  blogUrls: BlogUrl[];
 }
 
 interface ContactStore {
@@ -26,38 +26,13 @@ function generateId() {
   return Math.floor(Math.random() * 10001).toString();
 }
 
-const localStorageKey = 'contact-info-store';
-
-const loadContactInfoFromLocalStorage = (): ContactState => {
-  try {
-    const storedInfo = localStorage.getItem(localStorageKey);
-    if (storedInfo) {
-      const parsedInfo = JSON.parse(storedInfo);
-      // 블로그 URL 배열이 적어도 하나의 빈 객체를 포함하도록 보장
-      parsedInfo.blogUrls =
-        parsedInfo.blogUrls && parsedInfo.blogUrls.length > 0
-          ? parsedInfo.blogUrls
-          : [{ id: '', url: '', faviconUrl: '' }];
-      return parsedInfo;
-    }
-  } catch (error) {
-    console.error(
-      '로컬 스토리지로부터 상태를 불러오는 데 실패하였습니다.',
-      error
-    );
-  }
-
-  return {
+const ContactSidebarStore = create<ContactStore>((set, get) => ({
+  contactInfo: {
     name: '',
     email: '',
     blogUrls: [{ id: '', url: '', faviconUrl: '' }],
-  };
-};
+  },
 
-const ContactSidebarStore = create<ContactStore>((set, get) => ({
-  contactInfo: loadContactInfoFromLocalStorage(),
-
-  // 전체 ContactInfoState 객체를 업데이트하는 함수
   setContactInfo: (info: Partial<ContactState>) => {
     set((state) => ({ contactInfo: { ...state.contactInfo, ...info } }));
   },
@@ -70,22 +45,18 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
     set((state) => ({ contactInfo: { ...state.contactInfo, email } }));
   },
 
-  setContactMessage: (contactMessage: string) => {
-    set((state) => ({ contactInfo: { ...state.contactInfo, contactMessage } }));
-  },
-
   setBlogUrl: (id: string, url: string) => {
     set((state) => {
       const newBlogUrls = state.contactInfo.blogUrls.map((blog) => {
         if (blog.id === id) {
           let faviconUrl = '';
           if (url) {
-            // URL이 비어 있지 않은지 확인
+            // Ensure URL is not empty before trying to set favicon
             try {
               faviconUrl = new URL(url).origin + '/favicon.ico';
             } catch (error) {
               console.error('Invalid URL format', error);
-              faviconUrl = ''; // 유효하지 않은 URL일 경우 파비콘 URL을 빈 문자열로 설정
+              faviconUrl = ''; // If URL is invalid, reset favicon URL
             }
           }
           return { ...blog, url, faviconUrl };
@@ -128,13 +99,5 @@ const ContactSidebarStore = create<ContactStore>((set, get) => ({
     });
   },
 }));
-
-ContactSidebarStore.subscribe((state) => {
-  try {
-    localStorage.setItem(localStorageKey, JSON.stringify(state.contactInfo));
-  } catch (error) {
-    console.error('Failed to save state to localStorage', error);
-  }
-});
 
 export default ContactSidebarStore;

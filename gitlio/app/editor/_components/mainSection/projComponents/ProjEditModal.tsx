@@ -82,7 +82,10 @@ const ProjEditModal: React.FC<ProjEditModalProps> = ({
 
   return (
     <dialog open className="modal">
-      <div className="modal-box max-w-none w-4/5">
+      <div
+        className="modal-box max-w-none w-4/5"
+        style={{ minHeight: '500px' }}
+      >
         <form method="dialog">
           <button
             onClick={onClose}

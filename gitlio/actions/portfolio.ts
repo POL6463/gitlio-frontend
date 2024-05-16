@@ -72,23 +72,43 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
     useSidebarIconsStore.setState({
       dropAreas: [
         { id: 'default-sidebar', icons: [], title: 'default-sidebar' },
+        { id: 'area-2', icons: [], title: 'Language' },
+        { id: 'area-3', icons: [], title: 'Framework' },
       ], // Default empty state for skill icons
     });
     experienceSectionStore.setState({
       sections: [
         {
           id: '999999', // Assign a unique ID
-          title: 'Please enter your job title',
+          title: '경력, 포지션을 입력해 주세요',
           startDate: '22.03',
           endDate: '24.03',
           description:
-            '- Please enter a detailed description of your career, what you did and what you were responsible for.\n- You can enter multiple sentences.\n- You can add sections with the + button, and delete them with the trash can button.',
+            '- 경력, 수행한 업무 및 담당 업무에 대한 자세한 설명을 입력하세요.\n- 여러 문장을 입력할 수 있습니다.\n- + 버튼으로 섹션을 추가하고 휴지통 버튼으로 삭제할 수 있습니다.',
           ongoing: false,
         },
       ], // Default empty state for experience sections
     });
     useProjectsStore.setState({
-      projects: [], // Default empty state for projects
+      projects: [
+        {
+          url: 'https://github.com/2023-WinterBootcamp-Team-M',
+          title: 'ClipTab',
+          intro: '똑똑한 북마크 익스텐션',
+          images: [
+            'https://i.ibb.co/NTd8vTG/2024-03-12-1-23-06.png',
+            'https://i.ibb.co/GWdLNnC/2024-03-12-2-05-32.png',
+            'https://i.ibb.co/sybwTHR/2024-03-12-2-07-23.png',
+          ],
+          sentences: [
+            '만약 자동 분류 북마크 생성을 선택했다면 카테고리도 gpt로 자동 분류되어 저장',
+            'celery beat로 스케쥴링 된 task 실행',
+            '이미지(url)를 클립보드에 저장하고 drag&drop, download 등으로 활용',
+            '새로 url을 넣으면 정해진 갯수를 넘어가는 데이터는 Queue 형식으로 자동 삭제 ',
+          ],
+          serviceUrl: 'https://example.com/api',
+        },
+      ], // Default empty state for projects
     });
     ContactSidebarStore.setState({
       contactInfo: {

@@ -1,9 +1,7 @@
 'use client';
-import StdNavbar from '@/components/studio/StdNavbar';
-import Sidebar from '@/components/studio/StdSidebar';
+import React, { useEffect, useState, useRef } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useUserStore } from '@/store/userStore';
-import { useEffect, useRef } from 'react';
 import { getIdAfterLogin, getUserPortfolios } from '@/actions/user';
 import PortfolioComponent from '@/components/PortfolioComponent';
 
@@ -15,33 +13,24 @@ export default function DashboardPage() {
     setPortfolios: state.setPortfolios,
   }));
   const userId = useUserStore((state) => state.userId);
-  const isRequesting = useRef(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isSignedIn && user && user.id && !userId && !isRequesting.current) {
-      isRequesting.current = true; // 요청 시작
-      const data = {
+    if (isSignedIn && user && user.id && !userId) {
+      getIdAfterLogin({
         clerk_id: user.id,
         email: user.emailAddresses[0]?.emailAddress,
         name: user.fullName,
-      };
-
-      getIdAfterLogin(data)
+      })
         .then((fetchedUserId) => {
-          if (!userId) {
-            setUserId(fetchedUserId);
-          }
-          isRequesting.current = false; // 요청 완료
+          setUserId(fetchedUserId);
+          setLoading(false);
         })
         .catch((err) => {
           console.error('Failed to fetch userId:', err);
-          isRequesting.current = false; // 요청 실패
+          setLoading(false);
         });
-    }
-  }, [isSignedIn, user, userId]);
-
-  useEffect(() => {
-    if (userId) {
+    } else if (userId) {
       getUserPortfolios(userId.toString())
         .then((portfolios) => {
           if (Array.isArray(portfolios)) {
@@ -51,18 +40,23 @@ export default function DashboardPage() {
               'Expected an array of portfolios, received:',
               portfolios
             );
-            setPortfolios([]); // Set to empty array if not array
+            setPortfolios([]);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.error('Failed to fetch portfolios:', err);
-          setPortfolios([]); // Ensure portfolios is always an array
+          setLoading(false);
         });
     }
-  }, [userId, setPortfolios]);
+  }, [isSignedIn, user, userId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex-1 p-4">
-      메인 컨텐츠 영역
       <PortfolioComponent />
     </div>
   );

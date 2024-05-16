@@ -1,4 +1,3 @@
-// ProjectEditForm.tsx
 import React from 'react';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ImgSelectModal from '../ImgSelectModal';
@@ -90,7 +89,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
           />
           <div className="overflow-x-auto mb-4" style={{ maxWidth: '100%' }}>
             <div className="flex space-x-2">
-              {editedData.images.map((image, index) => (
+              {(editedData.images ?? []).map((image, index) => (
                 <img
                   key={index}
                   src={image}
@@ -103,7 +102,7 @@ const ProjectEditForm: React.FC<ProjectEditFormProps> = ({
           <label className="block mb-1 text-gray-700 text-sm">
             주요 개발 내용:
           </label>
-          {editedData.sentences.map((sentence, index) => (
+          {(editedData.sentences ?? []).map((sentence, index) => (
             <div key={index} className="mb-2 flex items-center">
               <input
                 type="text"

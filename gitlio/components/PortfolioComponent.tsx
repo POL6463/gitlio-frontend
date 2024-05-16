@@ -1,66 +1,72 @@
 import React, { useState } from 'react';
-import { useUserStore } from '@/store/userStore';
+import { Portfolio, useUserStore } from '@/store/userStore';
+import { useRouter } from 'next/navigation';
+import { formatDistance } from 'date-fns';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 const PortfolioComponent = () => {
-  const { portfolios, addPortfolio, removePortfolio, updatePortfolio } =
-    useUserStore();
-
-  const handleAddPortfolio = () => {
-    const newPortfolio = {
-      created_at: new Date().toISOString(),
-      deployed: false,
-      domain_name: 'new-portfolio',
-      mongo_id: 'some-mongo-id',
-      portfolio_id: Date.now(), // 임시로 timestamp를 사용하여 고유 ID를 생성
-      title: 'New Portfolio',
-      updated_at: null,
-    };
-    addPortfolio(newPortfolio);
-  };
+  const {
+    portfolios,
+    addPortfolio,
+    removePortfolio,
+    updatePortfolio,
+    setCurrentPortfolio,
+  } = useUserStore();
+  const router = useRouter();
 
   const handleRemovePortfolio = (id: number) => {
     removePortfolio(id);
   };
 
-  const handleUpdatePortfolio = (id: number) => {
-    const updatedPortfolio = {
-      created_at: '2024-05-12T12:58:09.887545',
-      deployed: true,
-      domain_name: 'updated-portfolio',
-      mongo_id: '6640bce152a5de0fef96836e',
-      portfolio_id: id,
-      title: 'Updated Portfolio',
-      updated_at: new Date().toISOString(),
-    };
-    updatePortfolio(updatedPortfolio);
+  const handleEditPortfolio = (portfolio: Portfolio) => {
+    setCurrentPortfolio(portfolio); // 선택된 포트폴리오를 스토어에 설정
+    router.push(`/editor/${portfolio.portfolio_id}`); // 편집 페이지로 리디렉션
   };
 
   return (
     <div>
-      <button onClick={handleAddPortfolio}>Add Portfolio</button>
       <div className="flex flex-row flex-wrap">
         {portfolios.map((portfolio) => (
           <div
             key={portfolio.portfolio_id}
-            className="card w-96 bg-base-300 shadow-xl m-2"
+            className="card w-96 shadow-xl border m-2"
           >
             <div className="card-body">
-              <h2 className="card-title">{portfolio.title}</h2>
-              <p>{portfolio.domain_name}</p>
-              <p>{portfolio.created_at}</p>
-              <p>{portfolio.deployed ? 'Deployed' : 'Not Deployed'}</p>
-              <p>{portfolio.mongo_id}</p>
-              <p>{portfolio.updated_at}</p>
-              <button
-                onClick={() => handleRemovePortfolio(portfolio.portfolio_id)}
-              >
-                Remove
-              </button>
-              <button
-                onClick={() => handleUpdatePortfolio(portfolio.portfolio_id)}
-              >
-                Update
-              </button>
+              <div className="flex flex-row justify-between">
+                <h2 className="card-title">{portfolio.title}</h2>
+                {portfolio.deployed ? (
+                  <span className="badge badge-success">Deployed</span>
+                ) : (
+                  <span className="badge badge-warning">Draft</span>
+                )}
+              </div>
+              {/*<p>{portfolio.domain_name}</p>*/}
+              <p className="text-gray-600 text-sm">
+                {formatDistance(portfolio.created_at, new Date(), {
+                  addSuffix: true,
+                })}
+              </p>
+              <input
+                type="textarea"
+                className="input input-bordered w-full max-w-xs"
+                value={`https://gitlio-frontend.vercel.app/portfolio/${portfolio.domain_name}`}
+                disabled
+              />
+
+              <div className="flex flex-row mt-2 justify-between">
+                <button
+                  className="btn bg-transparent"
+                  onClick={() => handleRemovePortfolio(portfolio.portfolio_id)}
+                >
+                  <FaRegTrashAlt className="fill-red-500" />
+                </button>
+                <button
+                  className="btn "
+                  onClick={() => handleEditPortfolio(portfolio)}
+                >
+                  Edit
+                </button>
+              </div>
             </div>
           </div>
         ))}

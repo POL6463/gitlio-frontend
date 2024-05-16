@@ -1,7 +1,8 @@
 // store/userStore.ts
 import { create } from 'zustand';
+import { deletePortfolio } from '@/actions/portfolio';
 
-interface Portfolio {
+export interface Portfolio {
   created_at: string;
   deployed: boolean;
   domain_name: string;
@@ -17,12 +18,16 @@ interface UserState {
   email: string;
   name: string | null;
   portfolios: Portfolio[];
-  setUser: (user: Omit<UserState, 'userId' | 'portfolios'>) => void;
+  currentPortfolio: Portfolio | null; // 현재 선택된 포트폴리오를 저장하는 상태
+  setUser: (
+    user: Omit<UserState, 'userId' | 'portfolios' | 'currentPortfolio'>
+  ) => void;
   setUserId: (userId: number) => void;
   addPortfolio: (portfolio: Portfolio) => void;
   removePortfolio: (portfolioId: number) => void;
   updatePortfolio: (portfolio: Portfolio) => void;
   setPortfolios: (portfolios: Portfolio[]) => void;
+  setCurrentPortfolio: (portfolio: Portfolio | null) => void; // 선택된 포트폴리오를 설정하는 함수
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -31,18 +36,25 @@ export const useUserStore = create<UserState>((set) => ({
   email: '',
   name: null,
   portfolios: [],
+  currentPortfolio: null, // 초기 상태는 null
   setUser: (user) => set({ ...user }),
   setUserId: (userId) => set({ userId }),
   addPortfolio: (portfolio) =>
     set((state) => ({
       portfolios: [...state.portfolios, portfolio],
     })),
-  removePortfolio: (portfolioId) =>
-    set((state) => ({
-      portfolios: state.portfolios.filter(
-        (portfolio) => portfolio.portfolio_id !== portfolioId
-      ),
-    })),
+  removePortfolio: async (portfolioId) => {
+    try {
+      await deletePortfolio(portfolioId.toString());
+      set((state) => ({
+        portfolios: state.portfolios.filter(
+          (portfolio) => portfolio.portfolio_id !== portfolioId
+        ),
+      }));
+    } catch (error) {
+      console.error('Failed to delete portfolio:', error);
+    }
+  },
   updatePortfolio: (updatedPortfolio) =>
     set((state) => ({
       portfolios: state.portfolios.map((portfolio) =>
@@ -52,4 +64,5 @@ export const useUserStore = create<UserState>((set) => ({
       ),
     })),
   setPortfolios: (portfolios) => set({ portfolios }),
+  setCurrentPortfolio: (portfolio) => set({ currentPortfolio: portfolio }), // 현재 포트폴리오 설정
 }));

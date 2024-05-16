@@ -70,7 +70,9 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
       }, // Default empty state for profile
     });
     useSidebarIconsStore.setState({
-      dropAreas: [], // Default empty state for skill icons
+      dropAreas: [
+        { id: 'default-sidebar', icons: [], title: 'default-sidebar' },
+      ], // Default empty state for skill icons
     });
     experienceSectionStore.setState({
       sections: [

@@ -6,11 +6,13 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { FaSignInAlt } from 'react-icons/fa';
 import React from 'react';
 import { savePortfolioData } from '@/actions/portfolio';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function TopBar() {
+  const pathname = usePathname().split('/').filter(Boolean).pop();
   function saveData() {
-    savePortfolioData({ portfolio_id: '20' }).then((r) => console.log(r));
+    if (!pathname) return;
+    savePortfolioData(pathname).then((r) => console.log(r));
   }
   const router = useRouter();
 

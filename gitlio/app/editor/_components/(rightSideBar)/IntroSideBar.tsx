@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 import IntroSidebarStore from '@/store/introSidebarStore';
 import IntroTagList from '../mainSection/introComponents/IntroTagList';
 import SideBarIntroTagList from './SideBarIntroTagList';
+import { useUserStore } from '@/store/userStore';
+import { uploadImageToS3 } from '@/actions/portfolio';
+import { usePathname } from 'next/navigation';
 
 export default function IntroSideBar() {
   const [tagInput, setTagInput] = useState(''); // 태그 입력을 위한 새로운 상태
+  const clerkId = useUserStore((state) => state.clerkId);
+
+  const pathname = usePathname();
 
   const {
     profile,
@@ -55,15 +61,18 @@ export default function IntroSideBar() {
     setTagList(profile.tagList.filter((tag, index) => index !== tagIndex));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
     const files = e.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      fileReader.onload = () => {
-        setProfileImage(fileReader.result as string);
-      };
-      fileReader.readAsDataURL(file);
+      const imageURL = await uploadImageToS3(
+        file,
+        clerkId,
+        pathname + '/profile'
+      );
+      console.log('image URL: ' + imageURL);
+      setProfileImage(imageURL);
     }
   };
 

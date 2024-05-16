@@ -5,7 +5,6 @@ import IntroSection from '@/app/editor/_components/mainSection/IntroSection';
 import SkillSection from '@/app/editor/_components/mainSection/SkillSection';
 import ContactSection from '@/app/editor/_components/mainSection/ContactSection';
 import ProjSection from '../_components/mainSection/ProjSection';
-import { useRouter, usePathname } from 'next/navigation';
 import { updateStoresWithPortfolioData } from '@/actions/portfolio';
 import { useEffect, useState } from 'react';
 

@@ -29,10 +29,10 @@ export async function createPortfolio(data: {
   return response.data; // 백엔드에서 전체 포트폴리오 데이터를 반환한다고 가정
 }
 
-export async function savePortfolioData(data: { portfolio_id: string }) {
+export async function savePortfolioData(portfolio_id: string) {
   const portfolioData = mergeStores();
   const response = await axios.put(
-    API_URL + 'portfolios/24',
+    API_URL + 'portfolios/' + portfolio_id,
     { portfolio_data: portfolioData },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -106,3 +106,41 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
   useProjectsStore.setState({ projects: portfolioData.projectData });
   ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
 };
+
+export async function uploadImageToS3(
+  file: File,
+  clerkId: string,
+  category: string
+) {
+  const formData = new FormData();
+
+  // Create an object for the additional data
+  const requestData = {
+    clerk_id: clerkId,
+    category: category,
+  };
+
+  // Append the file to formData
+  formData.append('image_files', file);
+
+  // Append the JSON string of requestData under the key 'request'
+  formData.append('request', JSON.stringify(requestData));
+
+  try {
+    const response = await axios.post(
+      `${API_URL}images/s3`, // Ensure your environment variable ends without a slash
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    console.log('Upload successful:', response.data.data);
+    return response.data.data; // Assuming backend returns image URL(s)
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error; // Rethrow or handle error as needed
+  }
+}

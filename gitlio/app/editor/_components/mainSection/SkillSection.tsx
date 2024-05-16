@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import DropAreaComponent from '@/app/editor/_components/(skill)/DropAreaComponent';
 

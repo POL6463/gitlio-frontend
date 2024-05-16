@@ -11,6 +11,7 @@ interface GptAddModalProps {
 const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [githubId, setGithubId] = useState<string>('');
   const [repoUrl, setRepoUrl] = useState<string>('');
+  const projects = useProjectsStore((state) => state.projects);
   const setProjects = useProjectsStore((state) => state.setProjects);
 
   if (!isOpen) return null;
@@ -19,7 +20,8 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     try {
       const newProject = await CreateGPTProject({ githubId, repoUrl });
-      setProjects((prevProjects) => [...prevProjects, newProject]);
+      // Directly setting the new projects array with the new project appended
+      setProjects([...projects, newProject]);
       console.log('Project created:', newProject);
       onClose();
     } catch (error) {

@@ -4,7 +4,7 @@ import { Data } from '@/app/editor/(interface)/ProjectData';
 
 interface ProjectsState {
   projects: Data[];
-  setProjects: (update: (prevProjects: Data[]) => Data[]) => void;
+  setProjects: (projects: Data[]) => void;
   updateProject: (updatedProject: Data) => void;
   deleteProject: (projectUrl: string) => void;
 }
@@ -125,8 +125,7 @@ const sampleData: Data[] = [
 
 export const useProjectsStore = create<ProjectsState>((set) => ({
   projects: sampleData, // 초기 상태
-  setProjects: (update) =>
-    set((state) => ({ projects: update(state.projects) })),
+  setProjects: (projects) => set({ projects }),
   updateProject: (updatedProject) =>
     set((state) => ({
       projects: state.projects.map((project) =>

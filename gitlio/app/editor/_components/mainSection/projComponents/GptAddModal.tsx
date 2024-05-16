@@ -1,9 +1,9 @@
 // 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CreateGPTProject } from '@/actions/creategpt';
 import { useProjectsStore } from '@/store/projectStore';
 import { useUserStore } from '@/store/userStore';
-import { stat } from 'fs';
+import LoadingModal from './LoadingModal';
 
 interface GptAddModalProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ interface GptAddModalProps {
 const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [githubId, setGithubId] = useState<string>('');
   const [repoUrl, setRepoUrl] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false); // State to handle loading
   const projects = useProjectsStore((state) => state.projects);
   const setProjects = useProjectsStore((state) => state.setProjects);
   const userId = useUserStore((state) => state.userId);
@@ -24,19 +25,21 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
       return;
     }
     e.preventDefault();
+    setIsLoading(true);
     try {
       const newProject = await CreateGPTProject({
         githubId,
         repoUrl,
         userId: userId,
       });
-      // Directly setting the new projects array with the new project appended
-      setProjects([...projects, newProject]);
+      setProjects([...projects, newProject]); // Add new project to the state
       console.log('Project created:', newProject);
-      onClose();
     } catch (error) {
       console.error('Failed to create project:', error);
       alert('프로젝트 생성에 실패했습니다.');
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
+      onClose(); // Optionally close the modal here
     }
   };
 
@@ -78,6 +81,7 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
             생성
           </button>
         </form>
+        {isLoading && <LoadingModal />}
       </div>
     </div>
   );

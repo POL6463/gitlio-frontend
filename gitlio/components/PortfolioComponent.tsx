@@ -49,7 +49,7 @@ const PortfolioComponent = () => {
               <input
                 type="textarea"
                 className="input input-bordered w-full max-w-xs"
-                value={`https://gitlio-frontend.vercel.app/portfolio/${portfolio.portfolio_id}`}
+                value={`https://gitlio-frontend.vercel.app/portfolio/${portfolio.domain_name}`}
                 disabled
               />
 

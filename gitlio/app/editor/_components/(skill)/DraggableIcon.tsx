@@ -4,6 +4,7 @@ import { IconType } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import { useSidebarIconsStore } from '@/store/sidebarIconsStore';
 import usePreviewStore from '@/store/previewStore';
+import { icons } from '@/app/editor/_components/(skill)/icons';
 
 interface DraggableIconProps {
   id: string;
@@ -21,7 +22,10 @@ const DraggableIcon: React.FC<DraggableIconProps> = ({
   const { attributes, listeners, setNodeRef } = useDraggable({ id });
   const { removeIcon } = useSidebarIconsStore();
   const { preview } = usePreviewStore(); // Access the preview state
-
+  const logoExists = icons.hasOwnProperty(label);
+  if (logoExists) {
+    IconComponent = icons[label as keyof typeof icons];
+  }
   const handleRemoveIcon = (event: React.MouseEvent) => {
     event.stopPropagation(); // 클릭 이벤트의 전파를 중지하여 드래그 시작을 방지
     console.log('Remove icon', id);

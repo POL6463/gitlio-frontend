@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import { BsArrowDownLeftSquare } from 'react-icons/bs';
+import GithubLinkButton from './GithubLinkBtn';
 
 function ProjBox({ data }: { data: Data }) {
   // 이미지 배열 확인하고 비어있으면 기본 이미지로 설정
@@ -90,12 +91,7 @@ function ProjBox({ data }: { data: Data }) {
             </ul>
           </div>
         </div>
-        <Link href={data.url || '#'}>
-          <div className="btn self-end inline-flex items-center">
-            <FaGithub className="w-6 h-6" />
-            <p className="text-sm ml-2">자세히 보러가기</p>
-          </div>
-        </Link>
+        {data.url && <GithubLinkButton url={data.url} />}
       </div>
     </div>
   );

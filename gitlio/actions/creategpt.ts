@@ -1,4 +1,4 @@
-// 'use server';
+'use client';
 import axios from 'axios';
 import { domain } from '@/domain/domain';
 import { Data } from '@/app/editor/(interface)/ProjectData';
@@ -6,7 +6,7 @@ import { Data } from '@/app/editor/(interface)/ProjectData';
 interface CreateProjectData {
   githubId: string;
   repoUrl: string;
-  userId: string;
+  userId: number;
 }
 
 class ProjectCreationError extends Error {

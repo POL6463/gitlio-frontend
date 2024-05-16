@@ -28,7 +28,7 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
       const newProject = await CreateGPTProject({
         githubId,
         repoUrl,
-        userId: userId.toString(),
+        userId: userId,
       });
       // Directly setting the new projects array with the new project appended
       setProjects([...projects, newProject]);

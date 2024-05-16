@@ -6,6 +6,7 @@ import { Data } from '@/app/editor/(interface)/ProjectData';
 interface CreateProjectData {
   githubId: string;
   repoUrl: string;
+  userId: string;
 }
 
 class ProjectCreationError extends Error {
@@ -21,11 +22,12 @@ class ProjectCreationError extends Error {
 export async function CreateGPTProject({
   githubId,
   repoUrl,
+  userId,
 }: CreateProjectData): Promise<Data> {
   try {
     const url = `${domain}/repositories/chat-gpt`;
     const requestBody = {
-      user_id: '11',
+      user_id: userId,
       github_username: githubId,
       repository_url: [repoUrl],
     };

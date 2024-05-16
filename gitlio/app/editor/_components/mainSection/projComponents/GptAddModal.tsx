@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { CreateGPTProject } from '@/actions/creategpt';
 import { useProjectsStore } from '@/store/projectStore';
+import { useUserStore } from '@/store/userStore';
+import { stat } from 'fs';
 
 interface GptAddModalProps {
   isOpen: boolean;
@@ -13,13 +15,21 @@ const GptAddModal: React.FC<GptAddModalProps> = ({ isOpen, onClose }) => {
   const [repoUrl, setRepoUrl] = useState<string>('');
   const projects = useProjectsStore((state) => state.projects);
   const setProjects = useProjectsStore((state) => state.setProjects);
+  const userId = useUserStore((state) => state.userId);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (userId === null) {
+      return;
+    }
     e.preventDefault();
     try {
-      const newProject = await CreateGPTProject({ githubId, repoUrl });
+      const newProject = await CreateGPTProject({
+        githubId,
+        repoUrl,
+        userId: userId.toString(),
+      });
       // Directly setting the new projects array with the new project appended
       setProjects([...projects, newProject]);
       console.log('Project created:', newProject);

@@ -8,7 +8,7 @@ type LayoutPreviewProps = {
 const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
   if (section === 'introduction') {
     return (
-      <div className="mt-2 w-32 h-32 flex flex-col items-center justify-center border border-gray-400">
+      <div className="mt-2 w-32 h-32 flex flex-col items-center justify-center border border-gray-400 hover:scale-110 transition-transform duration-300">
         {option === 'option1' ? (
           <div className="flex items-start justify-between w-full p-2">
             <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
@@ -32,7 +32,7 @@ const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
     );
   } else if (section === 'experience') {
     return (
-      <div className="mt-2 w-40 h-40 flex flex-col items-center justify-center border border-gray-400">
+      <div className="mt-2 w-40 h-40 flex flex-col items-center justify-center border border-gray-400 hover:scale-110 transition-transform duration-300">
         {option === 'option1' ? (
           <div className="relative flex flex-col justify-center w-full h-full p-2">
             <div className="absolute left-10 top-2 bottom-2 w-px bg-gray-300"></div>{' '}
@@ -63,7 +63,7 @@ const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
     );
   } else if (section === 'contact') {
     return (
-      <div className="mt-2 w-32 h-32 flex flex-col items-center justify-center border border-gray-400">
+      <div className="mt-2 w-32 h-32 flex flex-col items-center justify-center border border-gray-400 hover:scale-110 transition-transform duration-300">
         {option === 'option1' ? (
           <div className="flex flex-col items-center justify-center w-full p-2">
             <div className="bg-gray-300 w-6 h-6 mb-2"></div>

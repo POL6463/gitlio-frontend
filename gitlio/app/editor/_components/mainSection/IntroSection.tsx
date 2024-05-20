@@ -20,9 +20,7 @@ export default function IntroSection() {
 
   return (
     <div className="flex flex-col w-[800px] bg-white mt-10 rounded-3xl p-10">
-      <div className="flex flex-row items-center mb-5">
-        <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
-      </div>
+      <h1 className="text-3xl font-semibold mr-5">#Introduction</h1>
       {intro.option === 'option3' ? (
         <div className="flex flex-col">
           <div className="flex flex-row">

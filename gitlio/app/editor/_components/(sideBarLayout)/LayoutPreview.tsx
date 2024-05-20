@@ -2,14 +2,14 @@ import React from 'react';
 
 type LayoutPreviewProps = {
   section: string;
-  option: 'option1' | 'option2';
+  option: string;
 };
 
 const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
   if (section === 'introduction') {
     return (
       <div className="mt-2 w-32 h-32 flex flex-col items-center justify-center border border-gray-400 hover:scale-110 transition-transform duration-300">
-        {option === 'option1' ? (
+        {option === 'option1' && (
           <div className="flex items-start justify-between w-full p-2">
             <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
             <div className="flex flex-col justify-center ml-2">
@@ -18,7 +18,8 @@ const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
               <div className="bg-gray-300 w-20 h-4"></div>
             </div>
           </div>
-        ) : (
+        )}
+        {option === 'option2' && (
           <div className="flex items-start justify-between w-full p-2">
             <div className="flex flex-col justify-center items-end mr-2">
               <div className="bg-gray-300 w-16 h-4 mb-2"></div>
@@ -26,6 +27,16 @@ const LayoutPreview = ({ section, option }: LayoutPreviewProps) => {
               <div className="bg-gray-300 w-20 h-4"></div>
             </div>
             <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+          </div>
+        )}
+        {option === 'option3' && (
+          <div className="flex flex-wrap justify-evenly w-full items-center">
+            <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+            <div className="flex flex-col justify-center items-center">
+              <div className="bg-gray-300 w-12 h-4 mb-2"></div>
+              <div className="bg-gray-300 w-12 h-4 mb-2"></div>
+            </div>
+            <div className="bg-gray-300 w-4/5 h-6 mb-2"></div>
           </div>
         )}
       </div>

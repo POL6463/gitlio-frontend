@@ -53,7 +53,7 @@ const SectionLayout = ({ section }: SectionProps) => {
           {section === 'introduction' ? (
             <div className="flex flex-wrap justify-evenly w-full mt-4">
               <div className="flex flex-col items-center mt-2">
-                <LayoutPreview section={section} option="option2" />
+                <LayoutPreview section={section} option="option3" />
                 <button onClick={handleOptionThree} className="btn mt-4">
                   Option 3
                 </button>

@@ -59,7 +59,7 @@ export default function IntroSection() {
               </div>
             </div>
           </div>
-          <div className="textarea whitespace-pre-wrap flex min-h-[80px] px-4 w-9/10 justify-center mx-6 text-center items-center justify-center text-white border rounded-2xl bg-[#374151] overflow-y-auto">
+          <div className="textarea whitespace-pre-wrap flex min-h-[80px] px-4 w-9/10 mx-6 text-center items-center justify-center text-white border rounded-2xl bg-[#374151] overflow-y-auto">
             {profile.introDescription}
           </div>
         </div>

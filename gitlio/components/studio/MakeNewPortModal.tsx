@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { createPortfolio } from '@/actions/user';
+import { createPortfolio } from '@/actions/portfolio';
 import { useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';
 interface MakeNewPortModalProps {
@@ -23,13 +23,13 @@ const MakeNewPortModal: React.FC<MakeNewPortModalProps> = ({ onClose }) => {
       console.log('포트폴리오 제목:', title);
       console.log('도메인 경로:', domainPath);
       try {
-        const portfolioId = await createPortfolio({
+        const response = await createPortfolio({
           user_id: userId.toString(),
           title: title,
           domain_name: domainPath,
         });
-        if (portfolioId) {
-          router.push(`/editor/${portfolioId}`);
+        if (response.portfolio_id) {
+          router.push(`/editor/${response.portfolio_id}`);
           onClose(); // 모달 닫기
         } else {
           console.error('No portfolio ID returned');
@@ -64,7 +64,7 @@ const MakeNewPortModal: React.FC<MakeNewPortModalProps> = ({ onClose }) => {
             onChange={(e) => setTitle(e.target.value)}
           />
           <div className="flex items-center gap-2 mt-2">
-            <div>www.gitlio.fly.io/portfolio/</div>
+            <div>gitlio-frontend.vercel.app/portfolio/</div>
             <input
               type="text"
               className="input input-bordered h-8 -ml-1"

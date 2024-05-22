@@ -5,14 +5,44 @@ import IntroSection from '@/app/editor/_components/mainSection/IntroSection';
 import SkillSection from '@/app/editor/_components/mainSection/SkillSection';
 import ContactSection from '@/app/editor/_components/mainSection/ContactSection';
 import ProjSection from '../_components/mainSection/ProjSection';
+import { updateStoresWithPortfolioData } from '@/actions/portfolio';
+import { useEffect, useState } from 'react';
 
-export default function EditPage() {
+export default function EditPage({
+  params,
+}: {
+  params: { portfolioDomain: string };
+}) {
+  const [isLoading, setIsLoading] = useState(true); // State to manage loading
+
+  console.log(params);
+  useEffect(() => {
+    if (!params.portfolioDomain) return; // Guard clause if the portfolioDomain is not available
+
+    // Call to update data
+    updateStoresWithPortfolioData(params.portfolioDomain.toString())
+      .then(() => {
+        setIsLoading(false); // Set loading to false when data fetching is complete
+      })
+      .catch((error) => {
+        console.error('Failed to update stores:', error);
+        setIsLoading(false); // Ensure loading is set to false even if there is an error
+      });
+  }, []);
   const setSelectedSection = useSidebarStore(
     (state) => state.setSelectedSection
   );
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="">
+    <div>
       <div
         onClick={() => setSelectedSection('introduction')}
         className="mb-4 cursor-pointer"
@@ -40,7 +70,7 @@ export default function EditPage() {
       >
         <ContactSection />
       </div>
-      {/* 다른 섹션들 추가 가능 */}
+      {/* Other sections can be added here */}
     </div>
   );
 }

@@ -20,92 +20,69 @@ export default function ContactSection() {
       <h1 className="text-3xl font-semibold ml-10 mr-5 pt-5">#Contact</h1>
       <div className="flex flex-col items-center h-full w-full mt-5">
         <div
-          className={`flex ${contact.option === 'option2' ? 'flex-row' : 'flex-col'} justify-around items-center w-[630px] min-h-[280px] px-5 bg-neutral-content/30 rounded-3xl shadow-md`}
+          className={`flex ${contact.option === 'option1' ? 'flex-col items-center' : 'flex-row justify-start items-center'} w-fit mx-10 px-6 bg-neutral-content/30 rounded-3xl shadow-md`}
         >
-          {contact.option === 'option2' ? (
-            <>
-              <div className="flex flex-col justify-center items-center w-1/3">
-                {contactInfo.name ? (
-                  <div className="text-lg font-semibold">
-                    {contactInfo.name}
-                  </div>
-                ) : (
-                  <div className="font-bold text-zinc-300 text-xl">
-                    insert your name
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col w-2/3">
-                <div className="flex flex-wrap w-full">
-                  <div className="flex w-1/2 justify-start items-center mb-2">
-                    <MdEmail className="text-xl mr-2" />
-                    <div className="flex justify-start items-center break-all">
-                      {contactInfo.email}
-                    </div>
-                  </div>
-                  {contactInfo.blogUrls.map((blog) => (
-                    <div
-                      key={blog.id}
-                      className="flex w-1/2 max-w-[295px] justify-start items-center mb-2"
-                    >
-                      {blog.faviconUrl ? (
-                        <img
-                          src={blog.faviconUrl}
-                          alt="Blog Favicon"
-                          className="w-5 h-5 mr-2 shrink-0"
-                        />
-                      ) : (
-                        ''
-                      )}
-                      <div className="flex justify-start items-center break-all">
-                        {blog.url ? blog.url : ''}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
+          {contactInfo.name ? (
+            <div
+              className={`text-lg font-semibold ${contact.option === 'option1' ? 'mt-6' : 'mr-6 mt-0'}`}
+            >
+              {contactInfo.name}
+            </div>
           ) : (
-            //option1 일 경우
-            <>
-              {contactInfo.name ? (
-                <div className="text-lg font-semibold mb-8">
-                  {contactInfo.name}
-                </div>
-              ) : (
-                <div className="font-bold text-zinc-300 text-xl">
-                  insert your name
-                </div>
-              )}
-              <div className="flex flex-wrap w-full justify-start items-center">
-                <div className="flex w-[295px] max-w-[295px] justify-start items-center mb-2">
-                  <MdEmail className="text-xl mr-2" />
-                  <div className="flex justify-start items-center break-all max-w-[267px]">
-                    {contactInfo.email}
-                  </div>
-                </div>
-                {contactInfo.blogUrls.map((blog) => (
-                  <div
-                    key={blog.id}
-                    className="flex w-[295px] max-w-[295px] justify-start items-center mb-2"
-                  >
-                    {blog.faviconUrl ? (
-                      <img
-                        src={blog.faviconUrl}
-                        alt="Blog Favicon"
-                        className="w-5 h-5 mr-2 shrink-0"
-                      />
-                    ) : (
-                      ''
-                    )}
-                    <div className="flex justify-start items-center break-all max-w-[267px]">
-                      {blog.url ? blog.url : ''}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
+            <div
+              className={`font-bold text-zinc-300 mt-6 text-xl ${contact.option === 'option1' ? 'mt-6' : 'mr-6 mt-0'}`}
+            >
+              insert your name
+            </div>
           )}
+          <div
+            className={`flex flex-wrap w-full justify-center items-center mt-6 ${contact.option === 'option1' ? '' : 'flex-1'}`}
+          >
+            <div className="flex w-[295px] justify-start items-center mb-6">
+              <MdEmail className="text-xl mr-2" />
+              <div className="flex justify-start items-center break-all text-sm max-w-[267px]">
+                {contactInfo.email}
+              </div>
+            </div>
+            {contactInfo.blogUrls.slice(0, 1).map((blog) => (
+              <div
+                key={blog.id}
+                className="flex w-[295px] max-w-[295px] justify-start items-center mb-6"
+              >
+                {blog.faviconUrl ? (
+                  <img
+                    src={blog.faviconUrl}
+                    alt="Blog Favicon"
+                    className="w-5 h-5 mr-2 shrink-0"
+                  />
+                ) : (
+                  ''
+                )}
+                <div className="flex justify-start items-center break-all text-sm max-w-[267px]">
+                  {blog.url ? blog.url : ''}
+                </div>
+              </div>
+            ))}
+            {contactInfo.blogUrls.slice(1).map((blog) => (
+              <div
+                key={blog.id}
+                className="flex w-[295px] max-w-[295px] justify-start items-center mb-6"
+              >
+                {blog.faviconUrl ? (
+                  <img
+                    src={blog.faviconUrl}
+                    alt="Blog Favicon"
+                    className="w-5 h-5 mr-2 shrink-0"
+                  />
+                ) : (
+                  ''
+                )}
+                <div className="flex justify-start items-center break-all text-sm max-w-[267px]">
+                  {blog.url ? blog.url : ''}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

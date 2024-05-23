@@ -44,7 +44,7 @@ export default function EditPage({
   return (
     <div>
       <div
-        onClick={() => setSelectedSection('information')}
+        onClick={() => setSelectedSection('introduction')}
         className="mb-4 cursor-pointer"
       >
         <IntroSection />

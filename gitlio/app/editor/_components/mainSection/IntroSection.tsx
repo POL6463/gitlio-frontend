@@ -16,7 +16,7 @@ export default function IntroSection() {
       element.style.height = 'inherit';
       element.style.height = `${element.scrollHeight}px`;
     }
-  }, [profile.introDescription]);
+  }, [profile.introDescription, intro.option]);
 
   return (
     <div className="flex flex-col w-[800px] bg-white mt-10 rounded-3xl p-10">

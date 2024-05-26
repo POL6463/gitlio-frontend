@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
 //객체로 그룹화 해서 리팩토링 완료!
 interface LayoutOptions {
@@ -15,7 +15,7 @@ interface LayoutProps {
 
 const useLayoutStore = create<LayoutProps>((set) => ({
   intro: {
-    option: 'option1',
+    option: 'option3',
     setOption: (option: string) =>
       set((state) => ({ intro: { ...state.intro, option } })),
   },

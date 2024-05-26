@@ -1,6 +1,5 @@
 'use client';
 import ContactSidebarStore from '@/store/contactSidebarStore';
-import { FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 export default function TopBlogBar() {
   const { contactInfo } = ContactSidebarStore();

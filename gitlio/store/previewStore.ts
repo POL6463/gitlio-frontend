@@ -1,5 +1,5 @@
 // store/previewStore.ts
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface PreviewState {
   preview: boolean;

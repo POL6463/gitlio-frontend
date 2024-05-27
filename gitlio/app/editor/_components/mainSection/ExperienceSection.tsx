@@ -10,7 +10,7 @@ export default function ExperienceSection() {
   const { option } = experience;
 
   return (
-    <div className="bg-white w-[800px] min-h-[200px] rounded-xl flex flex-col flex-1 justify-start">
+    <div className="bg-white w-[800px] min-h-[200px] rounded-xl flex flex-col justify-start">
       <br />
       <h1 className="text-3xl font-semibold ml-10 mr-5">#Experience</h1>
       {option === 'option1' ? (

@@ -5,7 +5,10 @@ import ProjBox from './projComponents/ProjBox';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import ProjEditModal from './projComponents/ProjEditModal';
 
-export default function ProjSection() {
+interface ProjSectionProps {
+  isViewMode: boolean;
+}
+export default function ProjSection({ isViewMode }: ProjSectionProps) {
   const { projects, setProjects, updateProject } = useProjectsStore();
   const [isEditProjModalOpen, setIsEditProjModalOpen] = React.useState(false);
   const [selectedRadio, setSelectedRadio] = React.useState(0);
@@ -37,21 +40,25 @@ export default function ProjSection() {
       <br />
       <div className="flex items-center -mb-3">
         <h1 className="text-3xl font-semibold ml-10 mr-5">#Project</h1>
-        <div className="btn" onClick={handleToggleModal}>
-          편집
-        </div>
-        <div className="ml-5">
-          {[0, 1].map((index) => (
-            <input
-              key={index}
-              type="radio"
-              name="radio-1"
-              className="radio mr-2 mt-2"
-              checked={selectedRadio === index}
-              onChange={() => setSelectedRadio(index)}
-            />
-          ))}
-        </div>
+        {!isViewMode && (
+          <div className="btn" onClick={handleToggleModal}>
+            편집
+          </div>
+        )}
+        {!isViewMode && (
+          <div className="ml-5">
+            {[0, 1].map((index) => (
+              <input
+                key={index}
+                type="radio"
+                name="radio-1"
+                className="radio mr-2 mt-2"
+                checked={selectedRadio === index}
+                onChange={() => setSelectedRadio(index)}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <div className="flex flex-col items-center">
         {selectedRadio === 0 ? (

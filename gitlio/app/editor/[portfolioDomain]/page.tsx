@@ -62,7 +62,7 @@ export default function EditPage({
         <ExperienceSection />
       </div>
       <div className="mb-4 cursor-pointer">
-        <ProjSection />
+        <ProjSection isViewMode={false} />
       </div>
       <div
         onClick={() => setSelectedSection('contact')}

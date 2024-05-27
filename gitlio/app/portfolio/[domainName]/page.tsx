@@ -6,6 +6,7 @@ import ExperienceSection from '@/app/editor/_components/mainSection/ExperienceSe
 import ProjSection from '@/app/editor/_components/mainSection/ProjSection';
 import ContactSection from '@/app/editor/_components/mainSection/ContactSection';
 import { updateStoresWithPortfolioData } from '@/actions/viewPage';
+import { useRouter } from 'next/navigation';
 
 export default function PortfolioPage({
   params,
@@ -13,12 +14,18 @@ export default function PortfolioPage({
   params: { domainName: string };
 }) {
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Fetching portfolio data for domain:', params.domainName);
-      await updateStoresWithPortfolioData(params.domainName);
-      setLoading(false);
+      try {
+        console.log('Fetching portfolio data for domain:', params.domainName);
+        await updateStoresWithPortfolioData(params.domainName);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch portfolio data, redirecting...');
+        router.push('/error'); // 에러 발생 시 리다이렉션
+      }
     };
 
     fetchData();

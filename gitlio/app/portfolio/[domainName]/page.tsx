@@ -7,6 +7,7 @@ import ProjSection from '@/app/editor/_components/mainSection/ProjSection';
 import ContactSection from '@/app/editor/_components/mainSection/ContactSection';
 import { updateStoresWithPortfolioData } from '@/actions/viewPage';
 import { useRouter } from 'next/navigation';
+import SkillSectionView from '@/app/editor/_components/mainSection/SkillSectionView';
 
 export default function PortfolioPage({
   params,
@@ -44,7 +45,7 @@ export default function PortfolioPage({
   return (
     <div className="flex flex-col space-y-4">
       <IntroSection />
-      <SkillSection />
+      <SkillSectionView />
       <ExperienceSection />
       <ProjSection isViewMode={true} />
       <ContactSection />

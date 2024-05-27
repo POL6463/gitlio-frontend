@@ -10,7 +10,8 @@ import ContactSection from './mainSection/ContactSection';
 import { MdPreview } from 'react-icons/md';
 import { FaGlobeAsia } from 'react-icons/fa';
 import TopBlogBar from '@/app/editor/_components/TopBlogBar';
-import usePreviewStore from '@/store/previewStore'; // Assuming the path to your Zustand store
+import usePreviewStore from '@/store/previewStore';
+import SkillSectionView from '@/app/editor/_components/mainSection/SkillSectionView'; // Assuming the path to your Zustand store
 
 const ModalButton = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -53,7 +54,7 @@ const ModalButton = () => {
             <TopBlogBar />
             <div className="flex flex-col gap-4 items-center">
               <IntroSection />
-              <SkillSection />
+              <SkillSectionView />
               <ExperienceSection />
               <ProjSection isViewMode={true} />
               <ContactSection />

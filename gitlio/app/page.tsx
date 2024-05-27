@@ -30,7 +30,10 @@ const StartPage: React.FC = () => {
           <SignInButton
             forceRedirectUrl="/studio/dashboard"
             fallbackRedirectUrl="/studio/dashboard"
-          />
+            mode={'modal'}
+          >
+            <button className="btn-lg btn">Sign in with Clerk</button>
+          </SignInButton>
         </SignedOut>
         <SignedIn>
           <Link

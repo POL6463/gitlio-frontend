@@ -7,7 +7,7 @@ import PortfolioComponent from '@/components/PortfolioComponent';
 import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser();
   const { setUser, setUserId, setPortfolios } = useUserStore((state) => ({
     setUser: state.setUser,
     setUserId: state.setUserId,
@@ -16,7 +16,7 @@ export default function DashboardPage() {
   const userId = useUserStore((state) => state.userId);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  if (!isSignedIn) {
+  if (isLoaded && !isSignedIn) {
     router.push('/');
   }
 
@@ -44,8 +44,10 @@ export default function DashboardPage() {
       if (!id) return; // userId가 없다면 실행하지 않음
       try {
         const portfolios = await getUserPortfolios(id.toString());
+        console.log(portfolios);
         if (Array.isArray(portfolios)) {
           setPortfolios(portfolios);
+          setLoading(false);
         } else {
           console.error(
             'Expected an array of portfolios, received:',

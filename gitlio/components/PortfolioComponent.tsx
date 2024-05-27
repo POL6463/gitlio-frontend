@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { Portfolio, useUserStore } from '@/store/userStore';
 import { useRouter } from 'next/navigation';

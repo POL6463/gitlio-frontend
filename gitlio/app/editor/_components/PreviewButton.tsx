@@ -55,7 +55,7 @@ const ModalButton = () => {
               <IntroSection />
               <SkillSection />
               <ExperienceSection />
-              <ProjSection />
+              <ProjSection isViewMode={true} />
               <ContactSection />
             </div>
           </div>

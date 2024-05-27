@@ -14,20 +14,23 @@ export async function getPortfolioDataByDomain(domainName: string) {
 }
 
 export const updateStoresWithPortfolioData = async (domainName: string) => {
-  const portfolioData = await getPortfolioDataByDomain(domainName);
+  try {
+    const portfolioData = await getPortfolioDataByDomain(domainName);
 
-  console.log('Fetched portfolio data:', portfolioData);
+    console.log('Fetched portfolio data:', portfolioData);
 
-  if (!portfolioData) {
-    console.error('Failed to fetch portfolio data');
+    if (!portfolioData) {
+      throw new Error('Failed to fetch portfolio data');
+    }
 
-    return;
+    // Assuming `portfolioData` includes sections that correspond to data needed for each store
+    IntroSidebarStore.setState({ profile: portfolioData.introData });
+    useSidebarIconsStore.setState({ dropAreas: portfolioData.skillData });
+    experienceSectionStore.setState({ sections: portfolioData.experienceData });
+    useProjectsStore.setState({ projects: portfolioData.projectData });
+    ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
+  } catch (error) {
+    console.error(error);
+    throw error; // 에러 발생 시 예외를 throw
   }
-
-  // Assuming `portfolioData` includes sections that correspond to data needed for each store
-  IntroSidebarStore.setState({ profile: portfolioData.introData });
-  useSidebarIconsStore.setState({ dropAreas: portfolioData.skillData });
-  experienceSectionStore.setState({ sections: portfolioData.experienceData });
-  useProjectsStore.setState({ projects: portfolioData.projectData });
-  ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
 };

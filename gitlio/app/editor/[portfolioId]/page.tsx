@@ -7,28 +7,43 @@ import ContactSection from '@/app/editor/_components/mainSection/ContactSection'
 import ProjSection from '../_components/mainSection/ProjSection';
 import { updateStoresWithPortfolioData } from '@/actions/portfolio';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/userStore';
 
-export default function EditPage({
-  params,
-}: {
-  params: { portfolioDomain: string };
-}) {
+interface EditPageProps {
+  params: {
+    portfolioId: string;
+  };
+}
+export default function EditPage({ params }: EditPageProps) {
   const [isLoading, setIsLoading] = useState(true); // State to manage loading
+  const router = useRouter();
+  const { portfolios, setPortfolios } = useUserStore((state) => ({
+    portfolios: state.portfolios,
+    setPortfolios: state.setPortfolios,
+  }));
+  const { portfolioId } = params;
 
   console.log(params);
   useEffect(() => {
-    if (!params.portfolioDomain) return; // Guard clause if the portfolioDomain is not available
+    // Check if the portfolio exists in the user's store
+    const portfolioExists = portfolios.some(
+      (portfolio) => portfolio.portfolio_id.toString() === portfolioId
+    );
 
-    // Call to update data
-    updateStoresWithPortfolioData(params.portfolioDomain.toString())
-      .then(() => {
-        setIsLoading(false); // Set loading to false when data fetching is complete
-      })
+    if (!portfolioExists) {
+      router.push('/error'); // Redirect to an error page if the portfolio ID is not found
+      return;
+    }
+
+    // Proceed to fetch and update stores with the portfolio data
+    updateStoresWithPortfolioData(portfolioId)
+      .then(() => setIsLoading(false))
       .catch((error) => {
         console.error('Failed to update stores:', error);
-        setIsLoading(false); // Ensure loading is set to false even if there is an error
+        setIsLoading(false);
       });
-  }, []);
+  }, [portfolioId, portfolios, router]);
   const setSelectedSection = useSidebarStore(
     (state) => state.setSelectedSection
   );

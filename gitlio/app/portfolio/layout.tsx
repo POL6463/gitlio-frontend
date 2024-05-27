@@ -12,7 +12,7 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const router = useRouter();
   const handleLogoClick = () => {
-    router.push('/studio/dashboard');
+    router.push('/');
   };
 
   const [isClient, setIsClient] = useState(false);

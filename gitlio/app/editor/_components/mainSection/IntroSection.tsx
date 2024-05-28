@@ -3,9 +3,9 @@
 import React, { useEffect, useRef } from 'react';
 import IntroSidebarStore from '@/store/introSidebarStore';
 import useLayoutStore from '@/store/layoutDesignStore';
-import IntroOptionOne from './introLayoutOption/IntroOptionOne';
-import IntroOptionTwo from './introLayoutOption/IntroOptionTwo';
-import IntroOptionThree from './introLayoutOption/IntroOptionThree';
+import IntroOptionOne from './introLayoutOptions/IntroOptionOne';
+import IntroOptionTwo from './introLayoutOptions/IntroOptionTwo';
+import IntroOptionThree from './introLayoutOptions/IntroOptionThree';
 
 const IntroSection: React.FC = () => {
   const { profile } = IntroSidebarStore();

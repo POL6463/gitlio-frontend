@@ -16,7 +16,7 @@ export default function ContactSection() {
   const { contact } = useLayoutStore();
 
   return (
-    <div className="bg-white w-[800px] flex flex-col flex-1 justify-start rounded-xl pb-5">
+    <div className="bg-white w-[800px] flex flex-col justify-start rounded-xl pb-5">
       <h1 className="text-3xl font-semibold ml-10 mr-5 pt-5">#Contact</h1>
       <div className="flex flex-col items-center h-full w-full mt-5">
         <div
@@ -30,7 +30,7 @@ export default function ContactSection() {
             </div>
           ) : (
             <div
-              className={`font-bold text-zinc-300 text-xl ${contact.option === 'option1' ? 'mt-6' : 'mr-6 mt-0'}`}
+              className={`font-bold text-zinc-300 text-lg text-center ${contact.option === 'option1' ? 'flex mt-6' : 'max-w-[54px] mr-6 mt-0 py-2 box-border'}`}
             >
               insert your name
             </div>

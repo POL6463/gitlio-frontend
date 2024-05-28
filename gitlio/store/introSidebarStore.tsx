@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface ProfileState {
+export interface ProfileState {
   title: string;
   profileImage: string;
   introDescription: string;

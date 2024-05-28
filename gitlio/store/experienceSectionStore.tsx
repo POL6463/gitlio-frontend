@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface Section {
+export interface Section {
   id: string;
   title?: string;
   startDate?: string;

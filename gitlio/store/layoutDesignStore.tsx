@@ -25,7 +25,10 @@ const useLayoutStore = create<LayoutProps>((set) => ({
       set((state) => ({ intro: { ...state.intro, option } })),
   },
   skill: {
-    color: '#0693E3',
+    option: 'option1',
+    color: '#0693E3', // 초기 색상 설정
+    setOption: (option: string) =>
+      set((state) => ({ skill: { ...state.skill, option } })),
     setColor: (color: string) =>
       set((state) => ({ skill: { ...state.skill, color } })),
   },

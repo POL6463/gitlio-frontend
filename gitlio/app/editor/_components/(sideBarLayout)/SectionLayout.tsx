@@ -30,7 +30,9 @@ const SectionLayout = ({ section }: SectionProps) => {
   return (
     <div className="flex flex-col items-center w-96 h-auto">
       <h2 className="text-center font-bold">{section} Layout Options</h2>
-      {['introduction', 'experience', 'skill', 'contact'].includes(section) && (
+      {['introduction', 'experience', 'skill', 'project', 'contact'].includes(
+        section
+      ) && (
         <div className="flex flex-wrap justify-evenly w-full mt-4">
           <div className="flex flex-col items-center">
             <LayoutPreview section={section} option="option1" />

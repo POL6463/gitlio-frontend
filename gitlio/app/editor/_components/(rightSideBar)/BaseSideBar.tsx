@@ -5,6 +5,7 @@ import useSidebarStore from '@/store/sidebarStore';
 import SkillSideBar from '@/app/editor/_components/(rightSideBar)/SkillSideBar'; // 스토어 경로는 실제 경로에 맞게 조정하세요.
 import IntroSideBar from './IntroSideBar';
 import ContactSideBar from './ContactSideBar';
+import ProjectSideBar from './ProjectSideBar';
 import { useState } from 'react';
 import SectionLayout from '../(sideBarLayout)/SectionLayout';
 
@@ -40,6 +41,7 @@ export default function BaseSideBar() {
       {!layoutSelected && selectedSection === 'introduction' && (
         <IntroSideBar />
       )}
+      {!layoutSelected && selectedSection === 'project' && <ProjectSideBar />}
       {!layoutSelected && selectedSection === 'contact' && <ContactSideBar />}
       {layoutSelected && <SectionLayout section={selectedSection} />}
     </div>

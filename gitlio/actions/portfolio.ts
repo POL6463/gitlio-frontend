@@ -8,6 +8,7 @@ import { useSidebarIconsStore } from '@/store/sidebarIconsStore';
 import experienceSectionStore from '@/store/experienceSectionStore';
 import { useProjectsStore } from '@/store/projectStore';
 import ContactSidebarStore from '@/store/contactSidebarStore';
+import useLayoutStore from '@/store/layoutDesignStore';
 
 const API_URL = 'https://gitlio.fly.dev/api/';
 export async function createPortfolio(data: {
@@ -127,6 +128,14 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
   experienceSectionStore.setState({ sections: portfolioData.experienceData });
   useProjectsStore.setState({ projects: portfolioData.projectData });
   ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
+
+  const layoutStore = useLayoutStore.getState();
+  if (portfolioData.layoutData) {
+    layoutStore.intro.setOption(portfolioData.layoutData.introOption);
+    layoutStore.skill.setColor(portfolioData.layoutData.skillColor);
+    layoutStore.experience.setOption(portfolioData.layoutData.experienceOption);
+    layoutStore.contact.setOption(portfolioData.layoutData.contactOption);
+  }
 };
 
 export async function uploadImageToS3(

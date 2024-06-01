@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
+import { ChromePicker, ColorResult, TwitterPicker } from 'react-color';
 import useLayoutStore from '@/store/layoutDesignStore';
 import LayoutPreview from './LayoutPreview';
 
@@ -67,7 +67,7 @@ const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
       )}
       {section === 'skill' && (
         <div className="flex flex-col items-center mt-4">
-          <ChromePicker
+          <TwitterPicker
             color={selectedColor}
             onChangeComplete={handleColorChange}
           />

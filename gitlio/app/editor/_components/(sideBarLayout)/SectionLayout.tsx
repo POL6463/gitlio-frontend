@@ -13,14 +13,14 @@ const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
 
   const handleOptionOne = (): void => {
     if (section === 'introduction') intro.setOption('option1');
-    if (section === 'skill') skill.setOption('option1');
+    if (section === 'skill') skill.setColor('option1');
     if (section === 'experience') experience.setOption('option1');
     if (section === 'contact') contact.setOption('option1');
   };
 
   const handleOptionTwo = (): void => {
     if (section === 'introduction') intro.setOption('option2');
-    if (section === 'skill') skill.setOption('option2');
+    if (section === 'skill') skill.setColor('option2');
     if (section === 'experience') experience.setOption('option2');
     if (section === 'contact') contact.setOption('option2');
   };

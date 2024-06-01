@@ -119,6 +119,11 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
         blogUrls: [],
       },
     });
+    const layoutStore = useLayoutStore.getState();
+    layoutStore.intro.setOption('option1');
+    layoutStore.skill.setColor('#0693E3');
+    layoutStore.experience.setOption('option1');
+    layoutStore.contact.setOption('option1');
     return;
   }
 
@@ -128,7 +133,6 @@ export const updateStoresWithPortfolioData = async (portfolioId: string) => {
   experienceSectionStore.setState({ sections: portfolioData.experienceData });
   useProjectsStore.setState({ projects: portfolioData.projectData });
   ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
-
   const layoutStore = useLayoutStore.getState();
   if (portfolioData.layoutData) {
     layoutStore.intro.setOption(portfolioData.layoutData.introOption);

@@ -6,7 +6,7 @@ interface BlogUrl {
   faviconUrl: string;
 }
 
-interface ContactState {
+export interface ContactState {
   name: string;
   email: string;
   blogUrls: BlogUrl[];

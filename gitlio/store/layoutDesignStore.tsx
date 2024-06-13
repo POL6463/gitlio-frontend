@@ -1,14 +1,18 @@
 import { create } from 'zustand';
 
-//객체로 그룹화 해서 리팩토링 완료!
 interface LayoutOptions {
   option: string;
   setOption: (option: string) => void;
 }
 
+interface SkillLayoutOptions {
+  color: string;
+  setColor: (color: string) => void;
+}
+
 interface LayoutProps {
   intro: LayoutOptions;
-  skill: LayoutOptions;
+  skill: SkillLayoutOptions;
   experience: LayoutOptions;
   contact: LayoutOptions;
 }
@@ -20,9 +24,9 @@ const useLayoutStore = create<LayoutProps>((set) => ({
       set((state) => ({ intro: { ...state.intro, option } })),
   },
   skill: {
-    option: 'option1',
-    setOption: (option: string) =>
-      set((state) => ({ skill: { ...state.skill, option } })),
+    color: '#0693E3',
+    setColor: (color: string) =>
+      set((state) => ({ skill: { ...state.skill, color } })),
   },
   experience: {
     option: 'option1',

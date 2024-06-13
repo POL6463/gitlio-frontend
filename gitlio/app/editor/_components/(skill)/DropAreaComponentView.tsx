@@ -15,7 +15,8 @@ const DropAreaComponent: React.FC = () => {
           <div className="bg-white rounded-lg overflow-hidden">
             {/* 타이틀 표시 추가 */}
             <div
-              className={`p-2 ${skill.option === 'option2' ? 'bg-red-400' : 'bg-blue-500'} text-white text-center font-bold`}
+              className="p-2 text-white text-center font-bold"
+              style={{ backgroundColor: skill.color }}
             >
               {area.title}
             </div>

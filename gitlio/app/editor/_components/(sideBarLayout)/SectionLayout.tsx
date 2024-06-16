@@ -8,19 +8,21 @@ type SectionProps = {
 };
 
 const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
-  const { intro, skill, experience, contact } = useLayoutStore();
+  const { intro, skill, experience, project, contact } = useLayoutStore();
   const [selectedColor, setSelectedColor] = useState<string>(skill.color);
 
   const handleOptionOne = (): void => {
     if (section === 'introduction') intro.setOption('option1');
     if (section === 'experience') experience.setOption('option1');
     if (section === 'contact') contact.setOption('option1');
+    if (section === 'project') project.setOption('option1');
   };
 
   const handleOptionTwo = (): void => {
     if (section === 'introduction') intro.setOption('option2');
     if (section === 'experience') experience.setOption('option2');
     if (section === 'contact') contact.setOption('option2');
+    if (section === 'project') project.setOption('option2');
   };
 
   const handleOptionThree = (): void => {

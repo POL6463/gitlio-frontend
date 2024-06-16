@@ -37,7 +37,7 @@ const useLayoutStore = create<LayoutProps>((set) => ({
   project: {
     option: 'option1',
     setOption: (option: string) =>
-      set((state) => ({ experience: { ...state.experience, option } })),
+      set((state) => ({ project: { ...state.project, option } })),
   },
   contact: {
     option: 'option1',

@@ -80,6 +80,7 @@ export default function EditPage({ params }: EditPageProps) {
         onClick={() => setSelectedSection('project')}
         className="mb-4 cursor-pointer"
       >
+
         <ProjSection isViewMode={false} />
       </div>
       <div

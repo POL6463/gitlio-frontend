@@ -9,6 +9,7 @@ type SectionProps = {
 
 const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
   const { intro, skill, experience, project, contact } = useLayoutStore();
+
   const [selectedColor, setSelectedColor] = useState<string>(skill.color);
 
   const handleOptionOne = (): void => {
@@ -40,6 +41,7 @@ const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
       {['introduction', 'experience', 'skill', 'project', 'contact'].includes(
         section
       ) && (
+
         <div className="flex flex-wrap justify-evenly w-full mt-4">
           <div className="flex flex-col items-center">
             <LayoutPreview section={section} option="option1" />

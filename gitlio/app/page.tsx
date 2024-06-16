@@ -1,10 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import Logo from '@/components/Logo';
-import LoginModal from '@/components/start/LoginModal';
-import SignInModal from '@/components/start/SignInModal';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  UserButton,
+} from '@clerk/nextjs';
 import Link from 'next/link';
 
 const StartPage: React.FC = () => {
@@ -23,12 +26,23 @@ const StartPage: React.FC = () => {
         </SignedIn>
       </nav>{' '}
       <div className="bg-primary flex flex-col justify-center items-center h-screen">
-        <Link
-          href="/studio/dashboard"
-          className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
-        >
-          DASHBOARD
-        </Link>
+        <SignedOut>
+          <SignInButton
+            forceRedirectUrl="/studio/dashboard"
+            fallbackRedirectUrl="/studio/dashboard"
+            mode={'modal'}
+          >
+            <button className="btn-lg btn">Sign in with Clerk</button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <Link
+            href="/studio/dashboard"
+            className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
+          >
+            DASHBOARD
+          </Link>
+        </SignedIn>
       </div>
     </div>
   );

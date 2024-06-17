@@ -41,7 +41,6 @@ const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
       {['introduction', 'experience', 'skill', 'project', 'contact'].includes(
         section
       ) && (
-
         <div className="flex flex-wrap justify-evenly w-full mt-4">
           <div className="flex flex-col items-center">
             <LayoutPreview section={section} option="option1" />

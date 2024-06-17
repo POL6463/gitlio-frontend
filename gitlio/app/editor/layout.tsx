@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { getIdAfterLogin } from '@/actions/user';
 import { useUserStore } from '@/store/userStore';
+import ToastComponent from '@/app/editor/_components/ToastComponent';
 
 const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -66,6 +67,7 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
             <BaseSideBar />
           </div>
         </div>
+        <ToastComponent />
       </div>
       <GlobalDragOverlay />
     </DndContext>

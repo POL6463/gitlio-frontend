@@ -4,17 +4,26 @@ import { LuAlignJustify, LuBarChartBig } from 'react-icons/lu';
 import PreviewButton from '@/app/editor/_components/PreviewButton';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { FaSignInAlt } from 'react-icons/fa';
-import React from 'react';
+import React, { useState } from 'react';
 import { savePortfolioData } from '@/actions/portfolio';
 import { useRouter, usePathname } from 'next/navigation';
+import useToastStore from '@/store/toastStore';
 
 export default function TopBar() {
   const pathname = usePathname().split('/').filter(Boolean).pop();
-  function saveData() {
-    if (!pathname) return;
-    savePortfolioData(pathname).then((r) => console.log(r));
-  }
+
   const router = useRouter();
+  const setShowToast = useToastStore((state) => state.setShowToast);
+  const saveData = () => {
+    if (!pathname) return;
+    savePortfolioData(pathname)
+      .then((r) => {
+        console.log(r);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000); // Hide toast after 3 seconds
+      })
+      .catch((error: any) => console.error('Error saving data:', error));
+  };
 
   const handleLogoClick = () => {
     router.push('/studio/dashboard');

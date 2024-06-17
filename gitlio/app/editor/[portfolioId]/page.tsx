@@ -27,14 +27,14 @@ export default function EditPage({ params }: EditPageProps) {
   console.log(params);
   useEffect(() => {
     // Check if the portfolio exists in the user's store
-    const portfolioExists = portfolios.some(
-      (portfolio) => portfolio.portfolio_id.toString() === portfolioId
-    );
-
-    if (!portfolioExists) {
-      router.push('/error'); // Redirect to an error page if the portfolio ID is not found
-      return;
-    }
+    // const portfolioExists = portfolios.some(
+    //   (portfolio) => portfolio.portfolio_id.toString() === portfolioId
+    // );
+    //
+    // if (!portfolioExists) {
+    //   router.push('/error'); // Redirect to an error page if the portfolio ID is not found
+    //   return;
+    // }
 
     // Proceed to fetch and update stores with the portfolio data
     updateStoresWithPortfolioData(portfolioId)

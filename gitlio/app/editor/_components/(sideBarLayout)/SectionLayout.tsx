@@ -38,7 +38,7 @@ const SectionLayout: React.FC<SectionProps> = ({ section = 'skill' }) => {
   return (
     <div className="flex flex-col items-center w-96 h-auto">
       <h2 className="text-center font-bold">{section} Layout Options</h2>
-      {['introduction', 'experience', 'skill', 'project', 'contact'].includes(
+      {['introduction', 'experience', 'project', 'contact'].includes(
         section
       ) && (
         <div className="flex flex-wrap justify-evenly w-full mt-4">

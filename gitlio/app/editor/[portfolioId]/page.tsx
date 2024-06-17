@@ -9,6 +9,8 @@ import { updateStoresWithPortfolioData } from '@/actions/portfolio';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/userStore';
+import useModalStore from '@/store/modalStore';
+import ShareModal from '../_components/ShareModal';
 
 interface EditPageProps {
   params: {
@@ -17,6 +19,7 @@ interface EditPageProps {
 }
 export default function EditPage({ params }: EditPageProps) {
   const [isLoading, setIsLoading] = useState(true); // State to manage loading
+  const { isOpen, closeModal } = useModalStore();
   const router = useRouter();
   const { portfolios, setPortfolios } = useUserStore((state) => ({
     portfolios: state.portfolios,
@@ -80,7 +83,6 @@ export default function EditPage({ params }: EditPageProps) {
         onClick={() => setSelectedSection('project')}
         className="mb-4 cursor-pointer"
       >
-
         <ProjSection isViewMode={false} />
       </div>
       <div
@@ -90,6 +92,7 @@ export default function EditPage({ params }: EditPageProps) {
         <ContactSection />
       </div>
       {/* Other sections can be added here */}
+      {isOpen && <ShareModal />}
     </div>
   );
 }

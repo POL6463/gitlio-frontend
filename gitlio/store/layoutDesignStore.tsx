@@ -14,6 +14,7 @@ interface LayoutProps {
   intro: LayoutOptions;
   skill: SkillLayoutOptions;
   experience: LayoutOptions;
+  project: LayoutOptions;
   contact: LayoutOptions;
 }
 
@@ -28,10 +29,18 @@ const useLayoutStore = create<LayoutProps>((set) => ({
     setColor: (color: string) =>
       set((state) => ({ skill: { ...state.skill, color } })),
   },
+    setColor: (color: string) =>
+      set((state) => ({ skill: { ...state.skill, color } })),
+  },
   experience: {
     option: 'option1',
     setOption: (option: string) =>
       set((state) => ({ experience: { ...state.experience, option } })),
+  },
+  project: {
+    option: 'option1',
+    setOption: (option: string) =>
+      set((state) => ({ project: { ...state.project, option } })),
   },
   contact: {
     option: 'option1',

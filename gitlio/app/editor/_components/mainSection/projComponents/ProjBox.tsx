@@ -5,8 +5,11 @@ import { FaGithub } from 'react-icons/fa';
 import { Data } from '@/app/editor/(interface)/ProjectData';
 import { BsArrowDownLeftSquare } from 'react-icons/bs';
 import GithubLinkButton from './GithubLinkBtn';
+import ImagePopup from './ImagePopup';
 
 function ProjBox({ data }: { data: Data }) {
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+
   // 이미지 배열 확인하고 비어있으면 기본 이미지로 설정
   const images =
     data.images && data.images.length > 0
@@ -17,6 +20,9 @@ function ProjBox({ data }: { data: Data }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(
     images.length > 0 ? 0 : -1
   );
+
+  const openImagePopup = () => setImagePopupOpen(true);
+  const closeImagePopup = () => setImagePopupOpen(false);
 
   const goToPreviousImage = () => {
     if (images.length > 1) {
@@ -40,11 +46,23 @@ function ProjBox({ data }: { data: Data }) {
     <div className="flex border border-gray-300 shadow-lg rounded-lg p-4 m-8 w-[700px] relative">
       <div className="flex-none relative w-2/5 h-80 bg-gray-200 rounded-lg">
         {images.length > 0 && (
-          <img
-            src={images[currentImageIndex]}
-            alt={`Project Image ${currentImageIndex + 1}`}
-            className="max-w-full max-h-full w-auto h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-contain"
-          />
+          <>
+            <img
+              src={images[currentImageIndex]}
+              alt={`Project Image ${currentImageIndex + 1}`}
+              className="max-w-full max-h-full w-auto h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-contain"
+              onClick={openImagePopup}
+            />
+            {isImagePopupOpen && (
+              <ImagePopup
+                images={images}
+                currentIndex={currentImageIndex}
+                onClose={closeImagePopup}
+                goToNext={goToNextImage}
+                goToPrevious={goToPreviousImage}
+              />
+            )}
+          </>
         )}
         <button
           onClick={goToPreviousImage}

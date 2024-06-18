@@ -5,6 +5,7 @@ import { useUserStore } from '@/store/userStore';
 import { getIdAfterLogin, getUserPortfolios } from '@/actions/user';
 import PortfolioComponent from '@/components/PortfolioComponent';
 import { useRouter } from 'next/navigation';
+import PortfolioSkeleton from '@/components/PortfolioSkeleton';
 
 export default function DashboardPage() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -69,7 +70,7 @@ export default function DashboardPage() {
   }, [isSignedIn, user, userId]); // 의존성 배열을 최적화하여 필요한 변수들만 포함시킴
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <PortfolioSkeleton />;
   }
 
   return (

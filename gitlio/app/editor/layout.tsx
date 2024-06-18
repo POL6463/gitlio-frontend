@@ -60,8 +60,8 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
           {/*<div className="fixed left-0 top-16 bottom-0">*/}
           {/*  <LeftSidebar />*/}
           {/*</div>*/}
-          <div className="flex flex-col flex-grow mt-24 overflow-auto">
-            <div className="px-4 ml-60 mb-16">{children}</div>
+          <div className="flex flex-col flex-grow mt-24 overflow-auto mr-[450px] mb-16 justify-center items-center">
+            <div className="px-4">{children}</div>
           </div>
           <div className="fixed right-0 top-16 bottom-0">
             <BaseSideBar />

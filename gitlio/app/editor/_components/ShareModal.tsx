@@ -30,19 +30,22 @@ export default function ShareModal() {
         <div className="flex w-full justify-evenly items-center mt-6 mb-4">
           <input
             type="text"
-            className="border rounded-l px-4 py-2 w-2/3"
+            className="border rounded-l px-4 py-2 w-3/4"
             value={portfolioUrl}
             disabled
           />
           <button
-            className="btn btn-info rounded-xl px-4 py-2 w-auto box-border"
+            className="btn btn-info px-4 py-2 w-auto box-border"
             onClick={() => navigator.clipboard.writeText(portfolioUrl)}
           >
             복사
           </button>
         </div>
         <div className="flex justify-end w-full">
-          <button className="btn btn-neutral mt-4" onClick={closeModal}>
+          <button
+            className="btn btn-neutral px-4 py-2 w-auto box-border mt-4 mr-[23px]"
+            onClick={closeModal}
+          >
             닫기
           </button>
         </div>

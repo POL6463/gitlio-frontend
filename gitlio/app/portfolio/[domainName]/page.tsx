@@ -14,8 +14,11 @@ export default function PortfolioPage({
 }: {
   params: { domainName: string };
 }) {
+  console.log('PortfolioPage 컴포넌트 렌더링'); // 이 로그가 찍히는지 확인
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  // 스토어 초기화 함수
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +31,6 @@ export default function PortfolioPage({
         router.push('/error'); // 에러 발생 시 리다이렉션
       }
     };
-
     fetchData();
   }, [params.domainName]);
 

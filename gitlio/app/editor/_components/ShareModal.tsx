@@ -17,6 +17,7 @@ export default function ShareModal() {
       if (matchingPortfolio) {
         const url = `https://gitlio-frontend.vercel.app/portfolio/${matchingPortfolio.domain_name}`;
         setPortfolioUrl(url);
+        console.log('Generated URL:', url); // 추가된 로그
       }
     }
   }, [currentPortfolio, portfolios]);
@@ -34,10 +35,10 @@ export default function ShareModal() {
             disabled
           />
           <button
-            className="btn btn-info rounded-xl px-1 py-2 w-auto box-border"
+            className="btn btn-info rounded-xl px-4 py-2 w-auto box-border"
             onClick={() => navigator.clipboard.writeText(portfolioUrl)}
           >
-            클립보드
+            복사
           </button>
         </div>
         <div className="flex justify-end w-full">

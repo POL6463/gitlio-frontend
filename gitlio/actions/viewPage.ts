@@ -15,6 +15,7 @@ export async function getPortfolioDataByDomain(domainName: string) {
 }
 
 export const updateStoresWithPortfolioData = async (domainName: string) => {
+  console.log('updateStoresWithPortfolioData 호출됨'); // 이 로그가 찍히는지 확인
   try {
     const portfolioData = await getPortfolioDataByDomain(domainName);
 
@@ -25,6 +26,7 @@ export const updateStoresWithPortfolioData = async (domainName: string) => {
     }
 
     // Assuming `portfolioData` includes sections that correspond to data needed for each store
+
     IntroSidebarStore.setState({ profile: portfolioData.introData });
     useSidebarIconsStore.setState({ dropAreas: portfolioData.skillData });
     experienceSectionStore.setState({ sections: portfolioData.experienceData });
@@ -32,15 +34,12 @@ export const updateStoresWithPortfolioData = async (domainName: string) => {
     ContactSidebarStore.setState({ contactInfo: portfolioData.contactData });
 
     const layoutStore = useLayoutStore.getState();
-    if (portfolioData.layoutData) {
-      layoutStore.intro.setOption(portfolioData.layoutData.introOption);
-      layoutStore.skill.setColor(portfolioData.layoutData.skillColor);
-      layoutStore.experience.setOption(
-        portfolioData.layoutData.experienceOption
-      );
-      layoutStore.contact.setOption(portfolioData.layoutData.contactOption);
-      console.log('Updated layout store:', layoutStore);
-    }
+    layoutStore.intro.setOption(portfolioData.layoutData.introOption);
+    layoutStore.skill.setColor(portfolioData.layoutData.skillColor);
+    layoutStore.experience.setOption(portfolioData.layoutData.experienceOption);
+    layoutStore.contact.setOption(portfolioData.layoutData.contactOption);
+
+    //console.log('Updated layout store:', layoutStore);
   } catch (error) {
     console.error(error);
     throw error; // 에러 발생 시 예외를 throw

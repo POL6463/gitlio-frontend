@@ -9,6 +9,8 @@ import { updateStoresWithPortfolioData } from '@/actions/portfolio';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/userStore';
+import useModalStore from '@/store/modalStore';
+import ShareModal from '../_components/ShareModal';
 
 interface EditPageProps {
   params: {
@@ -17,33 +19,40 @@ interface EditPageProps {
 }
 export default function EditPage({ params }: EditPageProps) {
   const [isLoading, setIsLoading] = useState(true); // State to manage loading
+  const { isOpen, closeModal } = useModalStore();
   const router = useRouter();
-  const { portfolios, setPortfolios } = useUserStore((state) => ({
+  const { portfolios, setCurrentPortfolio } = useUserStore((state) => ({
     portfolios: state.portfolios,
-    setPortfolios: state.setPortfolios,
+    setCurrentPortfolio: state.setCurrentPortfolio,
   }));
   const { portfolioId } = params;
 
   console.log(params);
   useEffect(() => {
-    // Check if the portfolio exists in the user's store
-    // const portfolioExists = portfolios.some(
-    //   (portfolio) => portfolio.portfolio_id.toString() === portfolioId
-    // );
-    //
-    // if (!portfolioExists) {
-    //   router.push('/error'); // Redirect to an error page if the portfolio ID is not found
-    //   return;
-    // }
+    const fetchPortfolioData = async () => {
+      const portfolio = portfolios.find(
+        (portfolio) => portfolio.portfolio_id.toString() === portfolioId
+      );
 
-    // Proceed to fetch and update stores with the portfolio data
-    updateStoresWithPortfolioData(portfolioId)
-      .then(() => setIsLoading(false))
-      .catch((error) => {
+      //if (!portfolio) {
+      //router.push('/error'); // Redirect to an error page if the portfolio ID is not found
+      //return;
+      //}
+      //일치하는 포트폴리오 찾았으면 현재 포트폴리오로 세팅
+      setCurrentPortfolio(portfolio);
+
+      try {
+        await updateStoresWithPortfolioData(portfolioId);
+        setIsLoading(false);
+      } catch (error) {
         console.error('Failed to update stores:', error);
         setIsLoading(false);
-      });
-  }, [portfolioId, portfolios, router]);
+      }
+    };
+
+    fetchPortfolioData();
+  }, [portfolioId, portfolios, router, setCurrentPortfolio]);
+
   const setSelectedSection = useSidebarStore(
     (state) => state.setSelectedSection
   );
@@ -89,6 +98,7 @@ export default function EditPage({ params }: EditPageProps) {
         <ContactSection />
       </div>
       {/* Other sections can be added here */}
+      {isOpen && <ShareModal />}
     </div>
   );
 }

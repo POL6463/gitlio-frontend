@@ -9,6 +9,7 @@ import { FaSignInAlt } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { savePortfolioData } from '@/actions/portfolio';
 import { useRouter, usePathname } from 'next/navigation';
+<<<<<<< HEAD
 import useModalStore from '@/store/modalStore';
 
 export default function TopBar() {
@@ -19,7 +20,25 @@ export default function TopBar() {
     if (!pathname) return;
     savePortfolioData(pathname).then((r) => console.log(r));
   }
+=======
+import useToastStore from '@/store/toastStore';
+
+export default function TopBar() {
+  const pathname = usePathname().split('/').filter(Boolean).pop();
+
+>>>>>>> develop
   const router = useRouter();
+  const setShowToast = useToastStore((state) => state.setShowToast);
+  const saveData = () => {
+    if (!pathname) return;
+    savePortfolioData(pathname)
+      .then((r) => {
+        console.log(r);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000); // Hide toast after 3 seconds
+      })
+      .catch((error: any) => console.error('Error saving data:', error));
+  };
 
   const handleLogoClick = (): void => {
     router.push('/studio/dashboard');

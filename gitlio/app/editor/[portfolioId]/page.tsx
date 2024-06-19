@@ -29,6 +29,7 @@ export default function EditPage({ params }: EditPageProps) {
 
   console.log(params);
   useEffect(() => {
+<<<<<<< HEAD
     const fetchPortfolioData = async () => {
       const portfolio = portfolios.find(
         (portfolio) => portfolio.portfolio_id.toString() === portfolioId
@@ -40,6 +41,17 @@ export default function EditPage({ params }: EditPageProps) {
       }
       //일치하는 포트폴리오 찾았으면 현재 포트폴리오로 세팅
       setCurrentPortfolio(portfolio);
+=======
+    // Check if the portfolio exists in the user's store
+    // const portfolioExists = portfolios.some(
+    //   (portfolio) => portfolio.portfolio_id.toString() === portfolioId
+    // );
+    //
+    // if (!portfolioExists) {
+    //   router.push('/error'); // Redirect to an error page if the portfolio ID is not found
+    //   return;
+    // }
+>>>>>>> develop
 
       try {
         await updateStoresWithPortfolioData(portfolioId);

@@ -9,6 +9,8 @@ export default function ShareModal() {
   const [portfolioUrl, setPortfolioUrl] = useState('');
 
   useEffect(() => {
+    console.log('currentPortfolio:', currentPortfolio); // 로그 추가
+    console.log('portfolios:', portfolios); // 로그 추가
     if (currentPortfolio && currentPortfolio.portfolio_id) {
       const matchingPortfolio = portfolios.find(
         (portfolio) => portfolio.portfolio_id === currentPortfolio.portfolio_id

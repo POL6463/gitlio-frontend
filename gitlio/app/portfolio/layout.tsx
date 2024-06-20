@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { FaSignInAlt } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
+import TopBlogBar from '@/app/editor/_components/TopBlogBar';
 
 const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -54,6 +55,7 @@ const EditorLayout: React.FC<{ children: React.ReactNode }> = ({
         </div>
       </div>
       <div className="flex-grow flex overflow-hidden">
+        <TopBlogBar />
         <div className="flex flex-col flex-grow mt-24 overflow-auto justify-center items-center">
           <div className="flex mb-16">{children}</div>
         </div>

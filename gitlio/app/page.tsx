@@ -1,46 +1,53 @@
-'use client';
-import React, { useState } from 'react';
-import Logo from '@/components/Logo';
-import {
-  SignedIn,
-  SignedOut,
-  SignIn,
-  SignInButton,
-  UserButton,
-} from '@clerk/nextjs';
+import React from 'react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
+import dayjs from 'dayjs';
+import Gicon from '../public/main/gitlio-icon.svg';
+import TitleSvg from '../public/main/title.svg';
+import DashText from '../public/main/dashtext.svg';
+import frame from '../public/main/frame.png';
+import NavAnimation from '../components/mainComponents/NavAnimation';
 
 const StartPage: React.FC = () => {
+  const now = dayjs();
+  now.format();
   return (
-    <div className="bg-primary flex justify-center items-center h-screen">
-      <nav className="flex justify-between items-center border-b border-border h-[60px] px-4 py-2 absolute top-0 w-full">
-        <Logo />
-        <SignedOut>
-          <SignInButton
-            forceRedirectUrl="/studio/dashboard"
-            fallbackRedirectUrl="/studio/dashboard"
-          />
-        </SignedOut>
-        <SignedIn>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-      </nav>{' '}
-      <div className="bg-primary flex flex-col justify-center items-center h-screen">
+    <div className="flex flex-col bg-primary h-screen justify-center items-center">
+      <div className="fixed top-0 left-0 w-full">
+        <nav className="w-full h-[60px] flex items-center justify-between px-4 py-2 border-b border-border bg-[#F3F3F3]">
+          <NavAnimation />
+        </nav>
+        <nav className="flex justify-between items-center border-b border-border h-[60px] px-4 py-2 bg-white">
+          <Gicon />
+          <SignedOut>
+            <SignInButton
+              forceRedirectUrl="/studio/dashboard"
+              fallbackRedirectUrl="/studio/dashboard"
+            />
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </nav>
+      </div>
+      <div className="flex flex-col items-center justify-center space-y-4">
+        <div className="flex flex-row ">
+          <div>Site of the Day</div>
+          <div className="border rounded-md"></div>
+        </div>
+        <TitleSvg />
         <SignedOut>
           <SignInButton
             forceRedirectUrl="/studio/dashboard"
             fallbackRedirectUrl="/studio/dashboard"
             mode={'modal'}
           >
-            <button className="btn-lg btn">Sign in with Clerk</button>
+            <button className="btn-lg btn">Join Us!</button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
-          <Link
-            href="/studio/dashboard"
-            className="btn btn-ghost text-xl text-[#8288a1] underline underline-offset-4"
-          >
-            DASHBOARD
+          <Link href="/studio/dashboard">
+            <DashText />
           </Link>
         </SignedIn>
       </div>
